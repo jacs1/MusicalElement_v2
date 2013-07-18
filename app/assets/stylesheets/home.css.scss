@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import url("reset.css");
+@import url("960_12_col.css");
+@import url("typo.css");
+
 /* Viewport */
 #viewport{
     -webkit-filter: grayscale(1);

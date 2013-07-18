@@ -1,12 +1,13 @@
+$(document).ready(function() {
 window.addEvent("domready", function(){
     colors = ["#730046", "#BFBB11", "#FFC200", "#E88801", "#C93C00"];
     var mywall = new Wall("wall", {
                     "draggable":true,
-                    "width":150,
-                    "height":150,
+                    "width":200,
+                    "height":200,
                     "printCoordinates":true,
-                    "rangex":[-100,100],
-                    "rangey":[-100,100],
+                    "rangex":[-20,20],
+                    "rangey":[-20,20],
                     callOnUpdate: function(items){
                         items.each(function(e, i){
                             // If use concole log
@@ -19,4 +20,8 @@ window.addEvent("domready", function(){
                 });
     // Init Wall
     mywall.initWall();
+});
+
+
+
 });
