@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= mootools-core-1.4.5
+//= mootools-more-1.4.0.1
+//= wall
 //= require_tree .
