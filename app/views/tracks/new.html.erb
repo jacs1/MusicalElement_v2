@@ -1,0 +1,6 @@
+<h1>New track</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'View All Tracks', library_tracks_path(current_user.library) %>  |
+<%= link_to 'Back to Playlist', new_library_playlist_path(@library.id) %>  |

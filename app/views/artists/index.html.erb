@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="large-12 columns">
+ 
+      <div class="row">
+ 
+ <% @artists.each do |artist| %>
+ <%= render :partial => 'artist', :locals => {:artist => artist} %>
+
+ <% end %>
+   
+
+    </div>
+  </div>
+</div>
+

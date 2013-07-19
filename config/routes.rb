@@ -3,6 +3,33 @@ MusicV20::Application.routes.draw do
 
   root :to => 'home#index'
 
+   resources :artists
+ 
+   resources :users
+     resources :libraries do
+       resources :playlists do
+         resources :comments
+       end
+     resources :tracks do
+   end
+     resources :playlists
+     
+   end
+
+
+   # resources :loans
+   # resources :users
+   resources :friendships do
+     collection do
+       get :accept, :decline, :cancel, :delete
+     end
+     member do
+       get :friend_request
+     end
+   end
+
+  match '/search' => 'search#search', :as => 'search'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

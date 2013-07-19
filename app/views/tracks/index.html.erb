@@ -1,0 +1,105 @@
+
+<h1>Tracks in my Library</h1>
+
+<table>
+  <tr>
+    <th>Album Artist</th>
+    <th>Title</th>
+    <th>Featured Artist</th>
+    <th>Album</th>
+    <th>Year</th>
+    <th>Genre</th>
+    <th>Length</th>
+    <th>Size</th>
+    <th>BPM</th>
+    <th>Ratings</th>
+    <th width="30px"> </th>
+
+  </tr>
+
+<% @tracks.each do |track| %>
+  <tr>
+    <td><a href="<%= artist_path(track.album.artist.id) %>"><%= track.album.artist.name %></a></td>
+    <td><%= track.title %></td>
+    <td><%= track.artists.map{ |a| [a][0].name }.join(", ") %></td>
+    <td><%= track.album.name %></td>
+    <td><%= track.year %></td>
+    <td><%= track.genre.name %></td>
+    <td><%= track.length %></td>
+    <td><%= track.size %></td>
+    <td><%= track.bpm %></td>
+    <td>Sound: <%= rating_for track, "sound" %></td>
+    <td><%= image_tag 'playbutton.png', :class => "playbutton", :data => { :track_id => track.id} %>
+        <%= image_tag 'stopbutton.png', :class => "stopbutton", :data => { :track_id => track.id} %></td>
+    <% @track = track %>
+    <td><%#= link_to 'Show', library_track_path, {:url => library_track_path(@library.id)} %></td>
+    <td><%#= link_to 'Edit', edit_library_track_path(track) %></td>
+    <td><%#= link_to 'Destroy', track, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', library_track_path(@library, track), :method => 'delete', data: { confirm: 'Are you sure?' } %></td>
+    <%# binding.pry %>
+  </tr>
+<script>
+$(document).ready(function(){
+
+  soundManager.setup({
+    url: '/swf/',
+    flashVersion: 9,
+    onready: function() {
+      soundManager.createSound({
+        id: 'mySound-<%= track.id %>',
+        url: '<%= track.tpath.url %>',
+        autoLoad: true,
+        autoPlay: false,
+        onload: function() {
+          // alert('The sound '+this.id+' loaded!');
+        },
+        whileplaying: function() {
+          var seconds = Math.round(this.position/1000);
+          var r = seconds % 60;
+          var m = Math.floor(seconds / 60);
+          var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
+          $('.duration').html('<p>' + duration + '</p>');
+        },
+        volume: 50
+      });
+    }
+  });
+});
+</script>
+
+<% end %>
+
+
+
+</table>
+
+<br />
+
+<div class="progress large-6 success round"><span class="meter" style="width: 0%"></span></div>
+
+<%= form_for(@track, :url => new_library_track_path(@library) , :html => {:multipart => true, :remote => :true}) do |f| %>
+
+  <div class="field">
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tpath %><br/>
+    <%= file_field_tag :tpath, multiple: true, name: "track[tpath]" %>
+    <!-- <%#= f.file_field :tpath, multiple: true, name: "track[tpath]" %> -->
+    <!-- <input id="new_track" multiple="multiple" name="track[tpath]" type="file" /> -->
+  </div>
+
+<!-- 
+  <div class="actions">
+    <%#= f.submit %>
+  </div> -->
+<% end %>
+
+
+<%#= link_to 'Upload Music', new_library_track_path(@library.id) %> |
+<%= link_to 'Back', library_path(current_user.library) %>  |
+
+
+
+

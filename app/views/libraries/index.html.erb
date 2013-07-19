@@ -1,0 +1,23 @@
+<h1>My Library</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+
+  </tr>
+
+
+  <tr>
+    <td><%= @library.name %></td>
+    <td><%= @library.image %></td>
+    <td><%#= link_to 'Show', library_path %></td>
+    <td><%#= link_to 'Edit', edit_library_path(library) %></td>
+    <td><%#= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+
+</table>
+
+<br />
+
+<%#= link_to 'New Library', new_library_path %>

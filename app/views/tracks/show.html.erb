@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @track.title %>
+</p>
+
+<p>
+  <b>Track path:</b>
+  <%= @track.tpath %>
+</p>
+
+<div class="ui-widget">
+  <label for="tags">Search Friends: </label>
+  <input id="tags" />
+</div>
+
+<%= link_to 'Edit', edit_library_track_path(@track) %> |
+<%= link_to 'Back', library_tracks_path %>

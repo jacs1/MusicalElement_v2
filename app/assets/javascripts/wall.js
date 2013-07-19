@@ -73,7 +73,7 @@ var Wall = new Class({
         transition       : Fx.Transitions.Quad.easeOut,
         autoposition     : false,             // Autoposizionamento wall
         draggable        : true,              // Abilita drag
-        inertia          : false,             // Abilita inertia
+        inertia          : true,             // Abilita inertia
         invert           : false,             // Inverte direzione drag
         width            : 0,                 // W tile
         height           : 0,                 // H tile

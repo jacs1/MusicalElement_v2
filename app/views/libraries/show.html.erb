@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Library Name:</b>
+  <%= @library.name %>
+</p>
+
+<p>
+  <!-- <b>Library Image:</b> -->
+  <img src="<%= @library.image %>" />
+
+</p>
+
+<div class="large-4 columns hide-for-small">
+
+    <a class="small button" href="<%= artists_path %>">
+      View Artists
+    </a>
+
+    <a class="small button" href="<%= library_tracks_path(current_user.library) %>">
+      View Tracks
+    </a>
+
+    <a class="small button" href="<%= library_playlists_path(current_user.library) %>">
+      View PlayLists
+    </a>
+
+    <!-- <a class="small button" href="<%#= new_library_loan_path(current_user.library) %>">Lend A Track</a> -->
+
+    <a class="small button" href="<%= new_loan_path %>" data-reveal-id="myModal">Lend A Track</a>
+      <body>
+
+      <div id="myModal" class="reveal-modal">
+        <%= render 'loans/form' %>
+        <a class="close-reveal-modal">&#215;</a>
+      </div>
+
+
+      </body>
+
+</div>
+
+
+<%= link_to 'Edit', edit_library_path(@library) %> |
+<%= link_to 'Back', root_path %>
