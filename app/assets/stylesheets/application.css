@@ -1915,7 +1915,7 @@ select:focus:invalid:focus {
 .input-prepend input:focus,
 .input-prepend select:focus,
 .input-prepend .uneditable-input:focus {
-  z-index: 2;
+  z-index: 20;
 }
 /* line 452, D:/projects/admin/sass/bootstrap-original/_forms.scss */
 .input-append .add-on,
@@ -3384,7 +3384,7 @@ input[type="submit"].btn.btn-mini {
 .btn-group > .btn:focus,
 .btn-group > .btn:active,
 .btn-group > .btn.active {
-  z-index: 2;
+  z-index: 20;
 }
 
 /* line 93, D:/projects/admin/sass/bootstrap-original/_button-groups.scss */
@@ -3868,7 +3868,7 @@ input[type="submit"].btn.btn-mini {
 .nav-tabs.nav-stacked > li > a:hover,
 .nav-tabs.nav-stacked > li > a:focus {
   border-color: #ddd;
-  z-index: 2;
+  z-index: 20;
 }
 
 /* line 198, D:/projects/admin/sass/bootstrap-original/_navs.scss */
@@ -4119,7 +4119,7 @@ input[type="submit"].btn.btn-mini {
   overflow: visible;
   margin-bottom: 20px;
   *position: relative;
-  *z-index: 2;
+  *z-index: 20;
 }
 
 /* line 21, D:/projects/admin/sass/bootstrap-original/_navbar.scss */
@@ -5986,7 +5986,7 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
   position: absolute;
   top: 15px;
   right: 15px;
-  z-index: 5;
+  z-index: 50;
   margin: 0;
   list-style: none;
 }
@@ -7835,7 +7835,8 @@ textarea + .help-block,
 .btn-group > .btn:focus,
 .btn-group > .btn:active,
 .btn-group > .btn.active {
-  z-index: auto;
+  /*z-index: auto;*/
+  z-index: 10;
 }
 
 /* line 195, D:/projects/admin/sass/_bootstrap-override.scss */
@@ -10355,7 +10356,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 .has-switch span {
   color: white;
   text-align: center;
-  z-index: 1;
+  z-index: 10;
   width: 33.333333%;
   -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
@@ -10738,18 +10739,18 @@ html .fc,
 /* line 93, D:/projects/admin/sass/lib/_fullcalendar.scss */
 .fc-header .fc-state-hover,
 .fc-header .ui-state-hover {
-  z-index: 2;
+  z-index: 20;
 }
 
 /* line 97, D:/projects/admin/sass/lib/_fullcalendar.scss */
 .fc-header .fc-state-down {
-  z-index: 3;
+  z-index: 30;
 }
 
 /* line 102, D:/projects/admin/sass/lib/_fullcalendar.scss */
 .fc-header .fc-state-active,
 .fc-header .ui-state-active {
-  z-index: 4;
+  z-index: 40;
 }
 
 /* Content
@@ -11225,7 +11226,7 @@ table.fc-border-separate {
 .fc-event-vert .fc-event-head,
 .fc-event-vert .fc-event-content {
   position: relative;
-  z-index: 2;
+  z-index: 20;
   width: 100%;
   overflow: hidden;
 }
@@ -11240,7 +11241,7 @@ table.fc-border-separate {
 .fc-event-vert .fc-event-bg {
   /* makes the event lighter w/ a semi-transparent overlay  */
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
@@ -11612,7 +11613,7 @@ table.fc-border-separate {
   pointer-events: none;
   position: absolute;
   top: 0;
-  z-index: 2;
+  z-index: 20;
   background: rgba(0, 0, 0, 0.1);
   bottom: 0;
   width: 1px;
@@ -11653,7 +11654,7 @@ table.fc-border-separate {
 /* line 34, D:/projects/admin/sass/lib/_rickshaw.scss */
 .rickshaw_graph .detail .item {
   position: absolute;
-  z-index: 2;
+  z-index: 20;
   -webkit-border-radius: 1px;
   -moz-border-radius: 1px;
   -ms-border-radius: 1px;
@@ -11791,7 +11792,7 @@ table.fc-border-separate {
   position: absolute;
   top: 0;
   bottom: -6px;
-  z-index: -10;
+  /*z-index: -10;*/
 }
 
 /* line 150, D:/projects/admin/sass/lib/_rickshaw.scss */
@@ -11877,7 +11878,7 @@ table.fc-border-separate {
 /* line 210, D:/projects/admin/sass/lib/_rickshaw.scss */
 .rickshaw_graph .y_grid .tick,
 .rickshaw_graph .x_grid_d3 .tick {
-  z-index: -1;
+  /*z-index: -1;*/
   stroke: rgba(0, 0, 0, 0.2);
   stroke-width: 1px;
   stroke-dasharray: 1 1;
@@ -12571,7 +12572,7 @@ input.parsley-error {
   position: absolute;
   left: 65px;
   top: 13px;
-  z-index: 1;
+  z-index: 10;
 }
 /* line 58, D:/projects/admin/sass/_base.scss */
 .logo a {
@@ -12600,7 +12601,7 @@ input.parsley-error {
   padding: 10px 0;
   top: 0;
   color: white;
-  z-index: 1;
+  z-index: 10;
   margin: 80px 0 0 25px;
 }
 /* line 85, D:/projects/admin/sass/_base.scss */
@@ -13573,7 +13574,7 @@ input.parsley-error {
 /* line 945, D:/projects/admin/sass/_base.scss */
 .chat-message .icon {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   text-align: center;
   width: 53px;
   height: 53px;
@@ -14260,7 +14261,7 @@ input.input-padding-increased[type=search], input.input-padding-increased.search
 /* line 1515, D:/projects/admin/sass/_base.scss */
 .feed-item .icon {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   background: rgba(51, 51, 51, 0.4);
   text-align: center;
   color: white;
