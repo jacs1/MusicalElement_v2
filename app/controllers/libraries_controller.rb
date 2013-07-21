@@ -23,7 +23,6 @@ class LibrariesController < ApplicationController
 
   def show
     @library = Library.find(params[:id])
-    @loan = Loan.new
 
     respond_to do |format|
       format.html # show.html.erb

@@ -10,10 +10,8 @@ MusicV20::Application.routes.draw do
        resources :playlists do
          resources :comments
        end
-     resources :tracks do
-   end
-     resources :playlists
-     
+    resources :tracks do
+    end
    end
 
 

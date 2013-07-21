@@ -1,23 +1,27 @@
+# require 'taglib'
+require "mp3info"
 class Track < ActiveRecord::Base
-  attr_accessible :bpm, :genre_id, :length, :size, :title, :track_number, :track_path, :user_id, :year
+  attr_accessible :bpm, :genre_id, :length, :size, :title, :track_number, :track_path, :user_id, :year, :library_id, :album_id
 
 
-  # mount_uploader :tpath, TpathUploader
+  mount_uploader :track_path, TrackPathUploader
 
   belongs_to :user
   # belongs_to :playlist
   # belongs_to :artist
-  # belongs_to :library
+  belongs_to :library
   belongs_to :album
   belongs_to :genre
 
-  has_many :libraries, :through => :track_libraries
-  has_many :track_libraries
+  # has_many :libraries, :through => :track_libraries
+  # has_many :track_libraries
   has_many :playlists, :through => :playlist_tracks
   has_many :playlist_tracks
   has_many :artists, :through => :artist_tracks
   has_many :artist_tracks
-  has_many :loans
+  # has_many :albums, :through => :album_tracks
+  # has_many :album_tracks
+  
 
 
   # letsrate_rateable "sound"
@@ -29,7 +33,7 @@ class Track < ActiveRecord::Base
 
 
   def parse_id3(data)
-    x = "public"+tpath.to_s
+    x = "public"+track_path.to_s
     # binding.pry
     Mp3Info.open(x) do |f|
     # binding.pry

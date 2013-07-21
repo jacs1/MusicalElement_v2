@@ -1,32 +1,58 @@
-<%= form_for(@library) do |f| %>
-  <% if @library.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@library.errors.count, "error") %> prohibited this library from being saved:</h2>
+<div class="wrap">
+    <div class="content container-fluid">
+      <div class="row-fluid">
+          <div class="span7">
+            <section class="widget">
+              <header>
+                  <h4><i class="icon-user"> </i>Sign Up</h4>
+              </header>
+              <div class="body">
 
-      <ul>
-      <% @library.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+                <fieldset>
+                    <legend class="section">Account Info</legend>
+
+               <%= form_for(@library) do |f| %>
+                 <% if @library.errors.any? %>
+                   <div id="error_explanation">
+                     <h2><%= pluralize(@library.errors.count, "error") %> prohibited this library from being saved:</h2>
+
+                     <ul>
+                     <% @library.errors.full_messages.each do |msg| %>
+                       <li><%= msg %></li>
+                     <% end %>
+                     </ul>
+                   </div>
+                 <% end %>
+                      <%= f.hidden_field :user_id, :value => current_user.id %>
+                
+                <div class="control-group">
+                    <label id="email-label" for="normal-field" class="control-label">Library Name:<span class="required">*</span></label>
+                    <div class="controls controls-row">
+                        <div class="input-append span9">
+                          <%= f.text_field :name, :autofocus => true %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label id="password-label" for="normal-field" class="control-label">Library Image<span class="required">*</span></label>
+                    <div class="controls controls-row">
+                        <div class="input-append span9">
+                          <%= f.text_field :image %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <%= f.submit "Submit", :class => 'btn btn-primary'%>
+                </div>
+
+              <% end %>
+
+          </fieldset>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :image %><br />
-    <%= f.text_field :image %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

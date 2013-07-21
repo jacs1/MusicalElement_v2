@@ -1,45 +1,41 @@
+<div class="wrap">
+    <div class="content container-fluid">
+        <div class="row-fluid">
+        <div class="span7">
+            <section class="widget">
+                <header>
+                    <h4><i class="icon-music"></i> My Music Library <small>Add, Remove, Edit Music In Your Library</small></h4>
+                </header>
+                <div class="body">
+                    <form id="user-form" class="form-horizontal label-left"
+                          novalidate="novalidate"
+                          method="post"
+                          data-validate="parsley">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <div class="text-align-center">
+                                    <img class="img-circle" src="<%= @library.image %>" alt="64x64" style="height: 112px;">
+                                </div>
+                            </div>
+                            <div class="span8">
+                                <h3 class="no-margin"><%= current_user.library.name %></h3>
+                                <address>
+                                    <strong>Development manager</strong> at <strong><a href="#">Allspana Inc.</a></strong><br>
+                                    <abbr title="Work email">e-mail:</abbr> <a href="mailto:#">maryna.dorash@allspana.by</a><br>
+                                    <abbr title="Work Phone">phone:</abbr> (123) 456-7890
+                                </address>
+
+                                <%= link_to 'Edit', edit_library_path(@library) %> |
+                                <%= link_to 'Back', root_path %>
+                            </div>
+                        </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Library Name:</b>
-  <%= @library.name %>
-</p>
 
-<p>
-  <!-- <b>Library Image:</b> -->
-  <img src="<%= @library.image %>" />
-
-</p>
-
-<div class="large-4 columns hide-for-small">
-
-    <a class="small button" href="<%= artists_path %>">
-      View Artists
-    </a>
-
-    <a class="small button" href="<%= library_tracks_path(current_user.library) %>">
-      View Tracks
-    </a>
-
-    <a class="small button" href="<%= library_playlists_path(current_user.library) %>">
-      View PlayLists
-    </a>
-
-    <!-- <a class="small button" href="<%#= new_library_loan_path(current_user.library) %>">Lend A Track</a> -->
-
-    <a class="small button" href="<%= new_loan_path %>" data-reveal-id="myModal">Lend A Track</a>
-      <body>
-
-      <div id="myModal" class="reveal-modal">
-        <%= render 'loans/form' %>
-        <a class="close-reveal-modal">&#215;</a>
-      </div>
-
-
-      </body>
-
-</div>
-
-
-<%= link_to 'Edit', edit_library_path(@library) %> |
-<%= link_to 'Back', root_path %>

@@ -3,16 +3,17 @@ class TracksController < ApplicationController
   before_filter :load_library
 
     def index
-    @tracks = current_user.library.tracks
+      
+      @tracks = current_user.library.tracks
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @tracks }
     end
   end
 
   def new
-    
+    # binding.pry
     @track = Track.new
     # @artist = Artist.new
     respond_to do |format|
@@ -22,10 +23,9 @@ class TracksController < ApplicationController
   end
 
   def create
-    # binding.pry
     @track = Track.new(params[:track])
     # binding.pry
-    @track.libraries << @library
+    @track.library = @library
     @track.parse_id3(@track)
     respond_to do |format|
       if @track.save

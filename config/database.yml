@@ -15,7 +15,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: musicalelement_development
+  database: musicalelement_development_v2
   pool: 5
   username: slim
   password: password
@@ -41,7 +41,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: musicalelement_test
+  database: musicalelement_test_v2
   pool: 5
   username: slim
   password: password
@@ -50,7 +50,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: MusicalElement_production
+  database: MusicalElement_production_v2
   pool: 5
   username: musicalelement
   password:
