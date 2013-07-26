@@ -17,7 +17,7 @@
 //= require parsley
 //= require jquery.uniform
 //= require select2
-//= require jquery.dataTables.min
+//= require dataTables/jquery.dataTables
 //= require jquery-fileupload/basic
 //= require jquery.fileupload-fp
 //= require jquery.fileupload-ui
