@@ -5,7 +5,7 @@ class CreateAlbums < ActiveRecord::Migration
       t.text :description
       t.string :image
       t.string :name
-      t.date :release
+      t.string :release
 
       t.timestamps
     end

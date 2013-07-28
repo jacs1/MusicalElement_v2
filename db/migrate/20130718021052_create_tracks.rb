@@ -4,7 +4,7 @@ class CreateTracks < ActiveRecord::Migration
       t.string :title
       t.string :track_path
       t.integer :track_number
-      t.date :year
+      t.string :year
       t.integer :bpm
       t.integer :length
       t.integer :size

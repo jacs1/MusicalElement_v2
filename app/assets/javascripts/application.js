@@ -19,8 +19,6 @@
 //= require select2
 //= require dataTables/jquery.dataTables
 //= require jquery-fileupload/basic
-//= require jquery.fileupload-fp
-//= require jquery.fileupload-ui
 //= require mootools-core-1.4.5
 //= require mootools-more-1.4.0.1
 //= require wall

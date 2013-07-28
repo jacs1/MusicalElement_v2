@@ -36,12 +36,13 @@
       </div>
 
       <div class="span12">
-        <%= file_field_tag :track_path, multiple: true, name: "track[track_path]" %>
+        <%= f.file_field :track_path, multiple: true, name: "track[track_path]" %>
+        <%#= file_field_tag :track_path, multiple: true, name: "track[track_path]" %>
       </div>
 
 
       <div class="actions">
-        <%= f.submit %>
+        <%#= f.submit %>
       </div>
     <% end %>
 
@@ -119,7 +120,7 @@
     </tr>
     {% } %}
 </script>
-<!-- The template to display files available for download -->
+The template to display files available for download
 <script id="template-download" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-download fade">
