@@ -48,11 +48,11 @@ $(function(){
 
     var PageableTerritories = Backbone.PageableCollection.extend({
         model: Territory,
-        url: "/",
+        url: "/libraries/1/tracks",
         state: {
-            pageSize: 9
+            pageSize: 10
         },
-        mode: "client" // page entirely on the client side
+        mode: "server" // page entirely on the client side
     });
 
 
@@ -132,6 +132,8 @@ $(function(){
     /* Set the defaults for DataTables initialisation */
     $.extend( true, $.fn.dataTable.defaults, {
         "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+        "bServerSide": true,
+        "sAjaxSource": $('#datatable-table').data('source'),
         "sPaginationType": "bootstrap",
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"

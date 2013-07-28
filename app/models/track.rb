@@ -39,12 +39,10 @@ class Track < ActiveRecord::Base
     # binding.pry
       self.title = f.tag2["TIT2"]
       self.bpm = f.tag2["TBPM"]
-      # self.name = f.tag2["TPE1"]
       self.year = f.tag2["TYER"]
       self.track_number = f.tag2["TRCK"]
       self.length = f.length.to_i
       self.size = x.size * 1024
-      # self.name = data[:name].split("/")
       # binding.pry
       self.album = Album.find_or_create_by_name(f.tag2["TALB"])
       self.album.artist = Artist.find_or_create_by_name(f.tag2["TPE2"])

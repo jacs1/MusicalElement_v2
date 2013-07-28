@@ -2,15 +2,25 @@ class TracksController < ApplicationController
 
   before_filter :load_library
 
-    def index
-      
+    def index      
       @tracks = current_user.library.tracks
-
       respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @tracks }
+      format.json { render json: TracksDatatable.new(view_context) }
+      # format.json { render json: @tracks }
     end
   end
+
+
+
+  # def index
+  #   respond_to do |format|
+  #     format.html
+  #     format.json { render json: ProductsDatatable.new(view_context) }
+  #   end
+  # end
+
+
 
   def new
     # binding.pry
