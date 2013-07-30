@@ -1,11 +1,8 @@
 <nav id="sidebar" class="sidebar nav-collapse collapse">
     <ul id="side-nav" class="side-nav">
-        <li >
-            <a href="index.html"><i class="icon-desktop"></i> <span class="name">Dashboard</span></a>
-        </li>
         <li class="active accordion-group">
             <a class="accordion-toggle" data-toggle="collapse"
-               data-parent="#side-nav" href="#forms-collapse"><i class="icon-edit"></i> <span class="name">Library</span></a>
+               data-parent="#side-nav" href="#forms-collapse"><i class="icon-music"></i> <span class="name">Library</span></a>
             <ul id="forms-collapse" class="accordion-body collapse in">
                 <li class="active"><a href="<%= library_path(current_user.id) %>">Manage Library</a></li>
                 <li><a href="<%= library_tracks_path(current_user.id) %>">Browse Music</a></li>
@@ -52,19 +49,7 @@
             </ul>
         </li>
         <li >
-            <a href="grid.html"><i class="icon-reorder"></i> <span class="name">Grid</span></a>
-        </li>
-        <li class="accordion-group">
-            <a class="accordion-toggle collapsed" data-toggle="collapse"
-               data-parent="#side-nav" href="#special-collapse"><i class="icon-asterisk"></i> <span class="name">Special</span></a>
-            <ul id="special-collapse" class="accordion-body collapse">
-                <li><a href="special_search.html">Search</a></li>
-                <li><a href="<%= new_user_session_path %>">Login</a></li>
-                <li><a href="special_404.html">404</a></li>
-            </ul>
-        </li>
-        <li class="visible-phone">
-            <a href="<%= new_user_session_path %>"><i class="icon-signout"></i> <span class="name">Sign Out</span></a>
+            <a href="<%= destroy_user_session_path %>" action="destroy"><i class="icon-signout"></i> <span class="name">Sign Out</span></a>
         </li>
     </ul>
     <div id="sidebar-settings" class="settings">
