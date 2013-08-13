@@ -28,6 +28,8 @@ MusicV20::Application.routes.draw do
 
   match '/search' => 'search#search', :as => 'search'
 
+  match '/libraries/:id/land' => 'tracks#land', :as => 'land'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

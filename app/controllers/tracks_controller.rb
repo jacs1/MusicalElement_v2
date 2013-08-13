@@ -86,12 +86,16 @@ class TracksController < ApplicationController
     end
   end
 
+  def land
+  end
+
+
 
 
 
   protected
   def load_library
-    @library = Library.find(params[:library_id])
+    @library = Library.find(current_user.library.id)
   end
 
 

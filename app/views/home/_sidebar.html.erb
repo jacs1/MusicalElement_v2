@@ -2,13 +2,13 @@
     <ul id="side-nav" class="side-nav">
         <li class="active accordion-group">
             <a class="accordion-toggle" data-toggle="collapse"
-               data-parent="#side-nav" href="#forms-collapse"><i class="icon-music"></i> <span class="name">Library</span></a>
+               data-parent="#side-nav" href="#forms-collapse"><i class="icon-music"></i> <span class="name">My Music</span></a>
             <ul id="forms-collapse" class="accordion-body collapse in">
                 <li class="active"><a href="<%= library_path(current_user.id) %>">Manage Library</a></li>
+                <li><a href="<%= land_path(current_user.id) %>">Land</a></li>
                 <li><a href="<%= library_tracks_path(current_user.id) %>">Browse Music</a></li>
                 <li><a href="<%= new_library_track_path(current_user.library) %>">Add Music</a></li>
-                <li><a href="<%= library_playlists_path(current_user.library) %>">Browse Playlists</a></li>
-                <li><a href="<%= new_library_playlist_path(current_user.library) %>">Create Playlists</a></li>
+                <li><a href="<%= library_playlists_path(current_user.library) %>">Browse Mixes</a></li>
             </ul>
         </li>
         <li class="accordion-group">
