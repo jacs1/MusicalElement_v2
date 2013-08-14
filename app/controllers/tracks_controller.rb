@@ -59,12 +59,13 @@ class TracksController < ApplicationController
   end
 
   def destroy
+    # binding.pry
     @track = Track.find(params[:id])
     @track.destroy
 
     respond_to do |format|
       format.html { redirect_to library_tracks_url }
-      format.json { head :no_content }
+      format.json { redirect_to library_tracks_url }
     end
   end
 
@@ -85,12 +86,16 @@ class TracksController < ApplicationController
     end
   end
 
+  def land
+  end
+
+
 
 
 
   protected
   def load_library
-    @library = Library.find(params[:library_id])
+    @library = Library.find(current_user.library.id)
   end
 
 

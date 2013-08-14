@@ -123,3 +123,8 @@ $(function(){
         notificationsPresent && $notifications.css('top', '');
     })
 });
+
+_.templateSettings = {
+    interpolate: /\{\{\=(.+?)\}\}/g,
+    evaluate: /\{\{(.+?)\}\}/g
+};

@@ -4,7 +4,7 @@ $(function(){
         /* ... */
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('.progress .meter').css(
+            $('#progress .bar').css(
                 'width',
                 progress + '%'
             );
