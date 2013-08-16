@@ -61,3 +61,19 @@
                 class="btn-auto btn btn-transparent btn-small">Auto</button>
     </div>
 </nav>
+
+<script type="text/template" id="sidebar-settings-template">
+        {{ auto = sidebarState == 'auto'}}
+        {{ if (auto) {}}
+            <button type="button"
+                    data-value="icons"
+                    class="btn-icons btn btn-transparent btn-small">Icons</button>
+    <button type="button"
+            data-value="auto"
+            class="btn-auto btn btn-transparent btn-small">Auto</button>
+        {{} else {}}
+            <button type="button"
+                    data-value="auto"
+                    class="btn btn-transparent btn-small">Auto</button>
+        {{ } }}
+</script>
