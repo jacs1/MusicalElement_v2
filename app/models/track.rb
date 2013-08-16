@@ -31,14 +31,11 @@ class Track < ActiveRecord::Base
   accepts_nested_attributes_for :album
   accepts_nested_attributes_for :genre
 
-  before_save :update_file_size
-    
-
   def parse_id3(data)
     x = "public"+track_path.to_s
     # binding.pry
     Mp3Info.open(x) do |f|
-    binding.pry
+    # binding.pry
       self.title = f.tag2["TIT2"]
       self.bpm = f.tag2["TBPM"]
       self.year = f.tag2["TYER"]
@@ -70,14 +67,5 @@ class Track < ActiveRecord::Base
       # binding.pry
       end
   end
-
-  private
-  
-  def update_file_size
-    binding.pry
-    self.file_size = asset.file.size
-  end
-
-
 
 end
