@@ -1,0 +1,88 @@
+<div id="droppable">
+  <h1 class="ui-widget-header">Playlist</h1>
+  <div class="ui-widget-content">
+    <ol>
+      <li class="placeholder">Drag your music here</li>
+    </ol>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Track #</th>
+      <th>Album Artist</th>
+      <th>Title</th>
+      <th>Featured Artist</th>
+      <th>Album</th>
+      <th>Year</th>
+      <th>Genre</th>
+      <th>Length</th>
+      <th>Size</th>
+      <th>BPM</th>
+      <th>Ratings</th>
+      <th width ="20px"> </th>
+
+    </tr>
+</thead>
+
+   <% @tracks.each do |track| %>
+   <tbody id="tdrop">
+    <tr class="tr_row">
+      <td><%= track.track_number %></td>
+      <td><%= track.album.artist.name %></td>
+      <td><%= track.title %></td>
+      <td><%= track.artists.map{ |a| [a][0].name }.join(", ") %></td>
+      <td><%= track.album.name %></td>
+      <td><%= track.year %></td>
+      <td><%= track.genre.name %></td>
+      <td><%= track.length %></td>
+      <td><%= track.size %></td>
+      <td><%= track.bpm %></td>
+      <td>Sound: <%= rating_for track, "sound" %></td>
+      <td><%= image_tag 'playbutton.png', :class => "playbutton", :data => { :track_id => track.id} %>
+          <%= image_tag 'stopbutton.png', :class => "stopbutton", :data => { :track_id => track.id} %></td>
+      <% @track = track %>
+      <%#= f.fields_for "playlist[playlist_tracks_attributes][]" do |p| %>
+      <td><%#= check_box_tag("playlist[playlist_tracks_attributes][][track_id]", track.id) %></td>
+      <td><%= check_box_tag("playlist[playlist_tracks_attributes][][track_id]", track.id) %></td>
+     </tr>
+   </tbody>
+
+
+
+<script>
+$(document).ready(function(){
+
+
+  soundManager.setup({
+    url: '/swf/',
+    flashVersion: 9,
+    onready: function() {
+      soundManager.createSound({
+        id: 'mySound-<%= track.id %>',
+        url: '<%= track.tpath.url %>',
+        autoLoad: true,
+        autoPlay: false,
+        onload: function() {
+          // alert('The sound '+this.id+' loaded!');
+        },
+        whileplaying: function() {
+          var seconds = Math.round(this.position/1000);
+          var r = seconds % 60;
+          var m = Math.floor(seconds / 60);
+          var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
+          $('.duration').html('<p>' + duration + '</p>');
+        },
+        volume: 50
+      });
+    }
+  });
+});
+</script>
+
+    <% end %>
+    <%# end %>
+</table>
+
+    <!-- Footer -->

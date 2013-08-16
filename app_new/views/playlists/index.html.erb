@@ -1,0 +1,21 @@
+<h1>PlayLists</h1>
+  <%# binding.pry %>
+  <% @playlists.each do |pl| %>
+  <table id="draggable-<%= pl.id %>" class="ui-widget-content">
+    <tr>
+        <th><%= pl.name %></th>
+        <th> Playlist: <%= rating_for pl, "playlist" %></th>
+    </tr>
+
+    <tr>
+      <% pl.tracks.each do |t| %>
+     <tr><td><%= t.title %></td></tr>
+      <% end %>
+      <tr><td><%= link_to "See Comments", library_playlist_path(@library.id, pl.id) %></td></tr>
+  <% end %>
+
+  </table>
+
+<%= link_to 'Create Playlist', new_library_playlist_path(@library.id) %> |
+<%= link_to 'Back', library_path(current_user.library) %>
+

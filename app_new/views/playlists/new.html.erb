@@ -1,0 +1,37 @@
+<h1>New Playlist</h1>
+
+<%= render 'form' %>
+
+<!-- <div class="large-12 columns">
+  <div id="droppable" class="panel callout">
+    <p>Drag & Drop Songs Here To Create A Playlist!</p>
+  </div>
+</div> -->
+
+<!-- <table>
+  <thead>
+    <tr>
+      <th>Album Artist</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+
+  <tbody id="playlist_bod">
+   <tr class="playlist_row">
+     <td><%#= track.track_number %></td>
+     <td><%#= track.album.artist.name %></td>
+   </tr>
+  </tbody>
+</table> -->
+
+<!-- <div id="droppable">
+  <h1 class="ui-widget-header">Playlist</h1>
+  <div class="ui-widget-content">
+    <ol>
+      <li class="placeholder">Drag your music here</li>
+    </ol>
+  </div>
+</div> -->
+
+<%= link_to 'Back', library_playlists_path(current_user.library) %>  |
+<%= link_to 'Upload Music', new_library_track_path(@library.id) %> |

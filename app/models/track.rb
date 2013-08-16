@@ -31,7 +31,6 @@ class Track < ActiveRecord::Base
   accepts_nested_attributes_for :album
   accepts_nested_attributes_for :genre
 
-
   def parse_id3(data)
     x = "public"+track_path.to_s
     # binding.pry
@@ -42,7 +41,8 @@ class Track < ActiveRecord::Base
       self.year = f.tag2["TYER"]
       self.track_number = f.tag2["TRCK"]
       self.length = f.length.to_i
-      self.size = x.size * 1024
+      self.size = (self.track_path.file.size.to_f/(1000*1000)).round(2)
+      # self.size = x.size * 1024
       # binding.pry
       self.album = Album.find_or_create_by_name(f.tag2["TALB"])
       self.album.artist = Artist.find_or_create_by_name(f.tag2["TPE2"])
@@ -67,7 +67,5 @@ class Track < ActiveRecord::Base
       # binding.pry
       end
   end
-
-
 
 end

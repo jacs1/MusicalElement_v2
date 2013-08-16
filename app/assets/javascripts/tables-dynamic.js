@@ -197,25 +197,25 @@ $(function(){
         }
     } );
 
-    var unsortableColumns = [];
-    $('#datatable-table').find('thead th').each(function(){
-        if ($(this).hasClass( 'no-sort')){
-            unsortableColumns.push({"bSortable": false});
-        } else {
-            unsortableColumns.push(null);
-        }
-    });
+    // var unsortableColumns = [];
+    // $('#datatable-table').find('thead th').each(function(){
+    //     if ($(this).hasClass( 'no-sort')){
+    //         unsortableColumns.push({"bSortable": false});
+    //     } else {
+    //         unsortableColumns.push(null);
+    //     }
+    // });
 
-    $("#datatable-table").dataTable({
-        "sDom": "<'row-fluid table-top-control'<'span6 hidden-phone per-page-selector'l><'span6'f>r>t<'row-fluid table-bottom-control'<'span6'i><'span6'p>>",
-        "oLanguage": {
-            "sLengthMenu": "_MENU_ &nbsp; records per page"
-        },
-        "aoColumns": unsortableColumns
-    });
+    // $("#datatable-table").dataTable({
+    //     "sDom": "<'row-fluid table-top-control'<'span6 hidden-phone per-page-selector'l><'span6'f>r>t<'row-fluid table-bottom-control'<'span6'i><'span6'p>>",
+    //     "oLanguage": {
+    //         "sLengthMenu": "_MENU_ &nbsp; records per page"
+    //     },
+    //     "aoColumns": unsortableColumns
+    // });
 
-    $(".chzn-select, .dataTables_length select").select2({
-        minimumResultsForSearch: 10
-    });
+    // $(".chzn-select, .dataTables_length select").select2({
+    //     minimumResultsForSearch: 10
+    // });
 
 });
