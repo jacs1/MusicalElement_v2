@@ -1,0 +1,58 @@
+<div class="wrap">
+    <div class="content container-fluid">
+      <div class="row-fluid">
+          <div class="span7">
+            <section class="widget">
+              <header>
+                  <h4><i class="icon-user"> </i>Sign Up</h4>
+              </header>
+              <div class="body">
+
+                <fieldset>
+                    <legend class="section">Account Info</legend>
+
+                <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+                <%= devise_error_messages! %>
+                
+                <div class="control-group">
+                    <label id="email-label" for="email" class="control-label">Email Address<span class="required">*</span></label>
+                    <div class="controls controls-row">
+                        <div class="input-append span9">
+                            <%= f.email_field :email, :autofocus => true, :class => 'span8', :id => 'email' %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label id="password-label" for="password" class="control-label">Password<span class="required">*</span></label>
+                    <div class="controls controls-row">
+                        <div class="input-append span9">
+                            <%= f.password_field :password, :class => 'span8', :id => 'password' %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label id="password-label" for="password" class="control-label">Confirm Password<span class="required">*</span></label>
+                    <div class="controls controls-row">
+                        <div class="input-append span9">
+                            <%= f.password_field :password_confirmation, :class => 'span8', :id => 'password' %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <%= f.submit "Validate & Submit", :class => 'btn btn-primary'%>
+                    <button type="button" class="btn">Cancel</button>
+                </div>
+
+              <% end %>
+
+          <%= render "devise/shared/links" %>
+          </fieldset>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>

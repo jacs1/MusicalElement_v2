@@ -1,0 +1,10 @@
+<h1><%= @playlist.name %></h1>
+<%= rating_for @playlist, "playlist" %>
+
+
+<p><%#= link_to "Back to Playlists", playlist_path %></p>
+
+<h2>Comments</h2>
+
+<%= render "comments/comment" %>
+<%= render "comments/form" %>
