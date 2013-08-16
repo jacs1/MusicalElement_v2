@@ -26,7 +26,8 @@ private
         h(track.album.name),
         h(track.genre.name),
         h(track.year),
-        h(track.length),
+        h("#{((track.length / 60) % 60)}:""#{(track.length % 60)}"),
+        # h(((track.length / 60) % 60) (track.length % 60)),
         h(track.size),
         h(track.bpm),
         link_to('Destroy', @view.library_track_path(params[:library_id], track.id), :method => 'delete', data: { confirm: 'Are you sure?' })
