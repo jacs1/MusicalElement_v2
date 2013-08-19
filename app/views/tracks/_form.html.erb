@@ -1,23 +1,4 @@
-<div class="wrap">
-
-    <div class="content container-fluid">
-        <div class="row-fluid">
-        </div>
-        <div class="row-fluid">
-            <div class="span8">
-                <section class="widget">
-                    <div class="span12">
-                        <h2 class="page-title">Music Upload <small>Drag & drop fileupload</small></h2>
-                    </div>
-                    <div class="body">
-                        <!-- <form id="fileupload"> -->
-                            <div class="row-fluid">
-                                <div class="span12">
-                                    <div id="dropzone"  class="dropzone">
-                                        Drop files here
-                                        <i class="icon-cloud-upload pull-right"></i>
-
-    <%= form_for(@track, :url => library_tracks_path(@library) , :html => {:multipart => true, :remote => :true}) do |f| %>
+ <%= form_for(@track, :url => library_tracks_path(@library) , :html => {:multipart => true, :remote => :true}) do |f| %>
 
       <% if @track.errors.any? %>
         <div id="error_explanation">
@@ -31,64 +12,42 @@
         </div>
       <% end %>
 
-      <div class="span12">
+
+    <div class="form-actions fileupload-buttonbar no-margin">
         <%= f.hidden_field :user_id, :value => current_user.id %>
-      </div>
-
+<!--       </div>
       <div class="span12">
-        <%= f.file_field :track_path, multiple: true, name: "track[track_path]" %>
-        <%#= file_field_tag :track_path, multiple: true, name: "track[track_path]" %>
-      </div>
+     -->
+          <div class="span4">
+            <%= f.file_field :track_path, multiple: true, name: "track[track_path]" %>
+            <%#= file_field_tag :track_path, multiple: true, name: "track[track_path]" %>
+          </div>
 
 
-      <div class="actions">
-        <%#= f.submit %>
-      </div>
-    <% end %>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span12 fileupload-progress fade">
-                                    <!-- The global progress bar -->
-                                    <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="bar" style="width:0%;"></div>
-                                    </div>
-                                    <!-- The extended global progress information -->
-                                    <div class="progress-extended">&nbsp;</div>
-                                </div>
-                            </div>
-                            <div class="form-actions fileupload-buttonbar no-margin">
-                                <span class="btn btn-small fileinput-button">
-                                        <i class="icon-plus"></i>
-                                        <span>Add files...</span>
-                                        <input type="file" name="files" multiple="">
-                                    </span>
-                                <button type="submit" class="btn btn-primary btn-small start">
-                                    <i class="icon-upload"></i>
-                                    <span>Start upload</span>
-                                </button>
-                                <button type="reset" class="btn btn-inverse btn-small cancel">
-                                    <i class="icon-ban-circle"></i>
-                                    <span>Cancel upload</span>
-                                </button>
-                            </div>
-                            <div class="fileupload-loading"><i class="icon-spin icon-spinner"></i></div>
-                            <!-- The table listing the files available for upload/download -->
-                            <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
-                        <!-- </form> -->
-                    </div>
-                </section>
-            </div>
-        </div>
+          <div class="span2">
+            <%= f.submit %>
+          </div>
+        <% end %>
     </div>
-</div>
 
-<div id="progress">
-    <div class="bar" style="width: 0%;"></div>
-</div>
+    <div class="form-actions fileupload-buttonbar no-margin">
+        <span class="btn btn-small fileinput-button">
+                <i class="icon-plus"></i>
+                <span>Add files...</span>
+                <input type="file" name="files" multiple="">
+            </span>
+        <button type="submit" class="btn btn-primary btn-small start">
+            <i class="icon-upload"></i>
+            <span>Start upload</span>
+        </button>
+        <button type="reset" class="btn btn-inverse btn-small cancel">
+            <i class="icon-ban-circle"></i>
+            <span>Cancel upload</span>
+        </button>
+    </div>
+
+
+
 
 <script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}

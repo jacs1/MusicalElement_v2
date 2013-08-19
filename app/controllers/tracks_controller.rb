@@ -33,6 +33,7 @@ class TracksController < ApplicationController
   end
 
   def create
+    binding.pry
     @track = Track.new(params[:track])
     # binding.pry
     @track.library = @library
