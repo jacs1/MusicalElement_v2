@@ -1,4 +1,4 @@
-$(function(){
-    $(".popover-test").popover();
-    $(".tooltip-test").tooltip();
-});
+// $(function(){
+//     $(".popover-test").popover();
+//     $(".tooltip-test").tooltip();
+// });

@@ -89,7 +89,7 @@ $(function(){
             '</div>' +
             '</div>',
         html: true,
-        animation: false,
+        animation: true,
         placement: 'bottom',
         content: function(){
             return _.template($('#settings-template').html(), settingsState);

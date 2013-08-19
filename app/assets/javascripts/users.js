@@ -1,6 +1,6 @@
-$(function () {
-//form
-//form-elements
-//us-buttons
+// $(function () {
+//   form
+//   form-elements
+//   us-buttons
 
-});
+// });
