@@ -1,5 +1,0 @@
-<% if @track.new_record? %>
-  alert("Failed to upload track: <%= j @track.errors.full_messages.join(', ').html_safe %>");
-<% else %>
-  $("#tracks").append("<%= j render(@track) %>");
-<% end %>
