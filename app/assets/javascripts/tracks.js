@@ -1,39 +1,118 @@
 $(function(){
 
-        'use strict';
+    window.locale = {
+        "fileupload": {
+            "errors": {
+                "maxFileSize": "File is too big",
+                "minFileSize": "File is too small",
+                "acceptFileTypes": "Filetype not allowed",
+                "maxNumberOfFiles": "Max number of files exceeded",
+                "uploadedBytes": "Uploaded bytes exceed file size",
+                "emptyResult": "Empty file upload result"
+            },
+            "error": "Error",
+            "start": "Start",
+            "cancel": "Cancel",
+            "destroy": "Delete"
+        }
+    };
 
-        $("input:checkbox").uniform();
+    'use strict';
 
-        // Initialize the jQuery File Upload widget:
-        var $fileupload = $('#fileupload');
-        $fileupload.fileupload({
-            // Uncomment the following to send cross-domain cookies:
-            xhrFields: {withCredentials: true},
+    // Initialize the jQuery File Upload widget:
+    $('#fileupload').fileupload();
+
+    // Enable iframe cross-domain access via redirect option:
+    $('#fileupload').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    if (window.location.hostname === 'blueimp.github.com') {
+        // Demo settings:
+        $('#fileupload').fileupload('option', {
             url: 'new',
-            dropZone: $('#dropzone')
+            maxFileSize: 5000000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp3)$/i,
+            process: [
+                {
+                    action: 'load',
+                    fileTypes: /^image\/(gif|jpeg|png|mp3)$/,
+                    maxFileSize: 20000000 // 20MB
+                },
+                {
+                    action: 'resize',
+                    maxWidth: 1440,
+                    maxHeight: 900
+                },
+                {
+                    action: 'save'
+                }
+            ]
         });
-
-        // Enable iframe cross-domain access via redirect option:
-        $fileupload.fileupload(
-            'option',
-            'redirect',
-            window.location.href.replace(
-                /\/[^\/]*$/,
-                '/cors/result.html?%s'
-            )
-        );
-
-        // Load existing files:
-        $.ajax({
-            // Uncomment the following to send cross-domain cookies:
-            xhrFields: {withCredentials: true},
-            url: $fileupload.fileupload('option', 'url'),
-            dataType: 'json',
-            context: $fileupload[0]
-        }).done(function (result) {
-                $(this).fileupload('option', 'done')
-                    .call(this, null, {result: result});
+        // Upload server status check for browsers with CORS support:
+        if ($.support.cors) {
+            $.ajax({
+                url: 'new',
+                type: 'HEAD'
+            }).fail(function () {
+                $('<span class="alert alert-error"/>')
+                    .text('Upload server currently unavailable - ' +
+                            new Date())
+                    .appendTo('#fileupload');
             });
+        }
+    } else {
+        // Load existing files:
+        $('#fileupload').each(function () {
+            var that = this;
+            $.getJSON(this.action, function (result) {
+                if (result && result.length) {
+                    $(that).fileupload('option', 'done')
+                        .call(that, null, {result: result});
+                }
+            });
+        });
+    }
+
+        // 'use strict';
+
+        // $("input:checkbox").uniform();
+
+        // // Initialize the jQuery File Upload widget:
+        // var $fileupload = $('#fileupload');
+        // $fileupload.fileupload({
+        //     // Uncomment the following to send cross-domain cookies:
+        //     xhrFields: {withCredentials: true},
+        //     url: 'new',
+        //     dropZone: $('#dropzone')
+        // });
+
+        // // Enable iframe cross-domain access via redirect option:
+        // $fileupload.fileupload(
+        //     'option',
+        //     'redirect',
+        //     window.location.href.replace(
+        //         /\/[^\/]*$/,
+        //         '/cors/result.html?%s'
+        //     )
+        // );
+
+        // // Load existing files:
+        // $.ajax({
+        //     // Uncomment the following to send cross-domain cookies:
+        //     xhrFields: {withCredentials: true},
+        //     url: $fileupload.fileupload('option', 'url'),
+        //     dataType: 'json',
+        //     context: $fileupload[0]
+        // }).done(function (result) {
+        //         $(this).fileupload('option', 'done')
+        //             .call(this, null, {result: result});
+        //     });
 
     // $('#track_track_path').fileupload({
     //     /* ... */

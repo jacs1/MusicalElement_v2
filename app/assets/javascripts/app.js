@@ -53,6 +53,7 @@ function testData(stream_names, points_count) {
     });
 }
 
+// toggles side menu between text and icons
 function closeNavigation(){
     var $accordion = $('#side-nav').find('.accordion-body.in');
     $accordion.collapse('hide');

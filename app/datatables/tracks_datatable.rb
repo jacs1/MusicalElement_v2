@@ -30,7 +30,7 @@ private
         h("#{((track.length) / 60)}:""#{(track.length % 60)}"),
         h(track.size),
         h(track.bpm),
-        link_to('Destroy', @view.library_track_path(params[:library_id], track.id), :method => 'delete', data: { confirm: 'Are you sure?' })
+        link_to('Destroy', @view.library_track_path(params[:library_id], track.id), :method => 'delete', data: { :class => "icon-trash", confirm: 'Are you sure?' })
         # link_to("Delete", track, method: :delete, data: { confirm: 'Are you sure?' })
         # link_to(image_tag('icons/edit.png', :title => "Edit " +page.name), edit_page_path(page)) + "  " + link_to(image_tag('icons/show.png', :title => "Show " +page.name), show_page_path(page)) + "  " + link_to(image_tag('icons/delete.png', :title => "Delete " +page.name), page, method: :delete, data: { confirm: 'Are you sure?' })
       ]
