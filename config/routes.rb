@@ -4,6 +4,7 @@ MusicV20::Application.routes.draw do
   root :to => 'home#index'
 
    resources :artists
+   resources :albums
  
    resources :users
      resources :libraries do

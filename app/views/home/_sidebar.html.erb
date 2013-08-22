@@ -2,21 +2,21 @@
     <ul id="side-nav" class="side-nav">
         <li class="active accordion-group">
             <a class="accordion-toggle" data-toggle="collapse"
-               data-parent="#side-nav" href="#forms-collapse"><i class="icon-music"></i> <span class="name">My Music</span></a>
+               data-parent="#side-nav" href="#forms-collapse"><i class="icon-headphones"></i> <span class="name">My Music</span></a>
             <ul id="forms-collapse" class="accordion-body collapse in">
-                <li class="active"><a href="<%= library_path(current_user.id) %>">Manage Library</a></li>
-                <li><a href="<%= land_path(current_user.id) %>">Land</a></li>
-                <li><a href="<%= library_tracks_path(current_user.id) %>">Browse Music</a></li>
-                <li><a href="<%= new_library_track_path(current_user.library) %>">Add Music</a></li>
-                <li><a href="<%= library_playlists_path(current_user.library) %>">Browse Mixes</a></li>
+                <li><a href="<%= artists_path %>">Artists</a></li>
+                <li><a href="<%= albums_path %>">Albums</a></li>
+                <li><a href="<%= library_playlists_path(current_user.library) %>">Mixes</a></li>
+                <li><a href="<%= library_tracks_path(current_user.id) %>">Tracks</a></li>
+                <li><a href="<%= new_library_track_path(current_user.library) %>">Upload Music</a></li>
             </ul>
         </li>
         <li class="accordion-group">
-            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#side-nav" href="#stats-collapse"><i class="icon-bar-chart"></i> <span class="name">Statistics</span></a>
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#side-nav" href="#stats-collapse"><i class="icon-group"></i> <span class="name">Friends</span></a>
             <ul id="stats-collapse" class="accordion-body collapse">
-                <li><a href="stat_statistics.html">Stats</a></li>
-                <li><a href="stat_charts.html">Charts</a></li>
-                <li><a href="stat_realtime.html">Realtime</a></li>
+                <li><a href="#">Invite</a></li>
+                <li><a href="#">Communicate</a></li>
+                <li><a href="#">Manage</a></li>
             </ul>
         </li>
         <li class="accordion-group">

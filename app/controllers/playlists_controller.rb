@@ -36,7 +36,7 @@ class PlaylistsController < ApplicationController
     end
 
     def edit
-      binding.pry
+      # binding.pry
     end
 
     def create

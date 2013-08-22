@@ -1,17 +1,10 @@
 class ArtistsController < ApplicationController
 
-    def index
+  def index
+    @artists = current_user.library.lib_filter(params[:controller])
     # binding.pry
-    @tracks = current_user.library.tracks
-    @artists = []
-    @tracks.each do |a|
-      a.artists.each do |i|
-      @artists << i
-      end      
-    end
     @artists.uniq!
     # binding.pry
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @artists }
