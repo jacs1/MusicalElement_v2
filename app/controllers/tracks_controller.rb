@@ -37,12 +37,13 @@ class TracksController < ApplicationController
     @track = Track.new(params[:track])
     # binding.pry
     @track.library = @library
+    @track.user = current_user
     @track.parse_id3(@track)
     respond_to do |format|
       if @track.save
 
         format.html { redirect_to library_track_path(@library, @track), notice: 'Track was successfully created.' }
-        format.json { redirect_to library_tracks_path, status: :created }
+        format.json #{ redirect_to library_tracks_path, status: :created }
         # format.json { render json: @library_track, status: :created, location: @track }
       else
         format.html { render action: "new" }

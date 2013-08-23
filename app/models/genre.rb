@@ -1,6 +1,6 @@
 class Genre < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :track_id
 
-  belongs_to :track
+  has_many :tracks
   
 end

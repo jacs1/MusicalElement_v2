@@ -1,7 +1,6 @@
 class AlbumsController < ApplicationController
 
   def index
-    # binding.pry
     @albums = current_user.library.lib_filter(params[:controller])
     @albums.uniq!
     respond_to do |format|

@@ -29,6 +29,7 @@
 //= require backgrid-paginator
 //= require bootstrap
 //= require bootstrap-transition
+//= require bootstrap-carousel
 //= require bootstrap-collapse
 //= require bootstrap-alert
 //= require bootstrap-tooltip

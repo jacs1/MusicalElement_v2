@@ -1,7 +1,7 @@
 # require 'taglib'
 require "mp3info"
 class Track < ActiveRecord::Base
-  attr_accessible :bpm, :genre_id, :length, :size, :title, :track_number, :track_path, :user_id, :year, :library_id, :album_id
+  attr_accessible :bpm, :length, :size, :title, :track_number, :track_path, :user_id, :year, :library_id 
 
 
   mount_uploader :track_path, TrackPathUploader
@@ -21,7 +21,7 @@ class Track < ActiveRecord::Base
   has_many :artist_tracks
   # has_many :albums, :through => :album_tracks
   # has_many :album_tracks
-  
+  # has_one :album
 
 
   # letsrate_rateable "sound"
@@ -29,7 +29,7 @@ class Track < ActiveRecord::Base
 
   accepts_nested_attributes_for :artists
   accepts_nested_attributes_for :album
-  accepts_nested_attributes_for :genre
+  # accepts_nested_attributes_for :genre
 
   def parse_id3(data)
     x = "public"+track_path.to_s

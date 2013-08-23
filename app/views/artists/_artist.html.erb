@@ -1,12 +1,18 @@
-<% @artists.each do |a| %>
-
+<% instance_variable_get("@#{params[:controller]}").each do |artist| %>
+<%# binding.pry %>
   <li class="span2">
+    <% if instance_variable_get("@#{params[:controller]}") == @artists %>
+    <a href='<%= artist_path(artist.id) %>'>
+      <% else %>
+        <a href="<%= album_path(artist.id) %>">
+      <% end %>
       <div class="thumbnail">
           <img src="img/10.jpg" alt="">
-          <div class="caption">
-              <h6><%= a.name %></h6>
-          </div>
+          <!-- <div class="caption"> -->
+              <h6><%= artist.name %></h6>
+          <!-- </div> -->
       </div>
+    </a>
   </li>
 <% end %>
 
