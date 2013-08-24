@@ -5,5 +5,7 @@ class Artist < ActiveRecord::Base
   has_many :artist_tracks
   has_many :albums
   has_many :artist_images
+
+  belongs_to :library
   
 end
