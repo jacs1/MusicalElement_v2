@@ -1,7 +1,7 @@
 # require 'taglib'
 require "mp3info"
 class Track < ActiveRecord::Base
-  attr_accessible :bpm, :length, :size, :title, :track_number, :track_path, :user_id, :year, :library_id 
+  attr_accessible :bpm, :length, :size, :title, :track_number, :track_path, :user_id, :year, :library_id, :album_id
 
 
   mount_uploader :track_path, TrackPathUploader
@@ -46,6 +46,7 @@ class Track < ActiveRecord::Base
       # binding.pry
       self.album = Album.find_or_create_by_name(f.tag2["TALB"])
       self.album.artist = Artist.find_or_create_by_name(f.tag2["TPE2"])
+      self.album.release = f.tag2["TYER"]
       self.genre = Genre.find_or_create_by_name(f.tag2["TCON"])
       # binding.pry
       # self.album_artist = Artist.find_or_create_by_name(f.tag2["TPE2"])
@@ -57,6 +58,8 @@ class Track < ActiveRecord::Base
           self.artists << a
           # binding.pry
         end
+      user.library.albums << self.album
+      user.library.artists << self.artists
       # binding.pry
 
       # # Attached picture frame

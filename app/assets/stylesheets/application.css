@@ -12863,7 +12863,7 @@ input.parsley-error {
 .widget > header h1, .widget > header h2, .widget > header h3, .widget > header h4, .widget > header h5 {
   margin: 0;
   line-height: 20px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   color: white;
 }
 /* line 324, D:/projects/admin/sass/_base.scss */
@@ -13191,13 +13191,13 @@ input.parsley-error {
 /* line 613, D:/projects/admin/sass/_base.scss */
 .page-title {
   color: white;
-  font-weight: bold;
+  font-weight: 300;
   line-height: 1;
   margin: 11px 0 15px;
 }
 /* line 619, D:/projects/admin/sass/_base.scss */
 .page-title small {
-  color: white;
+  color: #d2d2d2;
 }
 
 /* line 624, D:/projects/admin/sass/_base.scss */

@@ -55,15 +55,9 @@
                                 </header>
                                 <div class="body tab-content">
                                     <div id="tracks" class="tab-pane active clearfix">
-                                        <h2>Tabs-enabled widget</h2>
-                                        <p>You will never know exactly how something will go until you try it.</p>
-                                        <p>You can think three hundred times and still have no precise result. If you see
-                                            attractive girl all you need to do is to go and ask her to give you her phone. You don’t
-                                            need to think about HOW it can turn out. All you have to do is to GO and DO IT. It
-                                            should be super-fast and easy. No hesitation. You ask me: “What to do with these
-                                            fearful thoughts preventing me from doing that?” The answer is to ignore them, because
-                                            they can’t disappear immediately.</p>
-                                        <p>The same thing is for startups and ideas. If you have an idea right away after it appears in your mind you should go and make a first step to implement it. </p>
+                                        <% @artist.albums.each do |album| %>
+                                        <%= render :partial => 'albums/show', :locals => {:artist => @artist, :album => album} %>
+                                        <% end %>
                                     </div>
                                     <div id="report" class="tab-pane">
                                         <div style="font-size: 240px; text-align: center; color: #56bc76; text-shadow: 2px 2px 2px #000000; height: 280px;">

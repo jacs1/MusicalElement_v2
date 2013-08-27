@@ -1,10 +1,11 @@
 class Album < ActiveRecord::Base
-  attr_accessible :description, :image, :name, :release, :track_id
+  attr_accessible :description, :image, :name, :release
 
   belongs_to :artist
-  # belongs_to :library
-  
+
   has_many :tracks
+  has_many :libraries, :through => :album_libraries
+  has_many :album_libraries
 
   
   

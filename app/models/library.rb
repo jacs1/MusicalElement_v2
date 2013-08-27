@@ -7,6 +7,10 @@ class Library < ActiveRecord::Base
   # has_many :track_libraries
   has_many :library_playlists
   has_many :playlists, :through => :library_playlists
+  has_many :albums, :through => :album_libraries
+  has_many :album_libraries
+  has_many :artists, :through => :artist_libraries
+  has_many :artist_libraries
 
 
   def lib_filter(data)

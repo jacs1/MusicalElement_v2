@@ -26,7 +26,7 @@ private
         h(track.album.name),
         h(track.genre.name),
         h(track.year),
-        h("#{((track.length) / 60)}:""#{(track.length % 60)}"),
+        h("#{((track.length) / 60)}:""#{(track.length % 60).to_s.rjust(2, '0')}"),
         h("#{track.size} MB"),
         h(track.bpm),
         link_to('Destroy', @view.library_track_path(params[:library_id], track.id), :method => 'delete', data: { :class => "icon-trash", confirm: 'Are you sure?' })

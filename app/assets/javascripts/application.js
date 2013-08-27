@@ -44,5 +44,4 @@
 //= require bootstrap-wysihtml5
 //= require app
 //= require settings
-//= require forms.js
 //= require_tree .

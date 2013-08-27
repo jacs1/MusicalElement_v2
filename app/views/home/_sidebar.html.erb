@@ -4,11 +4,19 @@
             <a class="accordion-toggle" data-toggle="collapse"
                data-parent="#side-nav" href="#forms-collapse"><i class="icon-headphones"></i> <span class="name">My Music</span></a>
             <ul id="forms-collapse" class="accordion-body collapse in">
+                <% if current_user.library == nil %>
+                <li><a href="<%= new_library_path %>">Artists</a></li>
+                <li><a href="<%= new_library_path %>">Albums</a></li>
+                <li><a href="<%= new_library_path %>">Mixes</a></li>
+                <li><a href="<%= new_library_path %>">Tracks</a></li>
+                <li><a href="<%= new_library_path %>">Upload Music</a></li>
+                <% else %>
                 <li><a href="<%= artists_path %>">Artists</a></li>
                 <li><a href="<%= albums_path %>">Albums</a></li>
                 <li><a href="<%= library_playlists_path(current_user.library) %>">Mixes</a></li>
                 <li><a href="<%= library_tracks_path(current_user.id) %>">Tracks</a></li>
                 <li><a href="<%= new_library_track_path(current_user.library) %>">Upload Music</a></li>
+                <% end %>
             </ul>
         </li>
         <li class="accordion-group">
