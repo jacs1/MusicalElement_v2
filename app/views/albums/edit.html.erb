@@ -43,10 +43,10 @@
                                 <label class="control-label" for="prefix">Album Artist</label>
                                 <div class="controls controls-row">
                                   <div class="field">
-                                    <%#= f.label :artist %><br />
-                                    <%#= f.text_field :artist %>
+                                    <%= f.fields_for :artist do |a| %>
+                                    <%= a.text_field :name, :class => 'span10', :id => 'Album Artist' %>
+                                    <% end %>
                                   </div>
-                                    <input type="text" id="prefix" name="prefix" class="span10">
                                 </div>
                             </div>
                             <div class="control-group">
@@ -59,13 +59,12 @@
                                 <label class="control-label" for="first-name">Album Image<span class="required">*</span></label>
                                 <div class="controls controls-row">
                                   <%= f.text_field :image, :class => 'span10', :id => 'Image' %>
-                                  <!-- <input type="text" id="first-name" name="first-name" required="required" class="span10" > -->
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="last-name">Year Released<span class="required">*</span></label>
                                 <div class="controls controls-row">
-                                  <%= f.text_field :release, :class => 'span10', :id => 'Released'  %>
+                                  <%= f.text_field :release, :class => 'datepicker', :id => 'Released'  %>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -93,3 +92,10 @@
     </div>
 </div>
 </div>
+
+<input type="text" class='datepicker' >
+
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Datepicker in Modal</a>
+<script type="text/javascript">
+  $('.datepicker').datepicker()
+</script>

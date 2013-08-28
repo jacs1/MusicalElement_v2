@@ -26,6 +26,10 @@ class ArtistsController < ApplicationController
 
   def update
     @artist = Artist.find(params[:id])
+    if params[:artist_image] 
+      @artist.artist_images << params[:artist_image]
+    end
+    binding.pry
       if @artist.update_attributes(params[:artist])
         redirect_to @artist, notice: "Successfully updated artist."
       else

@@ -1,0 +1,36 @@
+<%= form_for(@artist_image, :url => new_artist_image_path, :html => {:multipart => true, :id => "fileupload", :remote => :true}) do |f| %>
+
+<div class="form-actions fileupload-buttonbar no-margin">
+        
+        <span class="btn btn-small fileinput-button">
+            <i class="icon-plus"></i>
+            <span><%= t('fileupload.add_files') %></span>
+            <%= f.file_field :image, :multiple => true, name: "image[image]" %>
+        </span>
+
+        <button type="submit" class="btn btn-primary btn-small start">
+            <i class="icon-upload"></i>
+            <span><%= t('fileupload.start_upload') %></span>
+        </button>
+
+        <button type="reset" class="btn btn-inverse btn-small cancel">
+            <i class="icon-ban-circle"></i>
+            <span><%= t('fileupload.cancel_upload') %></span>
+        </button>
+
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+        </tbody>
+        </table>
+    <% end %>
+</div>
+<script>
+  var fileUploadErrors = {
+    maxFileSize: 'File is too big',
+    minFileSize: 'File is too small',
+    acceptFileTypes: 'Filetype not allowed',
+    maxNumberOfFiles: 'Max number of files exceeded',
+    uploadedBytes: 'Uploaded bytes exceed file size',
+    emptyResult: 'Empty file upload result'
+  };
+</script>

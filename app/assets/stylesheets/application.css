@@ -2229,7 +2229,7 @@ legend + .control-group {
 table {
   max-width: 100%;
   background-color: transparent;
-  border-collapse: collapse;
+  /*border-collapse: collapse;*/
   border-spacing: 0;
 }
 
@@ -12863,7 +12863,7 @@ input.parsley-error {
 .widget > header h1, .widget > header h2, .widget > header h3, .widget > header h4, .widget > header h5 {
   margin: 0;
   line-height: 20px;
-  /*font-weight: bold;*/
+  font-weight: bold;
   color: white;
 }
 /* line 324, D:/projects/admin/sass/_base.scss */
@@ -13191,13 +13191,13 @@ input.parsley-error {
 /* line 613, D:/projects/admin/sass/_base.scss */
 .page-title {
   color: white;
-  font-weight: 300;
+  font-weight: bold;
   line-height: 1;
   margin: 11px 0 15px;
 }
 /* line 619, D:/projects/admin/sass/_base.scss */
 .page-title small {
-  color: #d2d2d2;
+  color: white;
 }
 
 /* line 624, D:/projects/admin/sass/_base.scss */
@@ -14417,7 +14417,7 @@ input.input-padding-increased[type=search], input.input-padding-increased.search
 .table-editable td.editor.error,
 .table-editable tbody tr:nth-child(odd) td.editor.error {
   background-color: rgba(234, 200, 94, 0.1);
-  outline: 1px solid #eac85e;
+  /*outline: 1px solid #eac85e;*/
 }
 
 /* line 1637, D:/projects/admin/sass/_base.scss */

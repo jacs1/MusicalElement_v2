@@ -41,17 +41,18 @@
                           <% end %>
                             <legend class="section">Artist Info</legend>
                             <div class="control-group">
-                                <label class="control-label" for="prefix">Album Artist</label>
+                                <label class="control-label" for="prefix">Artist Images</label>
                                 <div class="controls controls-row">
                                   <div class="field">
-                                    <%#= f.label :artist %><br />
-                                    <%#= f.text_field :artist %>
+                                    <%= f.fields_for :artist_image do |a| %>
+                                    <%= hidden_field_tag :artist_id, @artist.id %>
+                                    <%= a.file_field :image, :multiple => true, :class => 'span10', :id => 'Artist Images' , name: "artist_image[image]"%>
+                                    <% end %>
                                   </div>
-                                    <input type="text" id="prefix" name="prefix" class="span10">
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="first-name">Name</label>
+                                <label class="control-label" for="first-name">Stage Name</label>
                                 <div class="controls controls-row">
                                       <%= f.text_field :name, :class => 'span10', :id => 'Name' %>
                                 </div>
@@ -83,7 +84,7 @@
                             <div class="control-group">
                                 <label for="exp" class="control-label">Account expiration date</label>
                                 <div class="controls">
-                                    <input id="exp" class="input-block-level date-picker" type="text" name="exp" value="">
+                                    <input id="exp" class="input-block-level datepicker" type="text" name="exp" value="">
                                     <span class="help-block">Bootstrap datepicker</span>
                                 </div>
                             </div>
@@ -92,55 +93,6 @@
                                 <div class="controls">
                                   <%= f.date_select :birthday, :class => 'input-block-level date-picker', :id => 'Birthday' %>
                                 </div>
-                            </div>
-
-                            <div class="span5">
-                                <section class="widget">
-                                    <header>
-                                        <h4>
-                                            <i class="icon-magic"></i>
-                                            Pickers
-                                        </h4>
-                                    </header>
-                                    <div class="body">
-                                        <form method="post" >
-                                            <fieldset>
-                                                <legend class="section">Dates</legend>
-                                                <div class="control-group">
-                                                    <label for="in-place-date" class="control-label">In place</label>
-                                                    <div class="controls controls-row">
-                                                        <input id="in-place-date" class="span6 date-picker" type="text" name="in-place-date" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label for="btn-enabled-date" class="control-label">Button-enabled</label>
-                                                    <div class="controls controls-row">
-                                                        <div class="input-append span6">
-                                                            <input id="btn-enabled-date" class="span11" type="text" name="btn-enabled-date" value="">
-                                                            <a href="#" id="btn-select-calendar" class="btn btn-danger"
-                                                                    data-date-format="yyyy/mm/dd" data-date="2013/02/25">
-                                                                <i class="icon-calendar"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset>
-                                                <legend class="section">Colors</legend>
-                                                <div class="control-group">
-                                                    <label for="color" class="control-label">Simple Select</label>
-                                                    <div class="controls controls-row">
-                                                        <div class="input-append">
-                                                        <input id="color" class=" colorpicker" type="text" name="color"
-                                                               value="#eac85e">
-                                                            <span id="color-holder" class="add-on" style="background-color: #eac85e;">&nbsp;&nbsp;&nbsp;</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </section>
                             </div>
 
                         </fieldset>
@@ -161,3 +113,9 @@
     </div>
 </div>
 </div>
+
+<script>
+ $('.datepicker').datepicker({
+     format: 'mm-dd-yyyy'
+ });
+</script>

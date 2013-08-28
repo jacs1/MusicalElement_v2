@@ -17,6 +17,20 @@ class TrackPathUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  # process :guess_track
+
+  def guess_track
+    result = JSON.parse(`echoprint-codegen #{path}`)
+    binding.pry
+    model.title = result.first["metadata"]["title"]
+    model.artist = result.first["metadata"]["artist"]
+
+    # Go find two 'wrong answers' for our quiz
+    # url = "http://developer.echonest.com/api/v4/artist/similar?api_key=UJ6VUETJ7VUYJAFHB&name=#{model.artist}&format=json&results=1&start=0"
+    # results = HTTParty.get(url)
+    # model.wrong_answer_1, model.wrong_answer_2 = results["response"]["artists"].sample(2).map {|a| a["name"]}
+  end
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:

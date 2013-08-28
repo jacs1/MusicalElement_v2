@@ -1,0 +1,2 @@
+module ArtistImagesHelper
+end

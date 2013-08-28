@@ -1,5 +1,5 @@
 class Album < ActiveRecord::Base
-  attr_accessible :description, :image, :name, :release
+  attr_accessible :description, :image, :name, :release, :artist_attributes
 
   belongs_to :artist
 
@@ -7,6 +7,6 @@ class Album < ActiveRecord::Base
   has_many :libraries, :through => :album_libraries
   has_many :album_libraries
 
-  
+  accepts_nested_attributes_for :artist
   
 end

@@ -21,33 +21,45 @@
                 <!-- </section> -->
             </div>
             <!-- <li class="divider"></li> -->
-            <div class="span9 half-width-responsive">
+            
+            <div class="span9">
                 <section class="widget">
                     <header>
-                        <h2 class="page-title"><%= album.name %></h2>
+                      <header>
+                          <h2 class="page-title"><%= album.name %></h2>
+                      </header>
                     </header>
-                    <div id="sources-chart-bar" class="body chart">
+                    <div class="body">
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Featured Artist</th>
-                                <th>Length</th>
-                                <th>Size</th>
+                              <th>#</th>
+                              <th>Title</th>
+                              <th>Featured Artist</th>
+                              <th>Length</th>
+                              <th>Size</th>
+                              <th></th>
+                              <th>Rating</th>
                             </tr>
                             </thead>
                             <% album.tracks.each do |t| %>
                             <tbody>
                             <tr>
-                                <td><%= t.track_number.to_s.rjust(2, '0') %></td>
-                                <td><%= t.title %></td>
-                                <td><%= t.artists.map{ |a| [a][0].name }.join(", ") %></td>
-                                <td><%= "#{((t.length) / 60)}:""#{(t.length % 60)}" %></td>
-                                <td><%= "#{t.size} MB" %></td>
+                              <td><%= t.track_number.to_s.rjust(2, '0') %></td>
+                              <td><%= t.title %></td>
+                              <td><%= t.artists.map{ |a| [a][0].name }.join(", ") %></td>
+                              <td><%= "#{((t.length) / 60)}:""#{(t.length % 60)}" %></td>
+                              <td><%= "#{t.size} MB" %></td>
+                              <td>
+                                <div class="btn-group btn-group-hover pull-right">
+                                  <a class="btn btn-mini" href="#"><i class="icon-play"></i></a>
+                                  <a class="btn btn-mini" href="#"><i class="icon-volume-up"></i></a>
+                                  <a class="btn btn-mini" href="#"><i class="icon-trash"></i></a>
+                                </div>
+                              </td>
                             </tr>
-                            <% end %>
                             </tbody>
+                            <% end %>
                         </table>
                     </div>
                 </section>
@@ -55,3 +67,4 @@
         </div>
     </div>
 <!-- </div> -->
+
