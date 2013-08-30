@@ -1,5 +1,7 @@
 $(function(){
 
+
+
     window.locale = {
         "fileupload": {
             "errors": {

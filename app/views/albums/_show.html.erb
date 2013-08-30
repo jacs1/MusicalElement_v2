@@ -39,7 +39,7 @@
                               <th>Length</th>
                               <th>Size</th>
                               <th></th>
-                              <th>Rating</th>
+                              <th></th>
                             </tr>
                             </thead>
                             <% album.tracks.each do |t| %>
@@ -51,12 +51,16 @@
                               <td><%= "#{((t.length) / 60)}:""#{(t.length % 60)}" %></td>
                               <td><%= "#{t.size} MB" %></td>
                               <td>
-                                <div class="btn-group btn-group-hover pull-right">
-                                  <a class="btn btn-mini" href="#"><i class="icon-play"></i></a>
-                                  <a class="btn btn-mini" href="#"><i class="icon-volume-up"></i></a>
-                                  <a class="btn btn-mini" href="#"><i class="icon-trash"></i></a>
+                                <div class="btn-group btn-group-hover pull-right" data-id="<%= t.id%>" data-url="<%= t.track_path%>">
+                                  <a class="btn btn-mini icon-play"></a>
+                                  <!-- <a class="btn btn-mini icon-pause"></a> -->
+                                  <a class="btn btn-mini icon-volume-up"></a>
+                                  <a class="btn btn-mini icon-trash"></a>
                                 </div>
                               </td>
+                              <td><%= rating_for t, "sound" %></td>
+                              <td></td>
+                              <%# binding.pry %>
                             </tr>
                             </tbody>
                             <% end %>

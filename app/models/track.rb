@@ -24,7 +24,7 @@ class Track < ActiveRecord::Base
   # has_one :album
 
 
-  # letsrate_rateable "sound"
+  letsrate_rateable "sound"
 
 
   accepts_nested_attributes_for :artists
