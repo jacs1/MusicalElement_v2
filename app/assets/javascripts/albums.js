@@ -101,6 +101,8 @@ $(document).ready(function(){
       console.log('change to paused icon....');
       _this.removeClass('btn btn-mini icon-play');
       _this.addClass('btn btn-mini icon-pause');
+      $("<tr>").insertAfter($(_this).parents("tr").eq(0)).attr('id', "cur_pl_tr");
+      $("#cur_pl_tr").append('<div style="position: absolute;width: 91%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
 
        var playing = _this.parent();
 
@@ -110,6 +112,8 @@ $(document).ready(function(){
          autoLoad: true,
          autoPlay: false,
          onfinish: function() {
+             $("#cur_pl_tr").fadeOut('slow', function() {$(this).remove()});
+             $('#time').children().fadeOut('slow', function() {$(this).remove()});
              paused_track();
            },
          onload: function() {
@@ -125,6 +129,15 @@ $(document).ready(function(){
            // $('#time').html('<p>' + duration + '</p>');
            // $('#time').find('.duration').fadeTo('slow',2).html(" / " + duration)
            _this.closest('td').prev().prev().find('.duration').fadeTo('slow',2).html(" / " + duration)
+
+           $('.progress').click(function(e) {
+             var playingSound = soundManager.getSoundById(_.keys(soundManager.sounds)[0]),
+              x               = e.pageX - $(this).offset().left,
+              width           = $(this).width(),
+              duration        = playingSound.durationEstimate;
+             playingSound.setPosition((x / width) * duration);
+           });
+
          },
          volume: 50
        });

@@ -52,6 +52,9 @@ $("#Albums").html("<%= escape_javascript(render(:partial => 'albums')) %>");
       console.log('change to paused icon....');
       _this.removeClass('btn btn-mini icon-play');
       _this.addClass('btn btn-mini icon-pause');
+      $("<tr>").insertAfter($(_this).parents("tr").eq(0)).attr('id', "cur_pl_tr");
+      $("#cur_pl_tr").append('<div style="position: absolute;width: 58%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+
 
        var playing = _this.parent();
 
@@ -61,6 +64,8 @@ $("#Albums").html("<%= escape_javascript(render(:partial => 'albums')) %>");
          autoLoad: true,
          autoPlay: false,
          onfinish: function() {
+          $("#cur_pl_tr").fadeOut('slow', function() {$(this).remove()});
+          $('#time').children().fadeOut('slow', function() {$(this).remove()});
              paused_track();
            },
          onload: function() {
@@ -75,7 +80,8 @@ $("#Albums").html("<%= escape_javascript(render(:partial => 'albums')) %>");
            $(".progress").first().find('.bar').width(((this.position/this.duration) * 100) + '%');
            // $('#time').html('<p>' + duration + '</p>');
            // $('#time').find('.duration').fadeTo('slow',2).html(" / " + duration)
-           _this.closest('td').prev().prev().find('.duration').fadeTo('slow',2).html(" / " + duration)
+           _this.closest('td').prev().prev().find('.duration').fadeIn('slow',2).html(" / " + duration)
+           $("<tr>").insertAfter($(this).parents("tr").eq(0))
          },
          volume: 50
        });
