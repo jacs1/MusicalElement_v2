@@ -12,47 +12,40 @@
 </div>
 
 <!-- div for the background wall -->
-<div id="viewport">
+<!-- <div id="viewport">
   <div id="wall"></div>
-</div>
+</div> -->
 
-<body class="background-dark">
 
 <% if user_signed_in? %>
 <!-- side bar nav start -->
-<%= render :partial => 'home/sidebar' %>
+  <%= render :partial => 'home/sidebar' %>
 <!-- side bar nav end -->
 
 <!-- top bar nav start -->
-<%= render :partial => 'home/topnav' %>
+  <%= render :partial => 'home/topnav' %>
 <!-- top bar nav end -->
 
 <% else %>
-
-<%= render :partial => 'home/guestsidebar' %>
-
+  <%= render :partial => 'home/guestsidebar' %>
 <% end %>
 
 
 
 <script>
- $(document).ready(function(){
+  $(document).ready(function(){
+    soundManager.setup({
+      url: '/swf/',
+      flashVersion: 9,
+      onready: function() {
+      }
+    });
+  });
+</script>
 
-   soundManager.setup({
-     url: '/swf/',
-     flashVersion: 9,
-     onready: function() {
+  <body class="background-dark">
+  <!-- <p class="alert"><%= alert %></p> -->
+    <%= yield %>
 
-     }
-   });
- });
- </script>
-
-<body>
-    
-    <!-- <p class="alert"><%= alert %></p> -->
-
-<%= yield %>
-
-</body>
+  </body>
 </html>

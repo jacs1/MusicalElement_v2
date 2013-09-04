@@ -1,6 +1,33 @@
+$(function() {
+  $('#artist_tabs a').click(function (e) {
+    var _this = $(this).text();
+    $('ul.nav-tabs li.active').removeClass('active');
+    $(this).parent('li').addClass('active');
+    $(".tab-content").find(".active").removeClass('active');
+    $(".tab-content").find('#' + _this).addClass('active');
+  });
 
-// $(document).ready(function() {
+    $('.btn-group-hover').hide()
+    $('tr').on({
+    mouseenter: function(){
+      $(this)
+        .find('.btn-group-hover').stop().fadeTo('fast',1)
+        .find('.icon-white').addClass('icon-white-temp').removeClass('icon-white');
+    },
+    mouseleave: function(){
+      $(this)
+        .find('.btn-group-hover').stop().fadeTo('fast',0);
+    }
+  });
 
-//   $('.datepicker').datepicker()
-
-// });
+    $('.btn-group-hover').on({
+    mouseenter: function(){
+      $(this).removeClass('btn-group-hover')
+        .find('.icon-white-temp').addClass('icon-white');
+    },
+    mouseleave: function(){
+      $(this).addClass('btn-group-hover')
+        .find('.icon-white').addClass('icon-white-temp').removeClass('icon-white');
+    }
+  });
+});

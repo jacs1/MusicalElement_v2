@@ -1,6 +1,7 @@
 <%# binding.pry %>
 <!-- <div class="wrap"> -->
-
+<% @artist.albums.each do |album| %>
+<%#= render :partial => 'albums/show', :locals => {:artist => @artist, :album => album} %>
     
     <div class="content container-fluid" style="position: relative; z-index: 3">
         <div class="row-fluid">
@@ -10,11 +11,11 @@
                         <!-- <div id="sources-chart-pie" class="chart pie-chart"> -->
                             <!-- <ul class="thumbnails"> -->
                               <!-- <li class="span4"> -->
-                              <a href='<%= artist_path(artist.id) %>'>
+                              <!-- <a href='<%#= artist_path(artist.id) %>'> -->
                                 <div class="thumbnail">
                                   <img src="<%= album.image %>" alt="">
                                  </div>
-                               </a>
+                               <!-- </a> -->
                               <!-- </li> -->
                             <!-- </ul> -->
                         <!-- </div> -->
@@ -23,14 +24,14 @@
             </div>
             <!-- <li class="divider"></li> -->
             
-            <div class="span9">
-                <section class="widget">
+            <div class="span10">
+                <!-- <section class="widget"> -->
                     <header>
                       <header>
                           <h2 class="page-title"><%= album.name %></h2>
                       </header>
                     </header>
-                    <div class="body">
+                    <!-- <div class="body"> -->
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -65,6 +66,7 @@
                             </tbody>
                             <% end %>
                         </table>
+                        <hr>
 
                    <!-- Vertical Slider -->
                   <h2>Vertical Slider</h2>
@@ -94,5 +96,6 @@
         </div>
     </div>
 <!-- </div> -->
+<% end %>
 
 

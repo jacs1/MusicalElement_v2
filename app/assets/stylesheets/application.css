@@ -1,3 +1,4 @@
+
 @import url(/assets/nv.d3.css);
 @import url(/assets/font-awesome/css/font-awesome.min.css);
 @import url(/assets/fontello.css);
@@ -66,6 +67,7 @@
 .row-fluid ul.thumbnails li.span3:nth-child(4n + 5) { margin-left : 0px; clear:left}
 .row-fluid ul.thumbnails li.span2:nth-child(6n + 7) { margin-left : 0px;clear:left }
 .row-fluid ul.thumbnails li.span1:nth-child(12n + 13) { margin-left : 0px;clear:left }
+
 
 
 /*
@@ -13191,9 +13193,10 @@ input.parsley-error {
 /* line 613, D:/projects/admin/sass/_base.scss */
 .page-title {
   color: white;
-  font-weight: bold;
+  /*font-weight: bold;*/
   line-height: 1;
   margin: 11px 0 15px;
+  z-index: 3;
 }
 /* line 619, D:/projects/admin/sass/_base.scss */
 .page-title small {
@@ -15166,6 +15169,7 @@ table.table thead .sorting_desc_disabled {
   /* line 124, D:/projects/admin/sass/_responsive.scss */
   .page-title {
     margin-top: 6px;
+    z-index: 3;
     
   }
 
@@ -15451,5 +15455,6 @@ table.table thead .sorting_desc_disabled {
     float: none;
     margin-left: 0;
     width: 100%;
+    z-index: 3;
   }
 }

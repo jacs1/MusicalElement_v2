@@ -119,7 +119,7 @@ GEM
       rack-contrib
       railties
     method_source (0.8.2)
-    mime-types (1.24)
+    mime-types (1.25)
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     multi_json (1.7.9)

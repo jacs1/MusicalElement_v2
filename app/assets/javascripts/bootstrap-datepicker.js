@@ -330,7 +330,7 @@
         )
       )
         this.setValue();
-      this._trigger('hide');
+      // this._trigger('hide');
     },
 
     remove: function() {

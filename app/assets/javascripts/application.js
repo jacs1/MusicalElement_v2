@@ -28,21 +28,14 @@
 //= require backgrid
 //= require backgrid-paginator
 //= require bootstrap
-//= require bootstrap-transition
-//= require bootstrap-carousel
-//= require bootstrap-collapse
-//= require bootstrap-alert
-//= require bootstrap-tooltip
-//= require bootstrap-popover
-//= require bootstrap-button
-//= require bootstrap-dropdown
-//= require bootstrap-modal
-//= require bootstrap-tab
-//= require bootstrap-datepicker
-//= require bootstrap-select
-//= require wysihtml5-0.3.0_rc2
-//= require bootstrap-wysihtml5
 //= require app
 //= require settings
 //= require forms.js
 //= require_tree .
+
+jQuery(document).ready(function(){
+    jQuery('.carousel').each(function(index, element) {
+        jQuery(this)[index].slide = null;
+    });
+    jQuery('.carousel').carousel('cycle');
+});

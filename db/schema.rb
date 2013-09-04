@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20130828164416908) do
     t.integer  "image_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.text     "biography"
   end
 
   create_table "genres", :force => true do |t|

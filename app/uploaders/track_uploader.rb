@@ -9,7 +9,6 @@ class TrackUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
-  process :guess_track
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -18,6 +17,7 @@ class TrackUploader < CarrierWave::Uploader::Base
   end
 
 
+  # process :guess_track
 
   def guess_track
     binging.pry

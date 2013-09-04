@@ -7,6 +7,7 @@ class AlbumsController < ApplicationController
     @albums.uniq!
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @albums }
     end
   end
@@ -19,6 +20,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.js
       format.json { render json: @album }
     end
   end

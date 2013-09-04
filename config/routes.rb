@@ -5,7 +5,11 @@ MusicV20::Application.routes.draw do
 
   root :to => 'home#index'
 
-   resources :artists
+   resources :artists do
+    member do
+      get 'albums'
+    end
+  end
    resources :artist_images
    resources :albums
  

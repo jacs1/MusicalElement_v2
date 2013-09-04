@@ -22,6 +22,7 @@ gem 'httparty'
 gem "mini_magick"
 gem 'simplecov', :require => false, :group => :test
 gem "nested_form", :git => 'https://github.com/ryanb/nested_form.git'
+# gem 'jquery-ui-rails'
 # gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
                               # :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
