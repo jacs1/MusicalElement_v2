@@ -128,46 +128,46 @@ $(function(){
     // });
 
 
-  //sound manager code
-  $('.stopbutton').hide();
-  $('.playbutton').click(function() {
-    var playing = $(this);
+  // //sound manager code
+  // $('.stopbutton').hide();
+  // $('.playbutton').click(function() {
+  //   var playing = $(this);
 
-    soundManager.createSound({
-      id: 'mySound-' + playing.data("track-id"),
-      url: playing.data("track-url"),
-      autoLoad: true,
-      autoPlay: false,
-      onload: function() {
-        // alert('The sound '+this.id+' loaded!');
-      },
-      whileplaying: function() {
-        var seconds = Math.round(this.position/1000);
-        var r = seconds % 60;
-        var m = Math.floor(seconds / 60);
-        var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
-        $('.duration').html('<p>' + duration + '</p>');
-      },
-      volume: 50
-    });
+  //   soundManager.createSound({
+  //     id: 'mySound-' + playing.data("track-id"),
+  //     url: playing.data("track-url"),
+  //     autoLoad: true,
+  //     autoPlay: false,
+  //     onload: function() {
+  //       // alert('The sound '+this.id+' loaded!');
+  //     },
+  //     whileplaying: function() {
+  //       var seconds = Math.round(this.position/1000);
+  //       var r = seconds % 60;
+  //       var m = Math.floor(seconds / 60);
+  //       var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
+  //       $('.duration').html('<p>' + duration + '</p>');
+  //     },
+  //     volume: 50
+  //   });
     
       
-      soundManager.play('mySound-'+$(this).data("track-id"));
-      var play_id = '.playbutton[data-track-id="'+$(this).data("track-id")+'"]';
-      var stop_id = '.stopbutton[data-track-id="'+$(this).data("track-id")+'"]';
-      $(play_id).hide();
+  //     soundManager.play('mySound-'+$(this).data("track-id"));
+  //     var play_id = '.playbutton[data-track-id="'+$(this).data("track-id")+'"]';
+  //     var stop_id = '.stopbutton[data-track-id="'+$(this).data("track-id")+'"]';
+  //     $(play_id).hide();
       
-      $(stop_id).show();
-  });
+  //     $(stop_id).show();
+  // });
 
-  $('.stopbutton').click(function() {
-    soundManager.pause('mySound-'+$(this).data("track-id"));
-    var play_id = '.playbutton[data-track-id="'+$(this).data("track-id")+'"]';
-    var stop_id = '.stopbutton[data-track-id="'+$(this).data("track-id")+'"]';
-    $(stop_id).hide();
-    $(play_id).show();
+  // $('.stopbutton').click(function() {
+  //   soundManager.pause('mySound-'+$(this).data("track-id"));
+  //   var play_id = '.playbutton[data-track-id="'+$(this).data("track-id")+'"]';
+  //   var stop_id = '.stopbutton[data-track-id="'+$(this).data("track-id")+'"]';
+  //   $(stop_id).hide();
+  //   $(play_id).show();
 
-  });
+  // });
 
     //Backgrid part
 

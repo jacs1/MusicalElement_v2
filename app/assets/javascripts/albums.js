@@ -121,7 +121,7 @@ $(document).ready(function(){
            var r = seconds % 60;
            var m = Math.floor(seconds / 60);
            var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
-           $(".progress").first().css('width', ((this.position/this.duration) * 100) + '%');
+           $(".progress").first().find('.bar').width(((this.position/this.duration) * 100) + '%');
            // $('#time').html('<p>' + duration + '</p>');
            // $('#time').find('.duration').fadeTo('slow',2).html(" / " + duration)
            _this.closest('td').prev().prev().find('.duration').fadeTo('slow',2).html(" / " + duration)
