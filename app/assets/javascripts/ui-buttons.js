@@ -1,5 +1,5 @@
 $(function(){
-    // $("button").tooltip();
+    $("button").tooltip();
 
     $('.selectpicker').selectpicker();
     // selectpicker doesn't seem to be flexible enough (can't change template), so need to replace span.caret externally

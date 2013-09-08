@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-migrate-1.2.1
 //= require jquery_ujs
+//= require bootstrap-slider
 //= require jquery.maskedinput
 //= require parsley
 //= require jquery.uniform
