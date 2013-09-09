@@ -41,13 +41,24 @@ class TracksController < ApplicationController
     @track.parse_id3(@track)
     respond_to do |format|
       if @track.save
-
-        format.html { redirect_to library_track_path(@library, @track), notice: 'Track was successfully created.' }
-        format.json #{ redirect_to library_tracks_path, status: :created }
+        format.json { render json: { :files => [@track.to_jq_upload]}, status: :created }
+        # format.js do
+        #   flash[:notice] = "Track was successfully uploaded"
+        # end
+        # format.html { redirect_to library_track_path(@library, @track), notice: Track was successfully created. }
+     #    format.json do
+     #      render :json => { 
+     #         :status => :ok, 
+     #         :message => "Success!",
+     #         :html => "<b>congrats</b>"
+     #      }.to_json
+     # end  
         # format.json { render json: @library_track, status: :created, location: @track }
       else
         format.html { render action: "new" }
-        format.json { render json: @track.errors, status: :unprocessable_entity }
+        # format.json do
+        #   render json: 'Track was successfully created.'
+        # end
       end
     end
   end

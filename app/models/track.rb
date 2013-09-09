@@ -72,14 +72,28 @@ class Track < ActiveRecord::Base
   end
 
     def to_jq_upload
+      # binding.pry
     {
-      "name" => read_attribute(:avatar),
-      "size" => avatar.size,
-      "url" => avatar.url,
-      "thumbnail_url" => avatar.thumb.url,
-      "delete_url" => picture_path(:id => id),
+      "name" => self.title,
+      "size" => self.size,
+      "url" => self.track_path,
+      # "track_url" => self.track_path,
+      # "delete_url" => track_path(:id => id),
       "delete_type" => "DELETE"
     }
   end
+
+
+  #   def to_jq_upload
+  #     binding.pry
+  #   {
+  #     "name" => read_attribute(:track),
+  #     "size" => track.size,
+  #     "url" => track.url,
+  #     # "thumbnail_url" => track.thumb.url,
+  #     "delete_url" => track_path(:id => id),
+  #     "delete_type" => "DELETE"
+  #   }
+  # end
 
 end
