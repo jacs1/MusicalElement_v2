@@ -1,173 +1,193 @@
 $(function(){
 
+    // document.querySelector('input[type="file"]').onchange = function(e) {
+    //   // var reader = new FileReader();
+      // loadFile(this);
 
+      function loadFile(input) {
+        _input = input;
+        var file = input.files[0],
+          url = file.urn || file.name,
+          reader = new FileReader();
 
-    window.locale = {
-        "fileupload": {
-            "errors": {
-                "maxFileSize": "File is too big",
-                "minFileSize": "File is too small",
-                "acceptFileTypes": "Filetype not allowed",
-                "maxNumberOfFiles": "Max number of files exceeded",
-                "uploadedBytes": "Uploaded bytes exceed file size",
-                "emptyResult": "Empty file upload result"
-            },
-            "error": "Error",
-            "start": "Start",
-            "cancel": "Cancel",
-            "destroy": "Delete"
+        reader.onload = function(event) {
+          ID3.loadTags(url, function() {
+            showTags(url);
+          }, {
+            tags: ["title","artist","picture"],
+            dataReader: FileAPIReader(file)
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      /**
+       * Generic function to get the tags after they have been loaded.
+       */
+      function showTags(url) {
+        var tags = ID3.getAllTags(url);
+        console.log(tags);
+        _input.filesContainer.find('.template-download').find('.title')[0].innerHTML = tags.title;
+        _input.filesContainer.find('.template-download').find('.artist_name')[0].innerHTML = tags.artist;
+        // document.getElementsByClassName('title')[0].innerHTML = tags.title;
+        // document.getElementsByClassName('artist_name')[0].innerHTML = tags.artist;
+        var image = tags.picture;
+        if (image) {
+          //Caution: old browsers (IE) don't implement Base64
+          //see N. Zakas for fallback:
+          //https://github.com/nzakas/computer-science-in-javascript/tree/master/encodings/base64
+          var base64 = "data:" + image.format + ";base64," + Base64.encodeBytes(image.data);
+          // document.getElementById('picture').setAttribute('src',base64);
+          _input.filesContainer.find('.template-download').find('#picture')[0].setAttribute('src',base64);
+          _input.filesContainer.find('.template-download')[0].setAttribute("class", 'template-done');
+        } else {
+          document.getElementById('picture').style.display = "none";
         }
-    };
+      }
 
-    'use strict';
 
-    // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload();
+// ******************************************************************************
 
-    // Enable iframe cross-domain access via redirect option:
-    $('#fileupload').fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-            /\/[^\/]*$/,
-            '/cors/result.html?%s'
-        )
-    );
 
-    if (window.location.hostname === 'blueimp.github.com') {
-        // Demo settings:
-        $('#fileupload').fileupload('option', {
-            url: 'new',
-            maxFileSize: 5000000,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp3)$/i,
-            process: [
-                {
-                    action: 'load',
-                    fileTypes: /^image\/(gif|jpeg|png|mp3)$/,
-                    maxFileSize: 20000000 // 20MB
-                },
-                {
-                    action: 'resize',
-                    maxWidth: 1440,
-                    maxHeight: 900
-                },
-                {
-                    action: 'save'
-                }
-            ]
-        });
-        // Upload server status check for browsers with CORS support:
-        if ($.support.cors) {
-            $.ajax({
-                url: 'new',
-                type: 'HEAD'
-            }).fail(function () {
-                $('<span class="alert alert-error"/>')
-                    .text('Upload server currently unavailable - ' +
-                            new Date())
-                    .appendTo('#fileupload');
-            });
-        }
-    } else {
-        // Load existing files:
-        $('#fileupload').each(function () {
-            var that = this;
-            $.getJSON(this.action, function (result) {
-                if (result && result.length) {
-                    $(that).fileupload('option', 'done')
-                        .call(that, null, {result: result});
-                }
-            });
-        });
-    }
+  // $('#fileupload').fileupload({
+  //   dataType: "script",
+  //   add: function(e, data) {
+  //     var file, types;
+  //     types = /(\.|\/)(mp3)$/i;
+  //     file = data.files[0];
+  //     if (types.test(file.type) || types.test(file.name)) {
+  //       // data.context = $(tmpl("template-upload", file));
+  //       $('#fileupload').append(data.context);
+  //       data.submit();
+  //     } else {
+  //       alert("" + file.name + " is not a gif, jpeg, or png image file");
+  //     }
+  //   },
+  //   progress: function(e, data) {
+  //     var progress;
+  //     if (data.context) {
+  //       progress = parseInt(data.loaded / data.total * 100, 10);
+  //       data.context.find('.bar').css('width', progress + '%');
+  //     }
+    // }
+  // });
 
-        // 'use strict';
+// read id3 tag end
 
-        // $("input:checkbox").uniform();
-
-        // // Initialize the jQuery File Upload widget:
-        // var $fileupload = $('#fileupload');
-        // $fileupload.fileupload({
-        //     // Uncomment the following to send cross-domain cookies:
-        //     xhrFields: {withCredentials: true},
-        //     url: 'new',
-        //     dropZone: $('#dropzone')
-        // });
-
-        // // Enable iframe cross-domain access via redirect option:
-        // $fileupload.fileupload(
-        //     'option',
-        //     'redirect',
-        //     window.location.href.replace(
-        //         /\/[^\/]*$/,
-        //         '/cors/result.html?%s'
-        //     )
-        // );
-
-        // // Load existing files:
-        // $.ajax({
-        //     // Uncomment the following to send cross-domain cookies:
-        //     xhrFields: {withCredentials: true},
-        //     url: $fileupload.fileupload('option', 'url'),
-        //     dataType: 'json',
-        //     context: $fileupload[0]
-        // }).done(function (result) {
-        //         $(this).fileupload('option', 'done')
-        //             .call(this, null, {result: result});
-        //     });
-
-    // $('#track_track_path').fileupload({
-    //     /* ... */
-    //     progressall: function (e, data) {
-    //         var progress = parseInt(data.loaded / data.total * 100, 10);
-    //         $('#progress .bar').css(
-    //             'width',
-    //             progress + '%'
-    //         );
+    // window.locale = {
+    //     "fileupload": {
+    //         "errors": {
+    //             "maxFileSize": "File is too big",
+    //             "minFileSize": "File is too small",
+    //             "acceptFileTypes": "Filetype not allowed",
+    //             "maxNumberOfFiles": "Max number of files exceeded",
+    //             "uploadedBytes": "Uploaded bytes exceed file size",
+    //             "emptyResult": "Empty file upload result"
+    //         },
+    //         "error": "Error",
+    //         "start": "Start",
+    //         "cancel": "Cancel",
+    //         "destroy": "Delete"
     //     }
+    // };
+
+    // 'use strict';
+
+    // // Initialize the jQuery File Upload widget:
+    // $('#fileupload').fileupload();
+
+    // // Enable iframe cross-domain access via redirect option:
+    // $('#fileupload').fileupload(
+    //     'option',
+    //     'redirect',
+    //     window.location.href.replace(
+    //         /\/[^\/]*$/,
+    //         '/cors/result.html?%s'
+    //     )
+    // );
+
+    // if (window.location.hostname === 'blueimp.github.com') {
+    //     // Demo settings:
+    //     $('#fileupload').fileupload('option', {
+    //         url: 'new',
+    //         maxFileSize: 5000000,
+    //         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp3)$/i,
+    //         process: [
+    //             {
+    //                 action: 'load',
+    //                 fileTypes: /^image\/(gif|jpeg|png|mp3)$/,
+    //                 maxFileSize: 20000000 // 20MB
+    //             },
+    //             {
+    //                 action: 'resize',
+    //                 maxWidth: 1440,
+    //                 maxHeight: 900
+    //             },
+    //             {
+    //                 action: 'save'
+    //             }
+    //         ]
+    //     });
+    //     // Upload server status check for browsers with CORS support:
+    //     if ($.support.cors) {
+    //         $.ajax({
+    //             url: 'new',
+    //             type: 'HEAD'
+    //         }).fail(function () {
+    //             $('<span class="alert alert-error"/>')
+    //                 .text('Upload server currently unavailable - ' +
+    //                         new Date())
+    //                 .appendTo('#fileupload');
+    //         });
+    //     }
+    // } else {
+    //     // Load existing files:
+    //     $('#fileupload').each(function () {
+    //         var that = this;
+    //         $.getJSON(this.action, function (result) {
+    //             if (result && result.length) {
+    //                 $(that).fileupload('option', 'done')
+    //                     .call(that, null, {result: result});
+    //             }
+    //         });
+    //     });
+    // }
+    // $('#fileupload').fileupload({
+    //     progress: function (e, data) {
+    //         console.log('progress');
+    //     },
+    //     start: function (e) {
+    //         console.log('start');
+    //     }
+    // }).bind('fileuploadadd', function (e, data) {
+    //     console.log('fileuploadadd');
+    // }).bind('fileuploadprogress', function (e, data) {
+    //     console.log('fileuploadprogress');
+    // }).bind('fileuploadstart', function (e) {
+    //     console.log('fileuploadstart');
+    // });
+    $('#fileupload').fileupload();
+      // .bind('fileuploadadd', function (e, data) {console.log("done")});
+    // 
+    // Load existing files:
+    // $.getJSON($('#fileupload').prop('action'), function (files) {
+    //   var fu = $('#fileupload').data('blueimpFileupload'), 
+    //     template;
+    //   fu._adjustMaxNumberOfFiles(-files.length);
+    //   console.log(files);
+    //   template = fu._renderDownload(files)
+    //     .appendTo($('#fileupload .files'));
+    //   // Force reflow:
+    //   fu._reflow = fu._transition && template.length &&
+    //     template[0].offsetWidth;
+    //   template.addClass('in');
+    //   $('#loading').remove();
     // });
 
-
-  // //sound manager code
-  // $('.stopbutton').hide();
-  // $('.playbutton').click(function() {
-  //   var playing = $(this);
-
-  //   soundManager.createSound({
-  //     id: 'mySound-' + playing.data("track-id"),
-  //     url: playing.data("track-url"),
-  //     autoLoad: true,
-  //     autoPlay: false,
-  //     onload: function() {
-  //       // alert('The sound '+this.id+' loaded!');
-  //     },
-  //     whileplaying: function() {
-  //       var seconds = Math.round(this.position/1000);
-  //       var r = seconds % 60;
-  //       var m = Math.floor(seconds / 60);
-  //       var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
-  //       $('.duration').html('<p>' + duration + '</p>');
-  //     },
-  //     volume: 50
-  //   });
-    
-      
-  //     soundManager.play('mySound-'+$(this).data("track-id"));
-  //     var play_id = '.playbutton[data-track-id="'+$(this).data("track-id")+'"]';
-  //     var stop_id = '.stopbutton[data-track-id="'+$(this).data("track-id")+'"]';
-  //     $(play_id).hide();
-      
-  //     $(stop_id).show();
-  // });
-
-  // $('.stopbutton').click(function() {
-  //   soundManager.pause('mySound-'+$(this).data("track-id"));
-  //   var play_id = '.playbutton[data-track-id="'+$(this).data("track-id")+'"]';
-  //   var stop_id = '.stopbutton[data-track-id="'+$(this).data("track-id")+'"]';
-  //   $(stop_id).hide();
-  //   $(play_id).show();
-
-  // });
+    $('#fileupload').bind('fileuploadcompleted', function (e, data) {
+        loadFile(data);
+    });
+ 
 
     //Backgrid part
 

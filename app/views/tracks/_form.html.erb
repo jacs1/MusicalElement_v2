@@ -5,7 +5,7 @@
         <span class="btn btn-small fileinput-button">
             <i class="icon-plus"></i>
             <span><%= t('fileupload.add_files') %></span>
-            <%= f.file_field :track_path, :multiple => true, name: "track[track_path]" %>
+            <%= f.file_field :track_location, :multiple => true, name: "track[track_location]" %>
         </span>
 
         <button type="submit" class="btn btn-primary btn-small start">
@@ -34,3 +34,4 @@
     emptyResult: 'Empty file upload result'
   };
 </script>
+

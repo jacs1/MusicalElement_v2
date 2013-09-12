@@ -53,7 +53,7 @@
                               <td id="time"><%= "#{((t.length) / 60)}:""#{(t.length % 60).to_s.rjust(2, '0')}" %><span class="duration"></span></td>
                               <td><%= "#{t.size} MB" %></td>
                               <td>
-                                <div class="btn-group btn-group-hover pull-left" data-id="<%= t.id%>" data-url="<%= t.track_path%>">
+                                <div class="btn-group btn-group-hover pull-left" data-id="<%= t.id%>" data-url="<%= t.track_location%>">
                                   <a class="btn btn-mini icon-play"></a>
                                   <a class="btn btn-mini icon-volume-up"></a>
                                   <a class="btn btn-mini icon-trash"></a>

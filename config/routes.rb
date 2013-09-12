@@ -10,7 +10,7 @@ MusicV20::Application.routes.draw do
       get 'albums'
     end
   end
-   resources :artist_images
+   # resources :artist_images
    resources :albums
  
    resources :users

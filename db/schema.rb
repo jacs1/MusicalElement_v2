@@ -142,18 +142,18 @@ ActiveRecord::Schema.define(:version => 20130828164416908) do
 
   create_table "tracks", :force => true do |t|
     t.string   "title"
-    t.string   "track_path"
     t.integer  "track_number"
     t.string   "year"
     t.integer  "bpm"
     t.integer  "length"
     t.integer  "user_id"
     t.integer  "genre_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "library_id"
     t.integer  "album_id"
     t.float    "size"
+    t.string   "track_location"
   end
 
   create_table "users", :force => true do |t|

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-      $('#slider').slider({
+      $('.slider').slider({
           min: 1,
           max: 100,
           step: 1,

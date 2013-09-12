@@ -1,5 +1,5 @@
 class TracksDatatable
-  delegate :params, :h, :link_to, :track_path, to: :@view
+  delegate :params, :h, :link_to, :track_location, to: :@view
 
   def initialize(view)
     @view = view
@@ -20,7 +20,7 @@ private
   def data
     tracks.map do |track|
       [
-        h(track.album.artist.name),
+        link_to("#{h(track.album.artist.name)}", @view.artist_path(track.album.artist.id)),
         h(track.title),
         h(track.artists.map{ |a| [a][0].name }.join(", ")),
         h(track.album.name),
@@ -45,7 +45,7 @@ private
     tracks = Track.order("#{sort_column} #{sort_direction}")
     tracks = tracks.page(page).per_page(per_page)
     if params[:sSearch].present?
-      tracks = tracks.where("artists like :search or category like :search", search: "%#{params[:sSearch]}%")
+      tracks = tracks.where("track.artists like :search or category like :search", search: "%#{params[:sSearch]}%")
     end
     tracks
   end
@@ -59,7 +59,7 @@ private
   end
 
   def sort_column
-    columns = %w[title Featured_Artist Album Genre Year Length Size BPM]
+    columns = %w[title Featured_Artist track.album track.genre Year Length Size BPM]
     columns[params[:iSortCol_0].to_i]
   end
 
