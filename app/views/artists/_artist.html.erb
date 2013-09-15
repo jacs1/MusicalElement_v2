@@ -4,7 +4,11 @@
     <% if instance_variable_get("@#{params[:controller]}") == @artists %>
     <a href='<%= artist_path(a.id) %>'>
       <div class="thumbnail">
-          <img src="img/10.jpg" alt="">
+        <% if a.artist_images.empty? %>
+          <img src="img/10.jpg" alt="">          
+          <% else %>
+          <img src="<%= a.artist_images.first.image %>" alt="">
+          <% end %>
           <!-- <div class="caption"> -->
               <h6><%= a.name %></h6>
           <!-- </div> -->

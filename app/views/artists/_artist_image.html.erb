@@ -1,0 +1,7 @@
+<fieldset>
+  <%#= f.label :image, "Image" %>
+  <%= f.text_field :image, :class => 'span8' %>
+  <%= f.hidden_field :_destroy %>
+  <%#= link_to "remove", '#', class: "remove_fields" %>
+  <%= link_to '<button type="button" class="btn btn-danger"><i class="icon-trash"></i></button>'.html_safe, '#', class: "remove_fields" %>
+</fieldset>

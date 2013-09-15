@@ -25,11 +25,12 @@ class ArtistImagesController < ApplicationController
   end
 
   def edit
-    # binding.pry
+    binding.pry
     @artist_images = artist_images.find(params[:id])
   end
 
   def update
+    binding.pry
     @artist_image = ArtistImage.find(params[:id])
       if @artist_image.update_attributes(params[:artist_images])
         redirect_to @artist_image, notice: "Successfully updated artist_images."

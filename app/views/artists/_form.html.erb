@@ -1,36 +1,129 @@
-<%= form_for(@artist_image, :url => new_artist_image_path, :html => {:multipart => true, :id => "fileupload", :remote => :true}) do |f| %>
+<div class="wrap">
+<div class="content container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <h2 class="page-title">Account Demo <small>Out of the box form</small></h2>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span7">
+            <section class="widget">
+                <header>
+                    <h4><i class="icon-user"></i> Account Profile <small>Create new or edit existing user</small></h4>
+                </header>
+                <div class="body">
+                    <!-- <form id="user-form" class="form-horizontal label-left"
+                          novalidate="novalidate"
+                          method="put"
+                          data-validate="parsley"> -->
 
-<div class="form-actions fileupload-buttonbar no-margin">
+                  <div class="row-fluid">
+                    <div class="span4">
+                      <div class="text-align-center">
+                        <% if @artist.artist_images.empty? %>
+                          <img src="img/10.jpg" alt="">          
+                            <% else %>
+                              <img src="<%= @artist.artist_images.first.image %>" alt="64x64" style="height: 112px;">
+                            <% end %>                            
+                           </div>
+                          </div>
+           
+                        </div>
         
-        <span class="btn btn-small fileinput-button">
-            <i class="icon-plus"></i>
-            <span><%= t('fileupload.add_files') %></span>
-            <%= f.file_field :image, :multiple => true, name: "image[image]" %>
-        </span>
+                        <fieldset>
+                        <%= form_for(@artist) do |f| %>
+                          <% if @artist.errors.any? %>
+                            <div id="error_explanation">
+                              <h2><%= pluralize(@artist.errors.count, "error") %> prohibited this artist from being saved:</h2>
 
-        <button type="submit" class="btn btn-primary btn-small start">
-            <i class="icon-upload"></i>
-            <span><%= t('fileupload.start_upload') %></span>
-        </button>
+                              <ul>
+                              <% @artist.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                              <% end %>
+                              </ul>
+                            </div>
+                          <% end %>
+                            <legend class="section">Artist Info</legend>
+                            <div class="control-group">
+                                <label class="control-label" for="prefix">Artist Images</label>
+                                <div class="controls controls-row">
+                                  <div class="field">
+                                    <%= f.fields_for :artist_images do |builder| %>
+                                      <%= render 'artist_image', f: builder %>
+                                    <% end %>
+                                    <%= link_to_add_fields '<button type="button" class="btn btn-success"><i class="icon-plus"></i></button>'.html_safe, f, :artist_images %>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="description" class="control-label">Type of Artist</label>
+                                <div class="controls">
+                                  <%= select :artist_type, :linkaddress, [["Person","person"],["Group", "group"]] %>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="description" class="control-label">Type of Artist</label>
+                                <div class="controls">
+                                  <%= select :gender, :linkaddress, [["Male","male"],["Female", "female"]] %>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="stage-name">Stage Name</label>
+                                <div class="controls controls-row">
+                                      <%= f.text_field :name, :class => 'span8', :id => 'Name' %>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="first-name">First Name<span class="required">*</span></label>
+                                <div class="controls controls-row">
+                                  <%#= f.label :first_name %>
+                                  <%= f.text_field :first_name, :class => 'span4', :id => 'First Name' %>
+                                <!-- <label class="control-label" for="last-name">Last Name<span class="required">*</span></label> -->
+                                  <%#= f.label :last_name %>
+                                  <%= f.text_field :last_name, :class => 'span4', :id => 'Last Name'  %>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="biography">Biography<span class="required">*</span></label>
+                                <div class="controls controls-row">
+                                  <%= f.text_area :biography, :class => 'span10', :id => 'Last Name'  %>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="exp" class="control-label">Account expiration date</label>
+                                <div class="controls">
+                                    <input id="exp" class="input-block-level datepicker" type="text" name="exp" value="">
+                                    <span class="help-block">Bootstrap datepicker</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="description" class="control-label">Birthday</label>
+                                <div class="controls">
+                                  <%= f.date_select :birthday, :class => 'input-block-level date-picker', :id => 'Birthday' %>
+                                </div>
+                            </div>
 
-        <button type="reset" class="btn btn-inverse btn-small cancel">
-            <i class="icon-ban-circle"></i>
-            <span><%= t('fileupload.cancel_upload') %></span>
-        </button>
+                        </fieldset>
 
-        <!-- The table listing the files available for upload/download -->
-        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
-        </tbody>
-        </table>
-    <% end %>
+                        <div class="form-actions">
+                            <!-- <button type="submit" class="btn btn-primary">Validate &amp; Submit</button> -->
+                            <%= f.submit "Validate & Submit", :class => 'btn btn-primary'%>
+                            <button type="button" class="btn">Cancel</button>
+                        </div>
+
+                        <% end %>
+
+                    <!-- </form> -->
+                </div>
+            </section>
+        </div>
+
+    </div>
 </div>
+</div>
+
 <script>
-  var fileUploadErrors = {
-    maxFileSize: 'File is too big',
-    minFileSize: 'File is too small',
-    acceptFileTypes: 'Filetype not allowed',
-    maxNumberOfFiles: 'Max number of files exceeded',
-    uploadedBytes: 'Uploaded bytes exceed file size',
-    emptyResult: 'Empty file upload result'
-  };
+ $('.datepicker').datepicker({
+     format: 'mm-dd-yyyy'
+ });
 </script>
