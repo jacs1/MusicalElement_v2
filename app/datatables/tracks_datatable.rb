@@ -19,10 +19,11 @@ private
 
   def data
     tracks.map do |track|
+      # binding.pry
       [
         link_to("#{h(track.album.artist.name)}", @view.artist_path(track.album.artist.id)),
         h(track.title),
-        h(track.artists.map{ |a| [a][0].name }.join(", ")),
+        h(track.artists.map{ |a| [a][0].name }.join(", ")),#.gsub("#{h(track.album.artist.name)}",''),
         h(track.album.name),
         h(track.genre.name),
         h(track.year),
