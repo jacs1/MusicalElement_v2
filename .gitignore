@@ -16,3 +16,4 @@
 /public
 
 /config/initializers/echowrap.rb
+/config/initializers/lastfm.rb
