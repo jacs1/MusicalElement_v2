@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
-      var slider  = $('.slider'),
-        song_vol = $('.volcontrol'),
-        tooltip = $('.tooltip');
+      var slider    = $('.slider'),
+          song_vol  = $('.volcontrol'),
+          tooltip   = $('.tooltip');
 
       //Hide the Tooltip at first
       tooltip.hide();
@@ -73,7 +73,7 @@ $(document).ready(function(){
       _this.addClass('btn btn-mini icon-pause');
       // $(_this).closest('tr').insertAfter($(_this).parents("tr").eq(0)).attr('id', "cur_pl_tr");
       $("<tr>").insertAfter($(_this).parents("tr").eq(0)).attr('id', "cur_pl_tr");
-      $(_this).closest('tr').next().append('<div style="position: absolute;width: 91%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+      $(_this).closest('tr').next().append('<div style="position: absolute;width: 65%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
       // $("#cur_pl_tr").append('<div style="position: absolute;width: 91%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
 
        var playing = _this.parent();
@@ -84,11 +84,13 @@ $(document).ready(function(){
          autoLoad: true,
          autoPlay: false,
          onfinish: function() {
-             $("#cur_pl_tr").fadeOut('slow', function() {$(this).remove()});
-             $(_this).closest('tbody').find('#time').children().remove();
+          // fix this to remove the right element when the song is done playing.
+            $(_this).closest('tbody').find("#cur_pl_tr").fadeOut('slow', function() {$(this).remove()});
+            // $("#cur_pl_tr").fadeOut('slow', function() {$(this).remove()});
+            $(_this).closest('tbody').find('#time').children().remove();
              // $('#time').children().remove();
-             paused_track();
-             soundManager.destroySound("mySound-" + $(_this).closest('tr').find("[data-id]").eq(1).data('id'));
+            paused_track();
+            soundManager.destroySound("mySound-" + $(_this).closest('tr').find("[data-id]").eq(1).data('id'));
            },
          onload: function() {
            // alert('The sound '+this.id+' loaded!');

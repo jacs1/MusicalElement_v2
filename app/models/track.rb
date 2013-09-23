@@ -63,7 +63,7 @@ class Track < ActiveRecord::Base
       end
       user.library.albums << self.album
       user.library.artists << self.artists
-      binding.pry
+      # binding.pry
 
       # # Attached picture frame
       # cover = tag.frame_list('APIC').first

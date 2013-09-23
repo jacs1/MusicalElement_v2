@@ -10,10 +10,15 @@
                         <!-- <div id="sources-chart-pie" class="chart pie-chart"> -->
                             <!-- <ul class="thumbnails"> -->
                               <!-- <li class="span4"> -->
+                              <% if @album %>
                               <a href='<%= artist_path(artist.id) %>'>
+                                <% else %>
+                                <a href='<%= album_path(album.id) %>'>
+                                <% end %>
                                 <div class="thumbnail">
+                                  <%# binding.pry %>
                                   <img src="<%= album.image %>" alt="">
-                                  <span id="album_options"class="icon-wrench"></span>
+                          <span><a id="album_options" class="icon-wrench" href='<%= edit_album_path(album.id) %>'></a></span>
                                  </div>
                                </a>
                               <!-- </li> -->
@@ -25,13 +30,13 @@
             <!-- <li class="divider"></li> -->
             
             <div class="span10">
-                <section class="widget">
+                <!-- <section class="widget"> -->
                     <header>
                       <header>
                           <h2 class="page-title"><%= album.name %></h2>
                       </header>
                     </header>
-                    <div class="body">
+                    <!-- <div class="body"> -->
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -73,8 +78,8 @@
                             </tbody>
                             <% end %>
                         </table>
-                    </div>
-                </section>
+                    <!-- </div> -->
+                <!-- </section> -->
             </div>
         </div>
     </div>
