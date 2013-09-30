@@ -7901,7 +7901,7 @@ textarea + .help-block,
 .nav-tabs > li > a {
   -webkit-border-radius: 1px 1px 0 0;
   -moz-border-radius: 1px 1px 0 0;
-  border-radius: 1px 1px 0 0;
+  border-radius: 6px 6px 0 0;
   color: #f8f8f8;
 }
 /* line 216, D:/projects/admin/sass/_bootstrap-override.scss */
@@ -14012,7 +14012,7 @@ input.input-padding-increased[type=search], input.input-padding-increased.search
 /* line 1315, D:/projects/admin/sass/_base.scss */
 .widget-tabs .nav > li.active > a {
   border-color: transparent;
-  background: rgba(51, 51, 51, 0.4);
+  background: rgba(111, 189, 151, 0.4);
 }
 /* line 1318, D:/projects/admin/sass/_base.scss */
 .widget-tabs .nav > li.active > a:hover {

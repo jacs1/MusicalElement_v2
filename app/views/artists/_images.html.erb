@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Artist Images</title>
+     <style>
+        .image-container {
+            width: 240px;
+            height: 240px;
+            background-size: cover;
+            background-image:"http://i.stack.imgur.com/2OrtT.jpg";
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            float:left;
+        }
+     </style>
+  </head>
+
+<body>
+
+<div id="wrap" class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+        <a id='show-search' class="brand">Artist Images</a>
+        <ul class="nav">
+          <li class="nav-choice active"><a id='show-main'>Main</a></li>
+          <li class="nav-choice"><a href="https://github.com/plamere/en-demos/blob/master/images/images.html">The Source</a></li>
+          <li class="nav-choice"><a href="http://developer.echonest.com/docs/v4/artist.html#images">Images API</a></li>
+        </ul>
+        <ul class="nav pull-right">
+          <li class="nav-choice"><a href="http://static.echonest.com/labs">Labs</a></li>
+          <li class="nav-choice"><a href="http://static.echonest.com/labs/demo.html">Demos</a></li>
+          <li class="nav-choice"><a href="http://developer.echonest.com">developer.echonest.com</a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="well offset1 span9" >
+        <h2> Artist Images </h2>
+        <p> A demonstration of how to use The Echo Nest API to get images of an artist</p>
+            <div>
+                <input id="artist" type="text" placeholder="Enter artist name ..." </input>
+                <button id="go" class="btn btn-primary"> Get Images </button>
+            </div>
+            <div id="info" class=""> </div>
+    </div>
+</div>
+
+<div id="results"> </div>
+
+<script type="text/javascript">
+
+jQuery.ajaxSettings.traditional = true; 
+var apiKey = 'UJ6VUETJ7VUYJAFHB';
+
+function fetchImages(artist) {
+    var url = 'http://developer.echonest.com/api/v4/artist/images';
+
+    var args = { 
+            format:'json', 
+            api_key: apiKey,
+            name: artist,
+            results: 100, 
+    }; 
+
+    info("Fetching images for " + artist);
+    $.getJSON(url, args,
+            function(data) {
+                $("#results").empty();
+                if (! ('images' in data.response)) {
+                    error("Can't find any images for " + artist);
+                } else {
+                    $("#results").show();
+                    $.each(data.response.images, function(index, item) {
+                        var div = formatItem(index, item);
+                        $("#results").append(div);
+                    });
+                    info("Showing " + data.response.images.length + " of " + data.response.total + " images for " + artist);
+                }
+            },
+            function() {
+                error("Trouble getting blog posts for " + artist);
+            }
+        );
+}
+
+function formatItem(which, item) {
+    var img = $("<div>");
+    img.addClass("image-container span3");
+    img.css("background-image", "url(" +item.url + ")");
+
+    var attribution = $("<span class='label'>")
+        .text(item.license.attribution)
+        .hide();
+
+    img.append(attribution);
+    img.hover( 
+        function(evt) {
+            img.find('.label').show();
+        },
+        function(evt) {
+            img.find('.label').hide();
+        }
+    );
+    return img;
+}
+
+
+function go() {
+    var artist = $.trim($("#artist").val());
+    if (artist.length  > 0) {
+        fetchImages(artist);
+    } else {
+        info("Type an artist name first");
+    }
+}
+
+function info(s) {
+    $("#info").removeClass();
+    if (s.length > 0) {
+        $("#info").addClass("alert alert-info");
+    }
+    $("#info").text(s);
+}
+
+function error(s) {
+    $("#info").removeClass();
+    if (s.length > 0) {
+        $("#info").addClass("alert alert-error");
+    }
+    $("#info").text(s);
+}
+    
+$(document).ready(function() {
+    // fetchApiKey will fetch the Echo Nest demo key for demos
+    // hosted on The Echo Nest, otherwise it fetch an empty key
+    fetchApiKey( function(api_key, isLoggedIn) {
+        if (!api_key) {
+            api_key = 'MY_ECHO_NEST_API_KEY';
+        }
+        apiKey = api_key;
+        $("#go").click(go);
+        $("#artist").change(go);
+    });
+});
+
+</script>
+</body>
+</html>

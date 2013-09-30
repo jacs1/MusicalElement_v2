@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span7">
+        <div class="span6">
             <section class="widget">
                 <header>
                     <h4><i class="icon-user"></i> Account Profile <small>Create new or edit existing user</small></h4>
@@ -70,7 +70,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="stage-name">Stage Name</label>
                                 <div class="controls controls-row">
-                                      <%= f.text_field :name, :class => 'span8', :id => 'Name' %>
+                                      <%= f.text_field :name, :class => 'span8', :id => 'Name' %><!-- <button id="go" class="btn btn-primary"> Get Images </button> -->
                                 </div>
                             </div>
                             <div class="control-group">
@@ -105,9 +105,9 @@
 
                         </fieldset>
 
-                        <div class="form-actions">
+                        <div class="form-actions ">
                             <!-- <button type="submit" class="btn btn-primary">Validate &amp; Submit</button> -->
-                            <%= f.submit "Validate & Submit", :class => 'btn btn-primary'%>
+                            <%= f.submit "Validate & Submit", :class => 'btn btn-primary offset3'%>
                             <button type="button" class="btn">Cancel</button>
                         </div>
 
@@ -118,12 +118,126 @@
             </section>
         </div>
 
+        <div class="span5">
+          <div>
+              <!-- <input id="artist" type="text" placeholder="Enter artist name ..." </input> -->
+              <button id="go" class="btn btn-primary"> Get Images </button>
+          </div>
+          <section class="widget tiny">
+            <div class="body">
+              <div id="results"> </div>
+            </div>
+          </section>
+        </div>
+
     </div>
 </div>
 </div>
+
 
 <script>
  $('.datepicker').datepicker({
      format: 'mm-dd-yyyy'
  });
+</script>
+
+
+
+<script type="text/javascript">
+
+jQuery.ajaxSettings.traditional = true; 
+var apiKey = 'UJ6VUETJ7VUYJAFHB';
+
+function fetchImages(artist) {
+    var url = 'http://developer.echonest.com/api/v4/artist/images';
+
+    var args = { 
+            format:'json', 
+            api_key: apiKey,
+            name: artist,
+            results: 100, 
+    }; 
+
+    info("Fetching images for " + artist);
+    $.getJSON(url, args,
+            function(data) {
+                $("#results").empty();
+                if (! ('images' in data.response)) {
+                    error("Can't find any images for " + artist);
+                } else {
+                    $("#results").show();
+                    $.each(data.response.images, function(index, item) {
+                        var div = formatItem(index, item);
+                        $("#results").append(div);
+                    });
+                    info("Showing " + data.response.images.length + " of " + data.response.total + " images for " + artist);
+                }
+            },
+            function() {
+                error("Trouble getting blog posts for " + artist);
+            }
+        );
+}
+
+function formatItem(which, item) {
+    var img = $("<div>");
+    img.addClass("image-container span4");
+    img.css("background-image", "url(" +item.url + ")");
+
+    var attribution = $("<span class='label'>")
+        .text(item.license.attribution)
+        .hide();
+
+    img.append(attribution);
+    img.hover( 
+        function(evt) {
+            img.find('.label').show();
+        },
+        function(evt) {
+            img.find('.label').hide();
+        }
+    );
+    return img;
+}
+
+
+function go() {
+    var artist = $.trim($("#Name").val());
+    if (artist.length  > 0) {
+        fetchImages(artist);
+    } else {
+        info("Type an artist name first");
+    }
+}
+
+function info(s) {
+    $("#info").removeClass();
+    if (s.length > 0) {
+        $("#info").addClass("alert alert-info");
+    }
+    $("#info").text(s);
+}
+
+function error(s) {
+    $("#info").removeClass();
+    if (s.length > 0) {
+        $("#info").addClass("alert alert-error");
+    }
+    $("#info").text(s);
+}
+
+$(document).ready(function() {
+    // fetchApiKey will fetch the Echo Nest demo key for demos
+    // hosted on The Echo Nest, otherwise it fetch an empty key
+    // fetchApiKey( function(api_key, isLoggedIn) {
+    //     if (!api_key) {
+    //         api_key = 'MY_ECHO_NEST_API_KEY';
+    //     }
+        // apiKey = 'UJ6VUETJ7VUYJAFHB';
+        $("#go").click(go);
+        $("#Name").change(go);
+    // });
+});
+    
+
 </script>
