@@ -24,7 +24,7 @@
             </div>
             <!-- <li class="divider"></li> -->
             
-            <div class="span9">
+            <div class="span10">
                 <section class="widget">
                     <header>
                       <header>
@@ -50,15 +50,22 @@
                               <td><%= t.track_number.to_s.rjust(2, '0') %></td>
                               <td><%= t.title %></td>
                               <td><%= t.artists.map{ |a| [a][0].name }.join(", ") %></td>
-                              <td id="time"><%= "#{((t.length) / 60)}:""#{(t.length % 60).to_s.rjust(2, '0')}" %><span class="duration"></span></td>
+                              <td id="time"><span class="duration"></span><%= "#{((t.length) / 60)}:""#{(t.length % 60).to_s.rjust(2, '0')}" %></td>
                               <td><%= "#{t.size} MB" %></td>
                               <td>
+                                <div class="volcontrol"> 
+                                  <span class="tooltip"></span> <!-- Tooltip -->
+                                  <div class="slider"></div> <!-- the Slider -->
+                                  <span class="volume"></span> <!-- Volume -->
+                                </div>
                                 <div class="btn-group btn-group-hover pull-left" data-id="<%= t.id%>" data-url="<%= t.track_location%>">
                                   <a class="btn btn-mini icon-play"></a>
-                                  <a class="btn btn-mini icon-volume-up"></a>
+                                  <a class="btn btn-mini icon-volume-up">
+                                  </a>
                                   <a class="btn btn-mini icon-trash"></a>
                                 </div>
                               </td>
+                              <%# binding.pry %>
                               <td><%= rating_for t, "sound" %></td>
                               <td></td>
                               <%# binding.pry %>
@@ -66,48 +73,6 @@
                             </tbody>
                             <% end %>
                         </table>
-
-                   <!-- volume Slider -->
-                  <h2>Volume Slider</h2>
-<!--                   <div class="span6">
-                    <div id="slider" style="height:200px;" class="tooltip ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all" aria-disabled="false"><div class="volume ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="height: 60%;">
-                      
-                    </div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="bottom: 60%;"></a></div>
-                  </div>   -->
-                  <!-- <section class="span6">    -->
-                      <!-- <span class="tooltip"></span>    -->
-                      <div id="slider" data-slider-step="1" data-slider-max="100" data-slider-orientation="vertical"></div>
-               <!--        <span type="text" class="slider" style="" />  
-                      
-                  </section> -->  
-
-                 <!--  <input type="text" class="span2" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-14" data-slider-orientation="vertical" data-slider-selection="after"data-slider-tooltip="hide"> -->
-
-
- <!--                  <div class="slider slider-vertical">
-                    <div class="slider-track">
-                      <div class="slider-selection" style="top: 17.5%; height: 82.5%;">
-                        
-                      </div>
-                        <div class="slider-handle round" style="top: 17.5%;">
-                          
-                        </div>
-                        <div class="slider-handle round hide" style="top: 100%;">
-                          
-                        </div>
-                      </div>
-                      <div class="tooltip right hide" style="left: 100%; top: 21.25px;">
-                        <div class="tooltip-arrow">
-                          
-                        </div>
-                        <div class="tooltip-inner">-13</div>
-                      </div><input type="text" class="span2" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="1" data-slider-value="-13" data-slider-orientation="vertical" data-slider-selection="after" data-slider-tooltip="hide">
-
-                    </div> -->
-
-              <!--end slider-->
-
-
                     </div>
                 </section>
             </div>

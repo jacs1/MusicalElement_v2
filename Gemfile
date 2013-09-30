@@ -23,6 +23,9 @@ gem "mini_magick"
 gem 'simplecov', :require => false, :group => :test
 gem "echowrap", "~> 0.0.3"
 gem 'lastfm'
+gem 'echonest-ruby-api'
+# gem 'lastfm'
+gem 'lastfm-client', :git => 'http://github.com/pch/lastfm-client.git'
 # gem 'jquery-ui-rails'
 # gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
                               # :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'

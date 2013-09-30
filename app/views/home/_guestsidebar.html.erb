@@ -1,15 +1,15 @@
 <nav id="sidebar" class="sidebar nav-collapse collapse">
-    <ul id="side-nav" class="side-nav">
-        <li class="accordion-group">
-            <a class="accordion-toggle collapsed" data-toggle="collapse"
-               data-parent="#side-nav" href="#special-collapse"><i class="icon-user"></i> <span class="name">Login / Register</span></a>
-            <ul id="special-collapse" class="accordion-body collapse">
-                <li><a href="/users/sign_up">Register</a></li>
-                <li><a href="<%= new_user_session_path %>">Login</a></li>
-            </ul>
-        </li>
-        <li class="visible-phone">
-            <a href="<%= new_user_session_path %>"><i class="icon-signout"></i> <span class="name">Sign Out</span></a>
-        </li>
-    </ul>
+  <ul id="side-nav" class="side-nav">
+    <li class="accordion-group">
+      <a class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#special-collapse"><i class="icon-user"></i> <span class="name">Login / Register</span></a>
+      <ul id="special-collapse" class="accordion-body collapse">
+        <li><a href="/users/sign_up">Register</a></li>
+        <li><a href="<%= new_user_session_path %>">Login</a></li>
+      </ul>
+    </li>
+    <li class="visible-phone">
+      <a href="<%= new_user_session_path %>"><i class="icon-signout"></i> <span class="name">Sign Out</span></a>
+    </li>
+  </ul>
 </nav>

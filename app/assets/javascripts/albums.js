@@ -1,64 +1,51 @@
 $(document).ready(function(){
 
-      $('.slider').slider({
-          min: 1,
-          max: 100,
-          step: 1,
-          value: 35,
-          orientation: "vertical"
+      var slider  = $('.slider'),
+        song_vol = $('.volcontrol'),
+        tooltip = $('.tooltip');
+
+      //Hide the Tooltip at first
+      tooltip.hide();
+      song_vol.hide();
+
+      //Call the Slider
+      slider.slider({
+        //Config
+        range: "min",
+        min: 1,
+        value: 35,
+
+        start: function(event,ui) {
+            tooltip.fadeIn('fast');
+        },
+
+        //Slider Event
+        slide: function(event, ui) { //When the slider is sliding
+
+          var value  = slider.slider('value'),
+            volume = $('.volume');
+
+          tooltip.css('left', value - 11).text(ui.value);  //Adjust the tooltip accordingly
+
+          if(value <= 5) { 
+            volume.css('background-position', '0 0');
+          } 
+          else if (value <= 25) {
+            volume.css('background-position', '0 -25px');
+          } 
+          else if (value <= 75) {
+            volume.css('background-position', '0 -50px');
+          } 
+          else {
+            volume.css('background-position', '0 -75px');
+          };
+
+        },
+
+        stop: function(event,ui) {
+            tooltip.fadeOut('fast');
+        },
       });
-
-      // $('.tool').tooltip();
-
-  // });
-
-  //Store frequently elements in variables
-
-  // var slider  = $('#slider')
-    // tooltip = $('.tooltip');
-
-  //Hide the Tooltip at first
-  // tooltip.hide();
-
-  //Call the Slider
-  // $('#slider').slider({
-  //   //Config
-  //   range: "max",
-  //   min: 1,
-  //   value: 35,
-  //   orientation: "vertical",
-
-    // start: function(event,ui) {
-    //     tooltip.fadeIn('fast');
-    // },
-
-    //Slider Event
-    // slide: function(event, ui) { //When the slider is sliding
-
-      // var value  = slider.slider('value'),
-      //   volume = $('.volume');
-
-      // tooltip.css('top', value).text(ui.value);  //Adjust the tooltip accordingly
-
-      // if(value <= 5) { 
-      //   volume.css('background-position', '0 0');
-      // } 
-      // else if (value <= 25) {
-      //   volume.css('background-position', '0 -25px');
-      // } 
-      // else if (value <= 75) {
-      //   volume.css('background-position', '0 -50px');
-      // } 
-      // else {
-      //   volume.css('background-position', '0 -75px');
-      // };
-
-    // },
-
-    // stop: function(event,ui) {
-    //     tooltip.fadeOut('fast');
-    // },
-  // });
 
   $('.btn').click(function() {
      var className = $(this).attr('class');
@@ -84,8 +71,10 @@ $(document).ready(function(){
       console.log('change to paused icon....');
       _this.removeClass('btn btn-mini icon-play');
       _this.addClass('btn btn-mini icon-pause');
+      // $(_this).closest('tr').insertAfter($(_this).parents("tr").eq(0)).attr('id', "cur_pl_tr");
       $("<tr>").insertAfter($(_this).parents("tr").eq(0)).attr('id', "cur_pl_tr");
-      $("#cur_pl_tr").append('<div style="position: absolute;width: 91%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+      $(_this).closest('tr').next().append('<div style="position: absolute;width: 91%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
+      // $("#cur_pl_tr").append('<div style="position: absolute;width: 91%;" class="progress progress-small progress-striped active"><div class="bar" style="width: 0%;"></div></div>');
 
        var playing = _this.parent();
 
@@ -96,27 +85,49 @@ $(document).ready(function(){
          autoPlay: false,
          onfinish: function() {
              $("#cur_pl_tr").fadeOut('slow', function() {$(this).remove()});
-             $('#time').children().remove();
+             $(_this).closest('tbody').find('#time').children().remove();
+             // $('#time').children().remove();
              paused_track();
+             soundManager.destroySound("mySound-" + $(_this).closest('tr').find("[data-id]").eq(1).data('id'));
            },
          onload: function() {
            // alert('The sound '+this.id+' loaded!');
          },
          whileplaying: function() {
-          // var curr_vol = parseFloat($('.ui-slider-range')[0].style.width);
-          // var vox = Math.ceil(curr_vol)
-          // this.setVolume(Math.ceil(curr_vol))
-           var track_time = $('#time').html();
-           var seconds = Math.round(this.position/1000);
-           var r = seconds % 60;
-           var m = Math.floor(seconds / 60);
-           var duration = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
-           $(".progress").first().find('.bar').width(((this.position/this.duration) * 100) + '%');
+          var curr_vol    = parseFloat($(_this).closest('td').find('.ui-slider-range')[0].style.width),
+            // vox           = Math.ceil(curr_vol),
+            track_time    = $('#time').html(),
+            seconds       = Math.round(this.position/1000),
+            r             = seconds % 60,
+            m             = Math.floor(seconds / 60),
+            voltest       = _this.parent().find('.icon-volume-up'),
+            duration      = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
+          this.setVolume(Math.ceil(curr_vol));
+          _this.closest('tr').next().find('.bar').eq(0).width(((this.position/this.duration) * 100) + '%');
+          // $(".progress").first().find('.bar').width(((this.position/this.duration) * 100) + '%');
 
-           _this.closest('td').prev().prev().find('.duration').fadeTo('slow',2).html(" / " + duration);
+          _this.parent().find('.icon-volume-up').on({
+            mouseenter: function(){
+              $(this).parent().hide()
+              $(this).parents().eq(1).find('.volcontrol').on({
+                mouseleave: function(){
+                  $(this).hide();
+                  // console.log("mouse left slider");
+                }
+              })
+              $(this).parents().eq(1).find('.volcontrol').show().fadeTo('fast',1)
+              // console.log("mouse entered volume");
+            }
+            // mouseleave: function(){
+            //   // $(this).parents().eq(1).find('.volcontrol').hide();
+            //   console.log("mouse left volume");
+            // }
+          });
+
+           _this.closest('td').prev().prev().find('.duration').fadeTo('slow',2).html( duration + " / ");
 
            $('.progress').click(function(e) {
-             var playingSound = soundManager.getSoundById(_.keys(soundManager.sounds)[0]),
+             var playingSound = soundManager.getSoundById("mySound-" + $(_this).closest('tr').find("[data-id]").eq(1).data('id')),
               x               = e.pageX - $(this).offset().left,
               width           = $(this).width(),
               duration        = playingSound.durationEstimate;

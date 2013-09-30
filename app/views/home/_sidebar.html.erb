@@ -1,73 +1,69 @@
 <nav id="sidebar" class="sidebar nav-collapse collapse">
-    <ul id="side-nav" class="side-nav">
-        <li class="active accordion-group">
-            <a class="accordion-toggle" data-toggle="collapse"
-               data-parent="#side-nav" href="#forms-collapse"><i class="icon-headphones"></i> <span class="name">My Music</span></a>
-            <ul id="forms-collapse" class="accordion-body collapse in">
-                <% if current_user.library == nil %>
-                <li><a href="<%= new_library_path %>">Artists</a></li>
-                <li><a href="<%= new_library_path %>">Albums</a></li>
-                <li><a href="<%= new_library_path %>">Mixes</a></li>
-                <li><a href="<%= new_library_path %>">Tracks</a></li>
-                <li><a href="<%= new_library_path %>">Upload Music</a></li>
-                <% else %>
-                <li><a href="<%= artists_path %>">Artists</a></li>
-                <li><a href="<%= albums_path %>">Albums</a></li>
-                <li><a href="<%= library_playlists_path(current_user.library) %>">Mixes</a></li>
-                <li><a href="<%= library_tracks_path(current_user.id) %>">Tracks</a></li>
-                <li><a href="<%= new_library_track_path(current_user.library) %>">Upload Music</a></li>
-                <% end %>
-            </ul>
-        </li>
-        <li class="accordion-group">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#side-nav" href="#stats-collapse"><i class="icon-group"></i> <span class="name">Friends</span></a>
-            <ul id="stats-collapse" class="accordion-body collapse">
-                <li><a href="#">Invite</a></li>
-                <li><a href="#">Communicate</a></li>
-                <li><a href="#">Manage</a></li>
-            </ul>
-        </li>
-        <li class="accordion-group">
-            <a class="accordion-toggle collapsed" data-toggle="collapse"
-               data-parent="#side-nav" href="#ui-collapse"><i class="icon-magic"></i> <span class="name">User Interface</span></a>
-            <ul id="ui-collapse" class="accordion-body collapse">
-                <li><a href="ui_buttons.html">Buttons</a></li>
-                <li><a href="ui_dialogs.html">Dialogs</a></li>
-                <li><a href="ui_icons.html">Icons</a></li>
-                <li><a href="ui_tabs.html">Tabs</a></li>
-                <li><a href="ui_accordion.html">Accordion</a></li>
-            </ul>
-        </li>
-        <li class="accordion-group">
-            <a class="accordion-toggle collapsed" data-toggle="collapse"
-               data-parent="#side-nav" href="#components-collapse"><i class="icon-bookmark-empty"></i> <span class="name">Components</span></a>
-            <ul id="components-collapse" class="accordion-body collapse">
-                <li><a href="component_calendar.html">Calendar</a></li>
-                <li><a href="component_maps.html">Maps</a></li>
-                <li><a href="component_gallery.html">Gallery</a></li>
-                <li><a href="component_fileupload.html">Fileupload</a></li>
-            </ul>
-        </li>
-        <li class="accordion-group">
-            <a class="accordion-toggle collapsed" data-toggle="collapse"
-               data-parent="#side-nav" href="#tables-collapse"><i class="icon-table"></i> <span class="name">Tables</span></a>
-            <ul id="tables-collapse" class="accordion-body collapse">
-                <li><a href="tables_static.html">Static</a></li>
-                <li><a href="tables_dynamic.html">Dynamic</a></li>
-            </ul>
-        </li>
-        <li >
-            <a href="<%= destroy_user_session_path %>" action="destroy"><i class="icon-signout"></i> <span class="name">Sign Out</span></a>
-        </li>
-    </ul>
-    <div id="sidebar-settings" class="settings">
-        <button type="button"
-                data-value="icons"
-                class="btn-icons btn btn-transparent btn-small">Icons</button>
-        <button type="button"
-                data-value="auto"
-                class="btn-auto btn btn-transparent btn-small">Auto</button>
-    </div>
+  <ul id="side-nav" class="side-nav">
+    <li class="active accordion-group">
+      <a class="accordion-toggle" data-toggle="collapse"
+         data-parent="#side-nav" href="#forms-collapse"><i class="icon-headphones"></i> <span class="name">My Music</span></a>
+      <ul id="forms-collapse" class="accordion-body collapse in">
+        <% if current_user.library == nil %>
+        <li><a href="<%= new_library_path %>">Artists</a></li>
+        <li><a href="<%= new_library_path %>">Albums</a></li>
+        <li><a href="<%= new_library_path %>">Mixes</a></li>
+        <li><a href="<%= new_library_path %>">Tracks</a></li>
+        <li><a href="<%= new_library_path %>">Upload Music</a></li>
+        <% else %>
+        <li><a href="<%= artists_path %>">Artists</a></li>
+        <li><a href="<%= albums_path %>">Albums</a></li>
+        <li><a href="<%= library_playlists_path(current_user.library) %>">Mixes</a></li>
+        <li><a href="<%= library_tracks_path(current_user.id) %>">Tracks</a></li>
+        <li><a href="<%= new_library_track_path(current_user.library) %>">Upload Music</a></li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="accordion-group">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#side-nav" href="#stats-collapse"><i class="icon-group"></i> <span class="name">Friends</span></a>
+      <ul id="stats-collapse" class="accordion-body collapse">
+        <li><a href="#">Invite</a></li>
+        <li><a href="#">Communicate</a></li>
+        <li><a href="#">Manage</a></li>
+      </ul>
+    </li>
+    <li class="accordion-group">
+      <a class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#ui-collapse"><i class="icon-magic"></i> <span class="name">User Interface</span></a>
+      <ul id="ui-collapse" class="accordion-body collapse">
+        <li><a href="ui_buttons.html">Buttons</a></li>
+        <li><a href="ui_dialogs.html">Dialogs</a></li>
+        <li><a href="ui_icons.html">Icons</a></li>
+        <li><a href="ui_tabs.html">Tabs</a></li>
+        <li><a href="ui_accordion.html">Accordion</a></li>
+      </ul>
+    </li>
+    <li class="accordion-group">
+      <a class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#components-collapse"><i class="icon-bookmark-empty"></i> <span class="name">Components</span></a>
+      <ul id="components-collapse" class="accordion-body collapse">
+        <li><a href="component_calendar.html">Calendar</a></li>
+        <li><a href="component_maps.html">Maps</a></li>
+        <li><a href="component_gallery.html">Gallery</a></li>
+        <li><a href="component_fileupload.html">Fileupload</a></li>
+      </ul>
+    </li>
+    <li class="accordion-group">
+      <a class="accordion-toggle collapsed" data-toggle="collapse"
+         data-parent="#side-nav" href="#tables-collapse"><i class="icon-table"></i> <span class="name">Tables</span></a>
+      <ul id="tables-collapse" class="accordion-body collapse">
+        <li><a href="tables_static.html">Static</a></li>
+        <li><a href="tables_dynamic.html">Dynamic</a></li>
+      </ul>
+    </li>
+    <li >
+      <%= link_to '<i class="icon-signout"></i><span class="name">Sign Out</span>'.html_safe, destroy_user_session_path, :method => :delete %>
+    </li>
+  </ul>
+  <div id="sidebar-settings" class="settings">
+    <button type="button" data-value="icons" class="btn-icons btn btn-transparent btn-small">Icons</button>
+    <button type="button" data-value="auto" class="btn-auto btn btn-transparent btn-small">Auto</button>
+  </div>
 </nav>
 
 <script type="text/template" id="sidebar-settings-template">

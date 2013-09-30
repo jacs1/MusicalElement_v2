@@ -35,34 +35,35 @@ class Track < ActiveRecord::Base
 
   def parse_id3(data)
     x = "public"+track_location.to_s
-    # binding.pry
     Mp3Info.open(x) do |f|
-    # binding.pry
       self.title = f.tag2["TIT2"]
       self.bpm = f.tag2["TBPM"]
       self.year = f.tag2["TYER"]
       self.track_number = f.tag2["TRCK"]
       self.length = f.length.to_i
       self.size = (self.track_location.file.size.to_f/(1000*1000)).round(2)
-      # self.size = x.size * 1024
-      # binding.pry
       self.album = Album.find_or_create_by_name(f.tag2["TALB"])
       self.album.artist = Artist.find_or_create_by_name(f.tag2["TPE2"])
+        if self.album.image == nil
+          get_image = LastFM::Album.get_info(:artist => "#{self.album.artist.name}", :album => "#{self.album.name}")
+          self.album.image = get_image["album"]["image"][2]["#text"]
+        end
+      # LastFM::Album.get_info(:artist => "michael jackson", :album => "ben")
+      # tempalbum["album"]["image"][2]["#text"]
       self.album.release = f.tag2["TYER"]
       self.genre = Genre.find_or_create_by_name(f.tag2["TCON"])
-      # binding.pry
-      # self.album_artist = Artist.find_or_create_by_name(f.tag2["TPE2"])
-
-        f.tag2["TPE1"].split("/").each do |i|
-          a = []
-          a[0] = Artist.find_or_create_by_name(i)
-          # binding.pry
-          self.artists << a
-          # binding.pry
-        end
+      # get all artist apearing on the track and iterate through them(not album artist)
+      f.tag2["TPE1"].split("/").each do |i|
+        # binding.pry
+        # a = []
+        # a[0] = Artist.find_or_create_by_name(i)
+        # binding.pry
+        self.artists << Artist.find_or_create_by_name(i)
+        # binding.pry
+      end
       user.library.albums << self.album
       user.library.artists << self.artists
-      # binding.pry
+      binding.pry
 
       # # Attached picture frame
       # cover = tag.frame_list('APIC').first
