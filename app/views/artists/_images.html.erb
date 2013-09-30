@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>Artist Images</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../common/get_key_with_callback.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
      <style>
         .image-container {
             width: 240px;
@@ -52,7 +57,7 @@
 <script type="text/javascript">
 
 jQuery.ajaxSettings.traditional = true; 
-var apiKey = 'UJ6VUETJ7VUYJAFHB';
+var apiKey = 'NO_API_KEY';
 
 function fetchImages(artist) {
     var url = 'http://developer.echonest.com/api/v4/artist/images';

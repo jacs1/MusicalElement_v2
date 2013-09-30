@@ -18,9 +18,14 @@
                                 <div class="thumbnail">
                                   <%# binding.pry %>
                                   <img src="<%= album.image %>" alt="">
-                          <span><a id="album_options" class="icon-wrench" href='<%= edit_album_path(album.id) %>'></a></span>
-                                 </div>
+
+                          <!-- <span><a id="album_options" class="icon-wrench" href='<%#= edit_album_path(album.id) %>'></a></span> -->
                                </a>
+                <!--                <div id="slidebottom">
+                                 <button>slide it</button>
+                                 <div class="glass">Slide from bottom</div>
+                               </div> -->
+                                 </div>
                               <!-- </li> -->
                             <!-- </ul> -->
                         <!-- </div> -->
@@ -82,7 +87,12 @@
                 <!-- </section> -->
             </div>
         </div>
+<div id="slidebottom" class="slide">
+  <button>slide it</button>
+  <div class="inner">Slide from bottom</div>
+</div>
     </div>
 <!-- </div> -->
+
 
 

@@ -1,3 +1,17 @@
+$(document).ready(function() {
+  $('.playlist').css('marginLeft', '220px');
+  $('#slideleft button').click(function() {
+    var $marginLefty = $('.playlist');
+    $marginLefty.animate({
+      marginLeft: parseInt($marginLefty.css('marginLeft')) == 440 ?
+        $marginLefty.outerWidth() :
+        440
+    });
+
+
+});
+
+
 // $(document).ready(function() {
 //     window.addEvent("domready", function(){
 //         colors = ["#730046", "#BFBB11", "#FFC200", "#E88801", "#C93C00"];
@@ -100,4 +114,4 @@
 //         return canvas.toDataURL();
 //     }
         
-// });
+});

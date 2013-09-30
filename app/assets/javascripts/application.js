@@ -35,6 +35,7 @@
 //= require forms.js
 //= require_tree .
 
+// needed to fix bootstrap carousel and mootool framework
 jQuery(document).ready(function(){
     jQuery('.carousel').each(function(index, element) {
         jQuery(this)[index].slide = null;

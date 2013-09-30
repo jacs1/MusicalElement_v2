@@ -26,6 +26,8 @@
   <%= render :partial => 'home/topnav' %>
 <!-- top bar nav end -->
 
+<%= render :partial => 'home/playlist' %>
+
 <% else %>
   <%= render :partial => 'home/guestsidebar' %>
 <% end %>
@@ -48,4 +50,8 @@
     <%= yield %>
 
   </body>
+  
+
+ <%= render :partial => 'home/player' %>
+
 </html>
