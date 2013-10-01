@@ -21,10 +21,17 @@
 
                           <!-- <span><a id="album_options" class="icon-wrench" href='<%#= edit_album_path(album.id) %>'></a></span> -->
                                </a>
-                <!--                <div id="slidebottom">
-                                 <button>slide it</button>
-                                 <div class="glass">Slide from bottom</div>
-                               </div> -->
+                               <div id="glass_wrapper">
+                                 <span class="glass">
+                                   <div class="btn-group pull-right" data-id="<%= album.id%>" data-url="">
+                                     <a id="add_album" class="btn btn-mini icon-plus"></a>
+                                     <a class="btn btn-mini icon-wrench" href='<%= edit_album_path(album.id) %>'></a>
+                                   </div>
+                                   <div class="pull-left" data-id="<%= album.id%>" data-url="">
+                                     <a id="play_album" class="btn btn-mini icon-play-circle"></a>
+                                   </div>
+                                 </span>
+                               </div>
                                  </div>
                               <!-- </li> -->
                             <!-- </ul> -->
@@ -56,7 +63,7 @@
                             </thead>
                             <% album.tracks.each do |t| %>
                             <tbody>
-                            <tr>
+                            <tr class="track">
                               <td><%= t.track_number.to_s.rjust(2, '0') %></td>
                               <td><%= t.title %></td>
                               <td><%= t.artists.map{ |a| [a][0].name }.join(", ") %></td>
@@ -87,10 +94,7 @@
                 <!-- </section> -->
             </div>
         </div>
-<div id="slidebottom" class="slide">
-  <button>slide it</button>
-  <div class="inner">Slide from bottom</div>
-</div>
+
     </div>
 <!-- </div> -->
 

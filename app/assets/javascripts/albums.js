@@ -1,8 +1,17 @@
 $(document).ready(function(){
 
-    $('#slidebottom button').click(function() {
-        $(this).next().slideToggle();
-      });
+
+// div that slides up over album cover on mouse hover start
+  $('.glass').slideToggle();
+  $('.thumbnail').mouseenter(function() {
+    $('.glass').slideToggle();
+  });
+
+  $('.thumbnail').mouseleave(function(){
+    $('.glass').slideToggle();
+  });
+
+  // end slider
 
 
       var slider    = $('.slider'),
@@ -59,6 +68,12 @@ $(document).ready(function(){
       case 'btn btn-mini icon-play':
       playing_track();
       break;
+      case 'btn btn-mini icon-play-circle':
+      playAlbum();
+      break;
+      case 'btn btn-mini icon-plus':
+      addAlbum();
+      break;
       case 'btn btn-mini icon-pause':
       paused_track();
       break
@@ -71,47 +86,70 @@ $(document).ready(function(){
      }
   });
 
-// play list code start
-var audio = [];
-// Array of files you'd like played
-audio.playlist = [
-    "/canvas/audio/Marissa_Car_Chase.mp3",
-    "/canvas/audio/Vortex_Battl_Thru_Danger.mp3",
-    "/canvas/audio/Gadgets_Activated.mp3",
-    "/canvas/audio/Kids_Run_Into_Agents.mp3",
-    "/canvas/audio/Jet_Luge_Chase.mp3"
-];
- 
-function playAudio(playlistId){
-    // Default playlistId to 0 if not supplied 
-    playlistId = playlistId ? playlistId : 0;
-    // If SoundManager object exists, get rid of it...
-    if (audio.nowPlaying){
-        audio.nowPlaying.destruct();
-        // ...and reset array key if end reached
-        if(playlistId == audio.playlist.length){
-            playlistId = 0;
+  function playAlbum() {
+
+    // play list code start
+    var audio = getTracks();
+    console.log(audio)
+    // getTracks.apply(this, audio);
+    // Array of files you'd like played
+    // audio.playlist = 
+    var playlistId = 0;
+    playAudio(playlistId);
+     
+    function playAudio(playlistId){
+        // Default playlistId to 0 if not supplied 
+        // playlistId = playlistId ? playlistId : 0;
+        // If SoundManager object exists, get rid of it...
+        if (audio.nowPlaying){
+            audio.nowPlaying.destruct();
+        //     // ...and reset array key if end reached
+        //     if(playlistId == audio.length){
+        //         playlistId = 0;
+        //     }
         }
-    }
-    // Standard Sound Manager play sound function...
-    soundManager.onready(function() {
-        audio.nowPlaying = soundManager.createSound({
-            id: 'sk4Audio',
-            url: audio.playlist[playlistId],
-            autoLoad: true,
-            autoPlay: true,
-            volume: 35,
-            // ...with a recursive callback when play completes
-            onfinish: function(){
-                playlistId ++;
-                playAudio(playlistId);
-            }
-        })
+        // Standard Sound Manager play sound function...
+        soundManager.onready(function() {
+          audio.nowPlaying = soundManager.createSound({
+            id: 'sk4Audio-' + playlistId,
+            url: audio[playlistId],
+                // url: audio.playlist[playlistId],
+                autoLoad: true,
+                autoPlay: true,
+                volume: 35,
+                // ...with a recursive callback when play completes
+                onfinish: function(){
+                  if (audio[playlistId] == audio[audio.length -1])
+                  {
+                    soundManager.stop();
+                  }
+                  else
+                  {
+                    playlistId ++;
+                    playAudio(playlistId);
+                  }
+                }
+              })
+        });
+      }
+    };
+
+  function addAlbum() {
+    console.log('add album to playlist');
+  };
+
+  function getTracks() {
+      var audio = [];
+    $("tr.track").each(function() {
+      // $this = $(this)
+      audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
+          // trackID  = $(this).children('td:nth-child(6)').children('div:nth-child(2)').data("id");
     });
-}
- 
-// Start
-// playAudio();
+    return audio;
+    console.log('get tracks from table');
+  };
+
+
 
 // audio.playlist = [$('table').children('tbody').children('tr').children('td:nth-child(6)').children('div:nth-child(2)').eq(2).data("url"), $('table').children('tbody').children('tr').children('td:nth-child(6)').children('div:nth-child(2)').eq(1).data("url")];
 
