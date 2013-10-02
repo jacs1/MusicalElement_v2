@@ -63,17 +63,18 @@ jQuery(document).ready(function(){
       case 'audio-control pause':
       pausePlaylist();
       break;
-      case 'audio-control next_track':
-      nextTrack();
-      break;
-      case 'audio-control prev_track':
-      prevTrack();
-      break;
+      // case 'audio-control next_track':
+      // nextTrack();
+      // break;
+      // case 'audio-control prev_track':
+      // prevTrack();
+      // break;
       }
   });
 
   function playPlaylist() {
     // playAlbum();
+    soundManager.resumeAll()
     _this.removeClass('play').addClass('pause');
     console.log('play tracks in the playlist');
   }
@@ -84,17 +85,17 @@ jQuery(document).ready(function(){
     console.log('pause playlist');
   }
 
-  function nextTrack() {
-    soundManager.stop();
-    var playlistId = ~~soundManager.soundIDs[0].substr(9) + 1;
-    playAlbum.playAudio(playlistId);
-    // debugger;
-    console.log('play next track');
-  }
+  // function nextTrack() {
+  //   soundManager.stop();
+  //   var playlistId = ~~soundManager.soundIDs[0].substr(9) + 1;
+  //   playAlbum.playAudio(playlistId);
+  //   // debugger;
+  //   console.log('play next track');
+  // }
 
-  function prevTrack() {
-    console.log('play previous track');
-  }
+  // function prevTrack() {
+  //   console.log('play previous track');
+  // }
 
 
 });
@@ -188,28 +189,38 @@ jQuery(document).ready(function(){
      }
   });
 
-  // function playAlbum() {
+  function playAlbum() {
 
-  //   // play list code start
-  //   var audio = getTracks();
-  //   console.log(audio)
-  //   // getTracks.apply(this, audio);
-  //   // Array of files you'd like played
-  //   // audio.playlist = 
-  //   var playlistId = 0;
-  //   playAudio(playlistId);
+    // play list code start
+    var audio = getTracks();
+    console.log(audio)
+    // getTracks.apply(this, audio);
+    // Array of files you'd like played
+    // audio.playlist = 
+    var playlistId = 0;
+    playAudio(playlistId);
 
     function playAudio(playlistId){
+      $('.next_track').click(function() {
+         soundManager.stopAll();
+         playlistId ++;
+         playAudio(playlistId);
+       });
+      $('.prev_track').click(function() {
+         soundManager.stopAll();
+         playlistId--;
+         playAudio(playlistId);
+       });
         // Default playlistId to 0 if not supplied 
-        // playlistId = playlistId ? playlistId : 0;
+        playlistId = playlistId ? playlistId : 0;
         // If SoundManager object exists, get rid of it...
-        // if (audio.nowPlaying){
-        //   audio.nowPlaying.destruct();
-        //     // ...and reset array key if end reached
-        //     if(playlistId == audio.length){
-        //         playlistId = 0;
-        //     }
-      // }
+        if (audio.nowPlaying){
+          audio.nowPlaying.destruct();
+            // ...and reset array key if end reached
+            // if(playlistId == audio.length){
+            //     playlistId = 0;
+            // }
+      }
         // Standard Sound Manager play sound function...
         soundManager.onready(function() {
           audio.nowPlaying = soundManager.createSound({
@@ -240,8 +251,8 @@ jQuery(document).ready(function(){
                 // }
               })
         });
-      };
-    // };
+      }
+    };
 
   function addAlbum() {
     console.log('add album to playlist');
