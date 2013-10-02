@@ -1,102 +1,75 @@
-<%# binding.pry %>
-<!-- <div class="wrap"> -->
-
-    
-    <div class="content container-fluid" style="position: relative; z-index: 3">
-        <div class="row-fluid">
-            <div class="span2">
-                <!-- <section class="widget large"> -->
-                    <!-- <div class="body"> -->
-                        <!-- <div id="sources-chart-pie" class="chart pie-chart"> -->
-                            <!-- <ul class="thumbnails"> -->
-                              <!-- <li class="span4"> -->
-                              <% if @album %>
-                              <a href='<%= artist_path(artist.id) %>'>
-                                <% else %>
-                                <a href='<%= album_path(album.id) %>'>
-                                <% end %>
-                                <div class="thumbnail">
-                                  <%# binding.pry %>
-                                  <img src="<%= album.image %>" alt="">
-
-                          <!-- <span><a id="album_options" class="icon-wrench" href='<%#= edit_album_path(album.id) %>'></a></span> -->
-                               </a>
-                               <div id="glass_wrapper">
-                                 <span class="glass">
-                                   <div class="btn-group pull-right" data-id="<%= album.id%>" data-url="">
-                                     <a id="add_album" class="btn btn-mini icon-plus"></a>
-                                     <a class="btn btn-mini icon-wrench" href='<%= edit_album_path(album.id) %>'></a>
-                                   </div>
-                                   <div class="pull-left" data-id="<%= album.id%>" data-url="">
-                                     <a id="play_album" class="btn btn-mini icon-play-circle"></a>
-                                   </div>
-                                 </span>
-                               </div>
-                                 </div>
-                              <!-- </li> -->
-                            <!-- </ul> -->
-                        <!-- </div> -->
-                    <!-- </div> -->
-                <!-- </section> -->
-            </div>
-            <!-- <li class="divider"></li> -->
-            
-            <div class="span10">
-                <!-- <section class="widget"> -->
-                    <header>
-                      <header>
-                          <h2 class="page-title"><%= album.name %></h2>
-                      </header>
-                    </header>
-                    <!-- <div class="body"> -->
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Title</th>
-                              <th>Featured Artist</th>
-                              <th>Length</th>
-                              <th>Size</th>
-                              <th></th>
-                              <th></th>
-                            </tr>
-                            </thead>
-                            <% album.tracks.each do |t| %>
-                            <tbody>
-                            <tr class="track">
-                              <td><%= t.track_number.to_s.rjust(2, '0') %></td>
-                              <td><%= t.title %></td>
-                              <td><%= t.artists.map{ |a| [a][0].name }.join(", ") %></td>
-                              <td id="time"><span class="duration"></span><%= "#{((t.length) / 60)}:""#{(t.length % 60).to_s.rjust(2, '0')}" %></td>
-                              <td><%= "#{t.size} MB" %></td>
-                              <td>
-                                <div class="volcontrol"> 
-                                  <span class="tooltip"></span> <!-- Tooltip -->
-                                  <div class="slider"></div> <!-- the Slider -->
-                                  <span class="volume"></span> <!-- Volume -->
-                                </div>
-                                <div class="btn-group btn-group-hover pull-left" data-id="<%= t.id%>" data-url="<%= t.track_location%>">
-                                  <a class="btn btn-mini icon-play"></a>
-                                  <a class="btn btn-mini icon-volume-up">
-                                  </a>
-                                  <a class="btn btn-mini icon-trash"></a>
-                                </div>
-                              </td>
-                              <%# binding.pry %>
-                              <td><%= rating_for t, "sound" %></td>
-                              <td></td>
-                              <%# binding.pry %>
-                            </tr>
-                            </tbody>
-                            <% end %>
-                        </table>
-                    <!-- </div> -->
-                <!-- </section> -->
-            </div>
-        </div>
-
+<div class="content container-fluid" style="position: relative; z-index: 3">
+  <div class="row-fluid">
+    <div class="span2">
+      <% if @album %>
+      <a href='<%= artist_path(artist.id) %>'>
+        <% else %>
+        <a href='<%= album_path(album.id) %>'>
+          <% end %>
+          <div class="thumbnail">
+            <img src="<%= album.image %>" alt="">
+          </a>
+          <div id="glass_wrapper">
+           <span class="glass">
+             <div class="btn-group pull-right" data-id="<%= album.id%>" data-url="">
+               <a id="add_album" class="btn btn-mini icon-plus"></a>
+               <a class="btn btn-mini icon-wrench" href='<%= edit_album_path(album.id) %>'></a>
+             </div>
+             <div class="pull-left" data-id="<%= album.id%>" data-url="">
+               <a id="play_album" class="btn btn-mini icon-play-circle"></a>
+             </div>
+           </span>
+         </div>
+       </div>
+     </div>
+     <div class="span8">
+      <header>
+        <header>
+          <h2 class="page-title"><%= album.name %></h2>
+        </header>
+      </header>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Featured Artist</th>
+            <th>Length</th>
+            <th>Size</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <% album.tracks.each do |t| %>
+        <tbody>
+          <tr class="track">
+            <td><%= t.track_number.to_s.rjust(2, '0') %></td>
+            <td><%= t.title %></td>
+            <td><%= t.artists.map{ |a| [a][0].name }.join(", ") %></td>
+            <td id="time"><span class="duration"></span><%= "#{((t.length) / 60)}:""#{(t.length % 60).to_s.rjust(2, '0')}" %></td>
+            <td><%= "#{t.size} MB" %></td>
+            <td>
+              <div class="volcontrol"> 
+                <span class="tooltip"></span> <!-- Tooltip -->
+                <div class="slider"></div> <!-- the Slider -->
+                <span class="volume"></span> <!-- Volume -->
+              </div>
+              <div class="btn-group btn-group-hover pull-left" data-id="<%= t.id%>" data-url="<%= t.track_location%>">
+                <a class="btn btn-mini icon-play"></a>
+                <a class="btn btn-mini icon-volume-up">
+                </a>
+                <a class="btn btn-mini icon-trash"></a>
+              </div>
+            </td>
+            <td><%= rating_for t, "sound" %></td>
+            <td></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
     </div>
-<!-- </div> -->
+  </div>
+</div>
 
 
 

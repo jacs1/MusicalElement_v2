@@ -1,15 +1,5 @@
 $(document).ready(function() {
-  $('.playlist').css('marginLeft', '220px');
-  $('#slideleft button').click(function() {
-    var $marginLefty = $('.playlist');
-    $marginLefty.animate({
-      marginLeft: parseInt($marginLefty.css('marginLeft')) == 440 ?
-        $marginLefty.outerWidth() :
-        440
-    });
 
-
-});
 
 
 // $(document).ready(function() {
