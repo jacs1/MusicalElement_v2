@@ -8,5 +8,11 @@ class Album < ActiveRecord::Base
   has_many :album_libraries
 
   accepts_nested_attributes_for :artist
+
+  # def as_json(options = {})
+  #   binding.pry
+  #   super({ :include => { :skills => { :only => [:id, :name] } },
+  #     :only => [:id, :title, :body, :url, :user_id] }.merge(options))
+  # end
   
 end

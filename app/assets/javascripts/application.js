@@ -190,6 +190,17 @@ jQuery(document).ready(function(){
   });
 
   function playAlbum() {
+    // debugger;
+    $.ajax({
+      url: '/albums/' + _this.parent().data("id") + '.json',
+      data: { id : _this.parent().data("id") },
+      success: function(json) {
+        // Will run once AJAX has returned
+        console.log(json);
+
+        $('#search-results').append("<p>" + json[0].title + "</p>");
+      }
+    });
 
     // play list code start
     var audio = getTracks();
@@ -263,7 +274,7 @@ jQuery(document).ready(function(){
       // debugger;
       // this is slow, need to find a better way of doing it
     $(_this).parents().eq(5).find('table  > tbody > tr').each(function() {
-      $('.playlistSongs').append('<li>' + $(this).children('td:nth-child(2)').text() + '</li>').fadeIn("slow");
+      $('.playlistSongs').append('<li><h4>' + $(this).children('td:nth-child(2)').text() + '</h4></li>').fadeIn("slow");
       audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
     });
     if ($('.play')) $('.play').removeClass('play').addClass('pause');

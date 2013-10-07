@@ -5,7 +5,7 @@ $(function() {
   //   url: location.href + "/albums",
   //   cache: false,
   //   success: function(data){
-  //      // $("#Albums").append(html);
+  //      $("#Albums").append(data);
   //   }
   // });
 

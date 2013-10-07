@@ -1,2 +1,3 @@
-// $("#Albums").html("<%= escape_javascript(render(:partial => 'albums')) %>").fadeIn(3000);
-$("#Albums").html("<%= escape_javascript(render(:partial => 'albums')) %>").fadeIn(3000);
+// $("#Albums").html("<%= escape_javascript(render(:partial => 'albums')) %>").hide().fadeIn(3000);
+$("#Albums").html("<%= escape_javascript(render :partial => 'albums') %>").fadeIn('slow');
+<%#= javascript_include_tag "albums" %>
