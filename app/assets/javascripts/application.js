@@ -271,12 +271,14 @@ jQuery(document).ready(function(){
           // Will run once AJAX has returned
           console.log(json);
 
-          for (var i in json.album.tracks) {
-            console.log(json.album.tracks[i]);
-            audio.push(json.album.tracks[i].url);
+          for (var i = 0; i < json.album.tracks.length; i++) {
+              audio.push(json.album.tracks[i].url);
+              $('.playlistSongs').append('<li><h5>' + json.album.tracks[i].title + '</h5></li>').fadeIn("slow");
+              //Do something
           }
+          console.log('got tracks from ajax!');
 
-          return audio;
+          // return audio;
 
           // audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
         }
@@ -285,17 +287,17 @@ jQuery(document).ready(function(){
       // got tracks via ajax
 
       // });
-      if ($('.play')) $('.play').removeClass('play').addClass('pause');
-      console.log('got tracks from table');
-      return audio;
+    //   if ($('.play')) $('.play').removeClass('play').addClass('pause');
+    //   console.log('got tracks from table');
+    //   return audio;
 
-      // this is slow, need to find a better way of doing it --- get tracks via html
-    $(_this).parents().eq(5).find('table  > tbody > tr').each(function() {
-      $('.playlistSongs').append('<li><h4>' + $(this).children('td:nth-child(2)').text() + '</h4></li>').fadeIn("slow");
-      audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
-    });
+    //   // this is slow, need to find a better way of doing it --- get tracks via html
+    // $(_this).parents().eq(5).find('table  > tbody > tr').each(function() {
+      // $('.playlistSongs').append('<li><h4>' + $(this).children('td:nth-child(2)').text() + '</h4></li>').fadeIn("slow");
+    //   audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
+    // });
     if ($('.play')) $('.play').removeClass('play').addClass('pause');
-    console.log('got tracks from table');
+    // console.log('got tracks from table');
     return audio;
   };
 

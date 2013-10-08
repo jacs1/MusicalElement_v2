@@ -42,11 +42,14 @@
   color: white;
   z-index: 100;
   margin: 80px 0 0 25px;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #plspan {
   float: right;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .audio-control {
