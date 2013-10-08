@@ -191,16 +191,7 @@ jQuery(document).ready(function(){
 
   function playAlbum() {
     // debugger;
-    $.ajax({
-      url: '/albums/' + _this.parent().data("id") + '.json',
-      data: { id : _this.parent().data("id") },
-      success: function(json) {
-        // Will run once AJAX has returned
-        console.log(json);
 
-        $('#search-results').append("<p>" + json[0].title + "</p>");
-      }
-    });
 
     // play list code start
     var audio = getTracks();
@@ -271,8 +262,34 @@ jQuery(document).ready(function(){
 
   function getTracks() {
       var audio = [];
+
+      $.ajax({
+        url: '/albums/' + _this.parent().data("id") + '.json',
+        data: { id : _this.parent().data("id") },
+        async: false,
+        success: function(json) {
+          // Will run once AJAX has returned
+          console.log(json);
+
+          for (var i in json.album.tracks) {
+            console.log(json.album.tracks[i]);
+            audio.push(json.album.tracks[i].url);
+          }
+
+          return audio;
+
+          // audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
+        }
+      });
       // debugger;
-      // this is slow, need to find a better way of doing it
+      // got tracks via ajax
+
+      // });
+      if ($('.play')) $('.play').removeClass('play').addClass('pause');
+      console.log('got tracks from table');
+      return audio;
+
+      // this is slow, need to find a better way of doing it --- get tracks via html
     $(_this).parents().eq(5).find('table  > tbody > tr').each(function() {
       $('.playlistSongs').append('<li><h4>' + $(this).children('td:nth-child(2)').text() + '</h4></li>').fadeIn("slow");
       audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));

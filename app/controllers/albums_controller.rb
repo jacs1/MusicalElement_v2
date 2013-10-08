@@ -22,7 +22,8 @@ class AlbumsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.js
-      format.json { render json: @album, include: { tracks: { only: [:id, :length, :size, :title, :track_number, :track_location] } } }
+      # format.json { render json: @album, include: { tracks: { only: [:length, :size, :title, :track_number, :track_location] } } }
+      format.json { render :json => @album }
       # format.json { render json: @album.tracks }
     end
   end
