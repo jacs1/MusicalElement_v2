@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-
-
+  
 // $(document).ready(function() {
 //     window.addEvent("domready", function(){
 //         colors = ["#730046", "#BFBB11", "#FFC200", "#E88801", "#C93C00"];

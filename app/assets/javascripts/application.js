@@ -43,14 +43,41 @@ jQuery(document).ready(function(){
     jQuery('.carousel').carousel('cycle');
 // fix end
 
-  $('.playlist').css('marginLeft', '220px');
-  $('#slideleft button').click(function() {
-    var $marginLefty = $('.playlist');
-    $marginLefty.animate({
-      marginLeft: parseInt($marginLefty.css('marginLeft')) == 440 ?
-        $marginLefty.outerWidth() :
-        440
+  // $('.playlist').css('marginLeft', '220px');
+  $('#slideright').click(function() {
+    var $slideRight = $('#plspan');
+    // if the playlist is onscreen, 'right' will be 25px and it will slide off screen to -170px
+    $slideRight.animate({
+      right: parseInt($slideRight.css('right')) == -170 ? 25 : -170
+       });
+
+      if($(this).attr("class") == "btn btn-transparent btn-mini icon-arrow-right") {
+        $(this).parent().css("left", 0);
+        $(this).removeClass("icon-arrow-right").addClass("icon-arrow-left");
+        $(this).parent().siblings().css("margin-left", '40px')
+        // $(this).children().text("Show");
+
+      } else {
+
+        $(this).removeClass("icon-arrow-left").addClass("icon-arrow-right");
+        $(this).parent().siblings().css("margin-left", 0);
+        $(this).parent().removeAttr('style');
+        // $(this).children().text("Hide");
+
+      };
+    // var $hidebutton = $('#slideleft');
+    //     $hidebutton.animate({
+    //       marginLeft: parseInt($hidebutton.css('marginLeft')) == 172 ?
+    //         $hidebutton.outerWidth() :
+    //         172
+    //     });
+
     });
+
+  $('#feed').slimscroll({
+      // height: 'auto',
+      size:   '5px'
+  });
 
 
   $('.audio-control').click(function() {
@@ -98,7 +125,7 @@ jQuery(document).ready(function(){
   // }
 
 
-});
+// });
 
 
 
@@ -273,7 +300,7 @@ jQuery(document).ready(function(){
 
           for (var i = 0; i < json.album.tracks.length; i++) {
               audio.push(json.album.tracks[i].url);
-              $('.playlistSongs').append('<li><h5>' + json.album.tracks[i].title + '</h5></li>').fadeIn("slow");
+              $('.playlistSongs').append('<li>' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
               //Do something
           }
           console.log('got tracks from ajax!');

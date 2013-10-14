@@ -17,23 +17,7 @@
 </div> -->
 
 
-<% if user_signed_in? %>
-<!-- side bar nav start -->
-  <%= render :partial => 'home/sidebar' %>
-<!-- side bar nav end -->
 
-<!-- top bar nav start -->
-  <%= render :partial => 'home/topnav' %>
-<!-- top bar nav end -->
-
-<%#= render :partial => 'home/playlist' %>
-
-<% else %>
-  <%= render :partial => 'home/guestsidebar' %>
-<% end %>
-
-
- <%= render :partial => 'home/player' %>
 
 <script>
   $(document).ready(function(){
@@ -47,12 +31,36 @@
 </script>
 
   <body class="background-dark">
+
+    <% if user_signed_in? %>
+      <%= render :partial => 'home/sidebar' %>      
+    <% else %>
+      <%= render :partial => 'home/guestsidebar' %>
+    <% end %>
+
+    <div class="wrap">
+      <%= render :partial => 'home/topnav' %>
+      <div class="content container-fluid">
+        <!-- <div class="row-fluid"> -->
+
+
+    <!-- top bar nav start -->
+    <!-- top bar nav end -->
+
+    <%= render :partial => 'home/playlist' %>
+
+
+
+     <%= render :partial => 'home/player' %>
   <!-- <p class="alert"><%= alert %></p> -->
+    <%#= render :partial => 'home/playlist' %>
     <%= yield %>
+      <!-- </div> -->
+    </div>
+  </div>
 
   </body>
 
-  <%= render :partial => 'home/playlist' %>
   
 
 
