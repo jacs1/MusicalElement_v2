@@ -79,6 +79,9 @@ jQuery(document).ready(function(){
       size:   '5px'
   });
 
+  $( "#sortable" ).sortable({ axis: "y" });
+  // stroll.bind( '#sortable ul' );
+
 
   $('.audio-control').click(function() {
      var className = $(this).attr('class');
@@ -300,7 +303,7 @@ jQuery(document).ready(function(){
 
           for (var i = 0; i < json.album.tracks.length; i++) {
               audio.push(json.album.tracks[i].url);
-              $('.playlistSongs').append('<li>' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
+              $('.playlistSongs').append('<li class="spacer">' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
               //Do something
           }
           console.log('got tracks from ajax!');
