@@ -1,4 +1,7 @@
-$(function() {
+$(document).ready(function(){
+
+  $("#go").click(go);
+  $("#Name").change(go);
 
   // $.ajax({
   //   type: "GET",
@@ -65,7 +68,7 @@ function fetchImages(artist) {
 
     var args = { 
             format:'json', 
-            api_key: apiKey,
+            api_key: 'UJ6VUETJ7VUYJAFHB',
             name: artist,
             results: 100, 
     }; 
@@ -114,6 +117,7 @@ function formatItem(which, item) {
 
 
 function go() {
+  // debugger;
     $('.span5').append('<section id="results" class="widget tiny"></section>');
     var artist = $.trim($("#Name").val());
     if (artist.length  > 0) {
@@ -146,8 +150,7 @@ function error(s) {
     //         api_key = 'MY_ECHO_NEST_API_KEY';
     //     }
         // apiKey = 'UJ6VUETJ7VUYJAFHB';
-        $("#go").click(go);
-        $("#Name").change(go);
+       
     // });
 
 });

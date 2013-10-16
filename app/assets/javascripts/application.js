@@ -76,7 +76,8 @@ jQuery(document).ready(function(){
 
   $('#feed').slimscroll({
       // height: 'auto',
-      size:   '5px'
+      size:   '5px',
+      distance: '1px'
   });
 
   $( "#sortable" ).sortable({ axis: "y" });
@@ -219,13 +220,44 @@ jQuery(document).ready(function(){
      }
   });
 
+
+  $('.icon-large').click(function() {
+     var className = $(this).attr('class');
+     _this = $(this);
+     switch(className){
+      case 'icon-save icon-large':
+      savePlaylist();
+      break;
+      case 'icon-share icon-large':
+      sharePlaylist();
+      break;
+      case 'icon-upload icon-large':
+      loadPlaylist();
+      break;
+     }
+  });
+
+  function savePlaylist() {
+    console.log('save current playlist');
+  };
+
+  function sharePlaylist() {
+    console.log('share current playlist');
+  };
+
+  function loadPlaylist() {
+    console.log('load a playlist via ajax');
+  };
+
   function playAlbum() {
     // debugger;
 
 
     // play list code start
+    $('.playlistSongs').empty();
     var audio = getTracks();
     console.log(audio)
+    if ($('.play')) $('.play').removeClass('play').addClass('pause');
     // getTracks.apply(this, audio);
     // Array of files you'd like played
     // audio.playlist = 
@@ -287,6 +319,7 @@ jQuery(document).ready(function(){
     };
 
   function addAlbum() {
+    var audio = getTracks();
     console.log('add album to playlist');
   };
 
@@ -326,7 +359,7 @@ jQuery(document).ready(function(){
       // $('.playlistSongs').append('<li><h4>' + $(this).children('td:nth-child(2)').text() + '</h4></li>').fadeIn("slow");
     //   audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
     // });
-    if ($('.play')) $('.play').removeClass('play').addClass('pause');
+    // if ($('.play')) $('.play').removeClass('play').addClass('pause');
     // console.log('got tracks from table');
     return audio;
   };

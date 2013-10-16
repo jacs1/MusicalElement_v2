@@ -1,6 +1,6 @@
 <%#= javascript_include_tag "albums" %>
-<div class="content container-fluid" >
-  <div class="row-fluid">
+<!-- <div class="content container-fluid" > -->
+  <div class="row-fluid pull-left">
     <div class="span2">
       <% if @album %>
       <a href='<%= artist_path(artist.id) %>'>
@@ -57,8 +57,8 @@
               </div>
               <div class="btn-group btn-group-hover pull-left" data-id="<%= t.id%>" data-url="<%= t.track_location%>">
                 <a class="btn btn-mini icon-play"></a>
-                <a class="btn btn-mini icon-volume-up">
-                </a>
+                <a class="btn btn-mini icon-volume-up"></a>
+                <a class="btn btn-mini icon-plus"></a>
                 <a class="btn btn-mini icon-trash"></a>
               </div>
             </td>
@@ -70,7 +70,4 @@
       </table>
     </div>
   </div>
-</div>
-
-
-
+<!-- </div> -->
