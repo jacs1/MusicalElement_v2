@@ -74,6 +74,15 @@ jQuery(document).ready(function(){
 
     });
 
+  $('.icon-caret-right').click(function() {
+      var $lefty = $(this).next();
+      $lefty.animate({
+        left: parseInt($lefty.css('left'),10) == 0 ?
+          -$lefty.outerWidth() :
+          0
+      });
+    });
+
   $('#feed').slimscroll({
       // height: 'auto',
       size:   '5px',
@@ -231,13 +240,25 @@ jQuery(document).ready(function(){
       case 'icon-share icon-large':
       sharePlaylist();
       break;
-      case 'icon-upload icon-large':
+      case 'icon-plus-sign-alt icon-large':
       loadPlaylist();
       break;
      }
   });
 
   function savePlaylist() {
+    var name = $.trim($("#normal-field").val());
+    var tracks = [];
+    $('.playlistSongs').children().each(function() {
+      // $('.playlistSongs').append('<li>' + $(this).children('td:nth-child(2)').text() + '</li>').fadeIn("slow");
+      tracks.push($(this).data("id"));
+    });
+
+    $.ajax({
+        url: "/libraries/1/playlists", 
+        type: "POST", 
+        data: { tracks : tracks, name : name } 
+    });
     console.log('save current playlist');
   };
 
@@ -278,8 +299,8 @@ jQuery(document).ready(function(){
         // Default playlistId to 0 if not supplied 
         playlistId = playlistId ? playlistId : 0;
         // If SoundManager object exists, get rid of it...
-        if (audio.nowPlaying){
-          audio.nowPlaying.destruct();
+        if (soundManager.soundIDs){
+          soundManager.destroySound(soundManager.soundIDs[0]);
             // ...and reset array key if end reached
             // if(playlistId == audio.length){
             //     playlistId = 0;
@@ -336,7 +357,7 @@ jQuery(document).ready(function(){
 
           for (var i = 0; i < json.album.tracks.length; i++) {
               audio.push(json.album.tracks[i].url);
-              $('.playlistSongs').append('<li class="spacer">' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
+              $('.playlistSongs').append('<li class="spacer" data-id="' + json.album.tracks[i].id + '">' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
               //Do something
           }
           console.log('got tracks from ajax!');

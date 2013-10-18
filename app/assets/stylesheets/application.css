@@ -6138,10 +6138,12 @@ input[type="submit"].btn.btn-mini {
 /* line 27, D:/projects/admin/sass/bootstrap-original/_thumbnails.scss */
 .thumbnail {
   display: block;
-  padding: 4px;
+  /*padding: 4px;*/
+  padding: 0px;
   line-height: 20px;
-  border: 1px solid #ddd;
-  -webkit-border-radius: 1px;
+  /*border: 1px solid #ddd;*/
+  border: none;
+  -webkit-border-radius: 2px;
   -moz-border-radius: 1px;
   border-radius: 1px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);

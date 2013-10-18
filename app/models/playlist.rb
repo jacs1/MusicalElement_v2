@@ -11,5 +11,16 @@ class Playlist < ActiveRecord::Base
 
   accepts_nested_attributes_for :tracks
   accepts_nested_attributes_for :playlist_tracks
+
+  letsrate_rateable "rating"
+
+
+  def get_tracks(data)
+    # binding.pry
+    self.name = data[:name]
+    data[:tracks].each do |t|
+      self.tracks << Track.find_by_id(t)
+    end
+  end
   
 end
