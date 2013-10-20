@@ -74,6 +74,8 @@
 
 .spacer {
     margin-bottom: 10px; /* define margin as you see fit */
+    background-color: rgb(160, 165, 182);
+    border-radius: 4px;
 }
 
 /*.playlist {

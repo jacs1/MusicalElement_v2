@@ -353,13 +353,20 @@ jQuery(document).ready(function(){
         async: false,
         success: function(json) {
           // Will run once AJAX has returned
-          console.log(json);
+          // console.log(json);
 
-          for (var i = 0; i < json.album.tracks.length; i++) {
+          var lis = ""
+            for (var i = 0; i < json.album.tracks.length; i++) {
               audio.push(json.album.tracks[i].url);
-              $('.playlistSongs').append('<li class="spacer" data-id="' + json.album.tracks[i].id + '">' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
-              //Do something
-          }
+              lis += '<li class="spacer" data-id="' + json.album.tracks[i].id + '">' + json.album.tracks[i].title + '</li>';
+            }
+            $(lis)
+              .hide()
+              .appendTo('.playlistSongs')
+              .each(function(index) {
+                // For each li, wait some time and fadeIn. The first one will not have a delay
+                $(this).delay(400*index).fadeIn(100);
+            });
           console.log('got tracks from ajax!');
 
           // return audio;
