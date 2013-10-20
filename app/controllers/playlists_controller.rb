@@ -11,7 +11,7 @@ class PlaylistsController < ApplicationController
     end
 
     def new
-      # binding.pry
+      binding.pry
       @playlist = Playlist.new
 
       # binding.pry
@@ -43,13 +43,16 @@ class PlaylistsController < ApplicationController
       # binding.pry
       @playlist = Playlist.new(params[:playlist])
       @playlist.libraries << @library
+      @playlist.get_tracks(params)
       # binding.pry
-      if @playlist.save
-        format.html { redirect_to playlist_track_path(@playlist, @playlist), notice: 'Track was successfully created.' }
-        format.json { render json: @playlist_track, status: :created, location: @playlist }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @playlist.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @playlist.save
+            format.html 
+            format.js
+        else
+          format.html { render action: "new" }
+          format.json { render json: @playlist.errors, status: :unprocessable_entity }
+        end
       end
     end
 

@@ -9,6 +9,7 @@
           <% else %>
           <img src="<%= a.artist_images.first.image %>" alt="">
           <% end %>
+        </a>
           <!-- <div class="caption"> -->
               <h6><%= a.name %></h6>
           <!-- </div> -->
@@ -17,6 +18,19 @@
         <a href="<%= album_path(a.id) %>">
           <div class="thumbnail">
               <img src="<%= a.image %>" alt="">
+            </a>
+
+               <div id="glass_wrapper">
+                <span class="glass">
+                  <div class="btn-group pull-right" data-id="<%= a.id%>" data-url="">
+                    <a id="add_album" class="btn btn-mini icon-plus"></a>
+                    <a class="btn btn-mini icon-wrench" href='<%= edit_album_path(a.id) %>'></a>
+                  </div>
+                  <div class="pull-left" data-id="<%= a.id%>" data-url="">
+                    <a id="play_album" class="btn btn-mini icon-play-circle"></a>
+                  </div>
+                </span>
+              </div>
               <!-- <div class="caption"> -->
                   <h6><%= a.name %></h6>
               <!-- </div> -->
