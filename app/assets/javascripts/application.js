@@ -172,95 +172,56 @@ jQuery(document).ready(function(){
     playTrack(music);
     updateView(_this);
     console.log(music);
-
+    //playlist draggable/sortable code start
     $( "#Playlist" ).sortable({ 
       axis: "y",
       update: function(event, ui) {
-        // var tracks = $('.pl_tracks')
         var originalPos = Number(ui.item.attr('data-pos'));
+            music.playlistChanged = true;
         $('.pl_tracks').each(function(index) {
-          // if ($(this).data('pos') == music.currentTrack) {
-          //   currentTrack = index;
-          // }
-          // there are 4 possible scenarios
-          // we are moving the track that is currently playing
-          // if (music.currentTrack == ui.item.data('pos')) {
-          //      // music.currentTrack = ui.item.index();
-          //      console.log('moving the track that is currently playing');
-          // // we are adding a track above the track that is currently playing
-          // } else if ((music.currentTrack >= ui.item.index()) && (ui.item.data('pos') > music.currentTrack)) {
-          //   console.log('adding a track above the track that is currently playing');
-          // // we are moving track from above the currently playing track and placing it below it
-          // } else if ((ui.item.data('pos') < music.currentTrack) && (ui.item.index() < music.currentTrack)) {
-          //   console.log('moving track from above the currently playing track and placing it below it');
-          // }
-          // // we moved tracks around that did not affect the position of the currently playing track
-          // } else if ((ui.item.data('pos') && ui.item.index()) < music.currentTrack || ((ui.item.data('pos') && ui.item.index()) > music.currentTrack)) {
-          //   console.log('track reposition above or below currently playing track ');
-          // }; 
-
-          // determine if we need to update currentTrack
-          //if the nowPlaying track is being moved, set currentTrack to where its being dropped.
-          // if (index == (music.playlist.length -1)) {
-          //   if ((music.currentTrack >= ui.item.index()) && (music.currentTrack > ui.item.data('pos'))) {
-          //     music.currentTrack ++; 
-          //     //if the current track is below where the track is dropped, increase currentTrack by one
-          //   } else if (music.currentTrack == ui.item.data('pos')) {
-          //     music.currentTrack = ui.item.index();
-          //   };
-          //  };
-          //  else if (ui.item.index() < music.currentTrack) {
-          //   music.currentTrack ++;
-          // }
-          // update track positions within music playlist object Number($(this).attr('data-pos'))
           music.playlist[Number($(this).attr('data-pos'))][0] = index;
           $(this).attr('data-pos', index);
-
         });
         if (music.currentTrack == originalPos) {
              music.currentTrack = ui.item.index();
-             console.log('moving the track that is currently playing');
-        // we are adding a track above the track that is currently playing
         } else if ((music.currentTrack >= ui.item.index()) && (originalPos > music.currentTrack)) {
-          console.log('adding a track above the track that is currently playing');
           music.currentTrack ++;
-        // we are moving track from above the currently playing track and placing it below it
         } else if ((originalPos < music.currentTrack) && (music.currentTrack <= ui.item.index())) {
-          console.log('moving track from above the currently playing track and placing it below it');
           music.currentTrack--;
-        // we moved tracks around that did not affect the position of the currently playing track
-        } else {
-          console.log('track reposition above or below currently playing track ');
-        }
-        // if (music.currentTrack == ui.item.index()) {
-          for (var i = 0; i < music.playlist.length; i++) {
-            if (music.playlist[i][0] == ui.item.index()) {
-              var pl_update = music.playlist[i];
-              music.playlist.splice(i, 1);
-              music.playlist.splice(ui.item.index(),0, pl_update);
-            }
+        } 
+        for (var i = 0; i < music.playlist.length; i++) {
+          if (music.playlist[i][0] == ui.item.index()) {
+            var pl_update = music.playlist[i];
+            music.playlist.splice(i, 1);
+            music.playlist.splice(ui.item.index(),0, pl_update);
           }
-        // } else if ((ui.item.data('pos') > music.currentTrack) && (ui.item.index() < music.currentTrack)) {
-        //   console.log('do stuff');
-        // };
+        }
       }
     });
+    //playlist draggable/sortable code end
 
+    //need to refactor the next prev track code into one function...this will let me "dry" it up
     $('.next_track').click(function() {
       soundManager.stopAll();
+      soundManager.destroySound(soundManager.soundIDs[0]);
       if (music.currentTrack == music.playlist.length -1)
       {
         soundManager.stop();
       } else {       
-       soundManager.destroySound(soundManager.soundIDs[0]);
        music.currentTrack ++;
        playTrack(music);        
       }
      });
     $('.prev_track').click(function() {
        soundManager.stopAll();
-       music.currentTrack = music.currentTrack -1;
-       playTrack(music);
+       soundManager.destroySound(soundManager.soundIDs[0]);
+       if (music.currentTrack == 0)
+       {
+         soundManager.stop();
+       } else {
+        music.currentTrack--;
+        playTrack(music);        
+       }
      });
     // console.log(music);
 
@@ -297,8 +258,8 @@ jQuery(document).ready(function(){
               // For each li, wait some time and fadeIn. The first one will not have a delay
               $(this).delay(100*index).fadeTo(300, 1);
           });
-        // updateView(json);
-        console.log('got tracks from ajax!');
+            // music.playlistChanged = true;
+            console.log('got tracks from ajax!');
 
       }
     });
@@ -407,7 +368,6 @@ jQuery(document).ready(function(){
   };
 
 
-
   function playAlbum(_this) {
     // debugger;
 
@@ -483,8 +443,6 @@ jQuery(document).ready(function(){
     }    
     console.log('add album to playlist');
   };
-
-  
 
     function playing_track(_this) {
       console.log('change to paused icon....');
@@ -580,36 +538,6 @@ jQuery(document).ready(function(){
       console.log('clicked delete icon....');
     }
 
-  // function playPlaylist() {
-  //   // playAlbum();
-  //   soundManager.resumeAll()
-  //   _this.removeClass('play').addClass('pause');
-  //   console.log('play tracks in the playlist');
-  // }
-
-  // function pausePlaylist() {
-  //   _this.removeClass('pause').addClass('play');
-  //   soundManager.pauseAll();
-  //   console.log('pause playlist');
-  // }
-
-  // function nextTrack() {
-  //   soundManager.stop();
-  //   var playlistId = ~~soundManager.soundIDs[0].substr(9) + 1;
-  //   playAlbum.playAudio(playlistId);
-  //   // debugger;
-  //   console.log('play next track');
-  // }
-
-  // function prevTrack() {
-  //   console.log('play previous track');
-  // }
-
-
-// });
-
-
-
 // div that slides up over album cover on mouse hover start
   $('.glass').slideToggle();
   $('.thumbnail').mouseenter(function() {
@@ -672,14 +600,6 @@ jQuery(document).ready(function(){
         },
       });
 
-
-
-  
-
-  
-
-  
-
     $('.btn-group-hover').hide()
     $('tr').on({
     mouseenter: function(){
@@ -703,8 +623,5 @@ jQuery(document).ready(function(){
         .find('.icon-white').addClass('icon-white-temp').removeClass('icon-white');
     }
   });
-
-
-
     
 });
