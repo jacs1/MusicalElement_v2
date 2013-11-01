@@ -255,7 +255,7 @@ jQuery(document).ready(function(){
     });
 
     $.ajax({
-        url: "/libraries/1/playlists", 
+        url: '/libraries/' + $('.logo :nth-child(1)').eq(1).data("id") + '/playlists', 
         type: "POST", 
         data: { tracks : tracks, name : name } 
     });

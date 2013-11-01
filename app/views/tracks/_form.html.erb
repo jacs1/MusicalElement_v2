@@ -1,5 +1,5 @@
-<%= form_for(@track, :url => library_tracks_path(@library) , :html => {:multipart => true, :id => "fileupload", :remote => :true}) do |f| %>
-
+<%= form_for(@track, :url => library_tracks_path(current_user.library) , :html => {:multipart => true, :id => "fileupload", :remote => :true}) do |f| %>
+<%# binding.pry %>
 <div class="form-actions fileupload-buttonbar no-margin">
         
         <span class="btn btn-small fileinput-button">
