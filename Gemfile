@@ -8,8 +8,8 @@ gem 'pry'
 gem 'pry-debugger'
 gem 'devise'
 gem 'mysql2'
-gem "better_errors"
-gem "binding_of_caller"
+gem 'better_errors'
+gem 'binding_of_caller'
 gem 'letsrate'
 gem 'rspec-rails'
 gem 'guard-rspec'
@@ -19,9 +19,9 @@ gem 'taglib-ruby'
 gem 'ruby-mp3info'
 gem 'echonest-ruby-api'
 gem 'httparty'
-gem "mini_magick"
+gem 'mini_magick'
 gem 'simplecov', :require => false, :group => :test
-gem "echowrap", "~> 0.0.3"
+gem 'echowrap', "~> 0.0.3"
 gem 'echonest-ruby-api'
 # gem 'lastfm'
 gem 'lastfm-client', :git => 'http://github.com/pch/lastfm-client.git'

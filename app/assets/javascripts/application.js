@@ -89,7 +89,7 @@ jQuery(document).ready(function(){
       distance: '1px'
   });
 
-  $( "#sortable" ).sortable({ axis: "y" });
+  
   // stroll.bind( '#sortable ul' );
 
 
@@ -112,110 +112,18 @@ jQuery(document).ready(function(){
       }
   });
 
-  function playPlaylist() {
-    // playAlbum();
-    soundManager.resumeAll()
-    _this.removeClass('play').addClass('pause');
-    console.log('play tracks in the playlist');
-  }
-
-  function pausePlaylist() {
-    _this.removeClass('pause').addClass('play');
-    soundManager.pauseAll();
-    console.log('pause playlist');
-  }
-
-  // function nextTrack() {
-  //   soundManager.stop();
-  //   var playlistId = ~~soundManager.soundIDs[0].substr(9) + 1;
-  //   playAlbum.playAudio(playlistId);
-  //   // debugger;
-  //   console.log('play next track');
-  // }
-
-  // function prevTrack() {
-  //   console.log('play previous track');
-  // }
-
-
-// });
-
-
-
-// div that slides up over album cover on mouse hover start
-  $('.glass').slideToggle();
-  $('.thumbnail').mouseenter(function() {
-    $(this).find(".glass").slideToggle();
-    // $('.glass').slideToggle();
-  });
-
-  $('.thumbnail').mouseleave(function(){
-    $(this).find(".glass").slideToggle();
-    // $('.glass').slideToggle();
-  });
-
-  // end slider
-
-
-      var slider    = $('.slider'),
-          song_vol  = $('.volcontrol'),
-          tooltip   = $('.tooltip');
-
-      //Hide the Tooltip at first
-      tooltip.hide();
-      song_vol.hide();
-
-      //Call the Slider
-      slider.slider({
-        //Config
-        range: "min",
-        min: 1,
-        value: 35,
-
-        start: function(event,ui) {
-            tooltip.fadeIn('fast');
-        },
-
-        //Slider Event
-        slide: function(event, ui) { //When the slider is sliding
-
-          var value  = slider.slider('value'),
-            volume = $('.volume');
-
-          tooltip.css('left', value - 11).text(ui.value);  //Adjust the tooltip accordingly
-
-          if(value <= 5) { 
-            volume.css('background-position', '0 0');
-          } 
-          else if (value <= 25) {
-            volume.css('background-position', '0 -25px');
-          } 
-          else if (value <= 75) {
-            volume.css('background-position', '0 -50px');
-          } 
-          else {
-            volume.css('background-position', '0 -75px');
-          };
-
-        },
-
-        stop: function(event,ui) {
-            tooltip.fadeOut('fast');
-        },
-      });
-
   $('.btn').click(function() {
      var className = $(this).attr('class');
-     _this = $(this);
+     // _this = $(this);
      switch(className){
       case 'btn btn-mini icon-play':
-      playing_track();
+      playMusic($(this));
       break;
       case 'btn btn-mini icon-play-circle':
-      playAlbum();
+      playMusic($(this));
       break;
       case 'btn btn-mini icon-plus':
-      addAlbum();
+      addAlbum($(this));
       break;
       case 'btn btn-mini icon-pause':
       paused_track();
@@ -229,22 +137,245 @@ jQuery(document).ready(function(){
      }
   });
 
-
   $('.icon-large').click(function() {
      var className = $(this).attr('class');
-     _this = $(this);
+     // _this = $(this);
      switch(className){
       case 'icon-save icon-large':
-      savePlaylist();
+      savePlaylist($(this));
       break;
       case 'icon-share icon-large':
-      sharePlaylist();
+      sharePlaylist($(this));
       break;
       case 'icon-plus-sign-alt icon-large':
-      loadPlaylist();
+      loadPlaylist($(this));
+      break;
+      case 'icon-remove-circle pull-right icon-large':
+      clearPlaylist($(this));
       break;
      }
   });
+
+  function playMusic(_this) {
+    $('.playlistSongs').empty();
+
+    music = {
+      currentlyPlaying: false,
+      currentTrack: 0,
+      playlist: [],
+      tracksLoaded: false
+
+    }
+    //determine if music is playing or loaded
+    // debugger;
+    getTracks(_this, music);
+    playTrack(music);
+    updateView(_this);
+    console.log(music);
+
+    $( "#Playlist" ).sortable({ 
+      axis: "y",
+      update: function(event, ui) {
+        // var tracks = $('.pl_tracks')
+        var originalPos = Number(ui.item.attr('data-pos'));
+        $('.pl_tracks').each(function(index) {
+          // if ($(this).data('pos') == music.currentTrack) {
+          //   currentTrack = index;
+          // }
+          // there are 4 possible scenarios
+          // we are moving the track that is currently playing
+          // if (music.currentTrack == ui.item.data('pos')) {
+          //      // music.currentTrack = ui.item.index();
+          //      console.log('moving the track that is currently playing');
+          // // we are adding a track above the track that is currently playing
+          // } else if ((music.currentTrack >= ui.item.index()) && (ui.item.data('pos') > music.currentTrack)) {
+          //   console.log('adding a track above the track that is currently playing');
+          // // we are moving track from above the currently playing track and placing it below it
+          // } else if ((ui.item.data('pos') < music.currentTrack) && (ui.item.index() < music.currentTrack)) {
+          //   console.log('moving track from above the currently playing track and placing it below it');
+          // }
+          // // we moved tracks around that did not affect the position of the currently playing track
+          // } else if ((ui.item.data('pos') && ui.item.index()) < music.currentTrack || ((ui.item.data('pos') && ui.item.index()) > music.currentTrack)) {
+          //   console.log('track reposition above or below currently playing track ');
+          // }; 
+
+          // determine if we need to update currentTrack
+          //if the nowPlaying track is being moved, set currentTrack to where its being dropped.
+          // if (index == (music.playlist.length -1)) {
+          //   if ((music.currentTrack >= ui.item.index()) && (music.currentTrack > ui.item.data('pos'))) {
+          //     music.currentTrack ++; 
+          //     //if the current track is below where the track is dropped, increase currentTrack by one
+          //   } else if (music.currentTrack == ui.item.data('pos')) {
+          //     music.currentTrack = ui.item.index();
+          //   };
+          //  };
+          //  else if (ui.item.index() < music.currentTrack) {
+          //   music.currentTrack ++;
+          // }
+          // update track positions within music playlist object Number($(this).attr('data-pos'))
+          music.playlist[Number($(this).attr('data-pos'))][0] = index;
+          $(this).attr('data-pos', index);
+
+        });
+        if (music.currentTrack == originalPos) {
+             music.currentTrack = ui.item.index();
+             console.log('moving the track that is currently playing');
+        // we are adding a track above the track that is currently playing
+        } else if ((music.currentTrack >= ui.item.index()) && (originalPos > music.currentTrack)) {
+          console.log('adding a track above the track that is currently playing');
+          music.currentTrack ++;
+        // we are moving track from above the currently playing track and placing it below it
+        } else if ((originalPos < music.currentTrack) && (music.currentTrack <= ui.item.index())) {
+          console.log('moving track from above the currently playing track and placing it below it');
+          music.currentTrack--;
+        // we moved tracks around that did not affect the position of the currently playing track
+        } else {
+          console.log('track reposition above or below currently playing track ');
+        }
+        // if (music.currentTrack == ui.item.index()) {
+          for (var i = 0; i < music.playlist.length; i++) {
+            if (music.playlist[i][0] == ui.item.index()) {
+              var pl_update = music.playlist[i];
+              music.playlist.splice(i, 1);
+              music.playlist.splice(ui.item.index(),0, pl_update);
+            }
+          }
+        // } else if ((ui.item.data('pos') > music.currentTrack) && (ui.item.index() < music.currentTrack)) {
+        //   console.log('do stuff');
+        // };
+      }
+    });
+
+    $('.next_track').click(function() {
+      soundManager.stopAll();
+      if (music.currentTrack == music.playlist.length -1)
+      {
+        soundManager.stop();
+      } else {       
+       soundManager.destroySound(soundManager.soundIDs[0]);
+       music.currentTrack ++;
+       playTrack(music);        
+      }
+     });
+    $('.prev_track').click(function() {
+       soundManager.stopAll();
+       music.currentTrack = music.currentTrack -1;
+       playTrack(music);
+     });
+    // console.log(music);
+
+    
+
+    //if music is loaded, then play it via the playTrack() function
+
+    //if not then create the music object and get tracks via ajax 
+
+    //
+
+  }
+
+  function getTracks(_this, music) {
+    // var tracks = [];
+    //need to add variable to determine if user clicked on a track or album
+    // var link = 
+    // debugger;
+    $.ajax({
+      url: '/albums/' + _this.parent().data("id") + '.json',
+      data: { id : _this.parent().data("id") },
+      async: false,
+      success: function(json) {
+        // Will run once AJAX has returned
+        var lis = ""
+          for (var i = 0; i < json.album.tracks.length; i++) {
+            music.playlist.push([music.playlist.length, json.album.tracks[i].url]);
+            lis += '<li class="pl_tracks" data-id="' + json.album.tracks[i].id + '" data-pos="' + (music.playlist.length -1) + '">' + json.album.tracks[i].title + '</li>';
+          }
+          $(lis)
+            .hide()
+            .appendTo('.playlistSongs')
+            .each(function(index) {
+              // For each li, wait some time and fadeIn. The first one will not have a delay
+              $(this).delay(100*index).fadeTo(300, 1);
+          });
+        // updateView(json);
+        console.log('got tracks from ajax!');
+
+      }
+    });
+
+  return music;
+  };
+
+  function playTrack(music) {
+    // debugger;
+
+        // If SoundManager object exists, get rid of it...
+      if (soundManager.soundIDs){
+        soundManager.destroySound(soundManager.soundIDs[0]);
+         };
+      // Standard Sound Manager play sound function...
+      soundManager.onready(function() {
+        music.nowPlaying = soundManager.createSound({
+          id: 'track-' + music.playlist[music.currentTrack][0],
+          url: music.playlist[music.currentTrack][1],
+              // url: audio.playlist[playlistId],
+              autoLoad: true,
+              autoPlay: true,
+              volume: 35,
+              // ...with a recursive callback when play completes
+              onfinish: function(){
+                soundManager.destroySound('track-' + music.currentTrack);
+                if (music.currentTrack == music.playlist.length -1)
+                {
+                  soundManager.stop();
+                }
+                else
+                {
+                  music.currentTrack ++;
+                  // soundManager.destroySound(music.currentTrack);
+                  playTrack(music);
+                }
+              },
+              whileplaying: function() {
+                // music.currentlyPlaying == true;
+                // var gPixels = document.getElementById('graphPixels').getElementsByTagName('div');
+                //  var gScale = 32; // draw 0 to 32px from bottom
+                //  for (var i=0; i<256; i++) {
+                //    graphPixels[i].style.top = (32-(gScale+Math.ceil(this.waveformData.left[i]*gScale)))+'px';
+                //  }
+              //   $('.next_track').click(function() {
+              //      soundManager.stopAll();
+              //      playlistId ++;
+              //      playAudio(playlistId);
+              //    });
+              }
+            })
+      });
+      // }
+    //determine if the track we are playing was initiated from(ablum index, album show, playlist div, artist show)
+
+    //update the appropriate view
+
+    //play track
+  }
+      // }
+
+
+  function updateView(data) {
+    // debugger;
+    // $('.playlistSongs').empty();
+    
+    if ($('.play')) $('.play').removeClass('play').addClass('pause');
+    // console.log('update appropriate view');
+
+    // $(lis)
+    //   .hide()
+    //   .appendTo('.playlistSongs')
+    //   .each(function(index) {
+    //     // For each li, wait some time and fadeIn. The first one will not have a delay
+    //     $(this).delay(100*index).fadeTo(300, 1);
+    // });
+  }
 
   function savePlaylist() {
     var name = $.trim($("#normal-field").val());
@@ -270,13 +401,20 @@ jQuery(document).ready(function(){
     console.log('load a playlist via ajax');
   };
 
-  function playAlbum() {
+  function clearPlaylist() {
+    $('.playlistSongs').children().remove();
+    console.log('clear tracks in playlist area');
+  };
+
+
+
+  function playAlbum(_this) {
     // debugger;
 
 
     // play list code start
     $('.playlistSongs').empty();
-    var audio = getTracks();
+    var audio = getTracks(_this);
     console.log(audio)
     if ($('.play')) $('.play').removeClass('play').addClass('pause');
     // getTracks.apply(this, audio);
@@ -286,16 +424,7 @@ jQuery(document).ready(function(){
     playAudio(playlistId);
 
     function playAudio(playlistId){
-      $('.next_track').click(function() {
-         soundManager.stopAll();
-         playlistId ++;
-         playAudio(playlistId);
-       });
-      $('.prev_track').click(function() {
-         soundManager.stopAll();
-         playlistId--;
-         playAudio(playlistId);
-       });
+      
         // Default playlistId to 0 if not supplied 
         playlistId = playlistId ? playlistId : 0;
         // If SoundManager object exists, get rid of it...
@@ -339,59 +468,25 @@ jQuery(document).ready(function(){
       }
     };
 
-  function addAlbum() {
-    var audio = getTracks();
+  function addAlbum(_this) {
+    if (music.playlist){
+      getTracks(_this, music);
+    } else {
+      music = {
+        currentlyPlaying: false,
+        currentTrack: 0,
+        playlist: [],
+        tracksLoaded: false
+
+      }
+      getTracks(_this, music);
+    }    
     console.log('add album to playlist');
   };
 
-  function getTracks() {
-      var audio = [];
+  
 
-      $.ajax({
-        url: '/albums/' + _this.parent().data("id") + '.json',
-        data: { id : _this.parent().data("id") },
-        async: false,
-        success: function(json) {
-          // Will run once AJAX has returned
-          console.log(json);
-
-          for (var i = 0; i < json.album.tracks.length; i++) {
-              audio.push(json.album.tracks[i].url);
-              $('.playlistSongs').append('<li class="spacer" data-id="' + json.album.tracks[i].id + '">' + json.album.tracks[i].title + '</li>').hide().fadeIn("slow");
-              //Do something
-          }
-          console.log('got tracks from ajax!');
-
-          // return audio;
-
-          // audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
-        }
-      });
-      // debugger;
-      // got tracks via ajax
-
-      // });
-    //   if ($('.play')) $('.play').removeClass('play').addClass('pause');
-    //   console.log('got tracks from table');
-    //   return audio;
-
-    //   // this is slow, need to find a better way of doing it --- get tracks via html
-    // $(_this).parents().eq(5).find('table  > tbody > tr').each(function() {
-      // $('.playlistSongs').append('<li><h4>' + $(this).children('td:nth-child(2)').text() + '</h4></li>').fadeIn("slow");
-    //   audio.push($(this).children('td:nth-child(6)').children('div:nth-child(2)').data("url"));
-    // });
-    // if ($('.play')) $('.play').removeClass('play').addClass('pause');
-    // console.log('got tracks from table');
-    return audio;
-  };
-
-
-
-// audio.playlist = [$('table').children('tbody').children('tr').children('td:nth-child(6)').children('div:nth-child(2)').eq(2).data("url"), $('table').children('tbody').children('tr').children('td:nth-child(6)').children('div:nth-child(2)').eq(1).data("url")];
-
-// playlist code end
-
-    function playing_track() {
+    function playing_track(_this) {
       console.log('change to paused icon....');
       _this.removeClass('btn btn-mini icon-play');
       _this.addClass('btn btn-mini icon-pause');
@@ -484,6 +579,106 @@ jQuery(document).ready(function(){
       var currently_playing = _this.parent();
       console.log('clicked delete icon....');
     }
+
+  // function playPlaylist() {
+  //   // playAlbum();
+  //   soundManager.resumeAll()
+  //   _this.removeClass('play').addClass('pause');
+  //   console.log('play tracks in the playlist');
+  // }
+
+  // function pausePlaylist() {
+  //   _this.removeClass('pause').addClass('play');
+  //   soundManager.pauseAll();
+  //   console.log('pause playlist');
+  // }
+
+  // function nextTrack() {
+  //   soundManager.stop();
+  //   var playlistId = ~~soundManager.soundIDs[0].substr(9) + 1;
+  //   playAlbum.playAudio(playlistId);
+  //   // debugger;
+  //   console.log('play next track');
+  // }
+
+  // function prevTrack() {
+  //   console.log('play previous track');
+  // }
+
+
+// });
+
+
+
+// div that slides up over album cover on mouse hover start
+  $('.glass').slideToggle();
+  $('.thumbnail').mouseenter(function() {
+    $(this).find(".glass").slideToggle();
+    // $('.glass').slideToggle();
+  });
+
+  $('.thumbnail').mouseleave(function(){
+    $(this).find(".glass").slideToggle();
+    // $('.glass').slideToggle();
+  });
+
+  // end slider
+
+
+      var slider    = $('.slider'),
+          song_vol  = $('.volcontrol'),
+          tooltip   = $('.tooltip');
+
+      //Hide the Tooltip at first
+      tooltip.hide();
+      song_vol.hide();
+
+      //Call the Slider
+      slider.slider({
+        //Config
+        range: "min",
+        min: 1,
+        value: 35,
+
+        start: function(event,ui) {
+            tooltip.fadeIn('fast');
+        },
+
+        //Slider Event
+        slide: function(event, ui) { //When the slider is sliding
+
+          var value  = slider.slider('value'),
+            volume = $('.volume');
+
+          tooltip.css('left', value - 11).text(ui.value);  //Adjust the tooltip accordingly
+
+          if(value <= 5) { 
+            volume.css('background-position', '0 0');
+          } 
+          else if (value <= 25) {
+            volume.css('background-position', '0 -25px');
+          } 
+          else if (value <= 75) {
+            volume.css('background-position', '0 -50px');
+          } 
+          else {
+            volume.css('background-position', '0 -75px');
+          };
+
+        },
+
+        stop: function(event,ui) {
+            tooltip.fadeOut('fast');
+        },
+      });
+
+
+
+  
+
+  
+
+  
 
     $('.btn-group-hover').hide()
     $('tr').on({

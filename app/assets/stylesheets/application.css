@@ -72,8 +72,10 @@
 .row-fluid ul.thumbnails li.span2:nth-child(6n + 7) { margin-left : 0px;clear:left }
 .row-fluid ul.thumbnails li.span1:nth-child(12n + 13) { margin-left : 0px;clear:left }
 
-.spacer {
+.pl_tracks {
     margin-bottom: 10px; /* define margin as you see fit */
+    background-color: rgba(114, 139, 146, 0.91);
+    border-radius: 4px;
 }
 
 /*.playlist {
