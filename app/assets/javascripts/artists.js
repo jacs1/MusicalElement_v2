@@ -45,6 +45,26 @@ $(document).ready(function(){
   //       .find('.icon-white').addClass('icon-white-temp').removeClass('icon-white');
   //   }
   // });
+    $('#results').delegate('div', 'mouseover', function () {
+      $(this).draggable({
+        revert: true,
+        revertDuration: 0
+      });
+
+    });
+
+    $("#droppable").droppable({
+      drop: function( event, ui ) {
+              var bg = ui.helper.css('background-image');
+              bg = bg.replace('url(','').replace(')','');
+              var _form = $('form');
+              var regexp, time;
+              time = new Date().getTime();
+              regexp = new RegExp(_form.data('id'), 'g');
+              _form.before(_form.data('fields').replace(regexp, time));
+              return event.preventDefault();
+        }
+    });
 
     $('form').on('click', '.remove_fields', function(event) {
       $(this).prev('input[type=hidden]').val('1');

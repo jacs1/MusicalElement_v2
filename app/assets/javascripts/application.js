@@ -74,6 +74,15 @@ jQuery(document).ready(function(){
 
     });
 
+$('#plOptions').click(function() {
+    var $lefty = $(this).next();
+    $lefty.animate({
+      left: parseInt($lefty.css('left'),10) == 0 ?
+        -$lefty.outerWidth() :
+        0
+    });
+  });
+
   $('.icon-caret-right').click(function() {
       var $lefty = $(this).next();
       $lefty.animate({
@@ -538,19 +547,38 @@ jQuery(document).ready(function(){
       console.log('clicked delete icon....');
     }
 
-// div that slides up over album cover on mouse hover start
+// div that slides up over album cover/playlist on mouse hover start
   $('.glass').slideToggle();
+  $('.plControl').slideToggle();
   $('.thumbnail').mouseenter(function() {
     $(this).find(".glass").slideToggle();
-    // $('.glass').slideToggle();
-  });
-
-  $('.thumbnail').mouseleave(function(){
+  })
+  .mouseleave(function(){
     $(this).find(".glass").slideToggle();
-    // $('.glass').slideToggle();
   });
 
+  $( "#plspan" )
+    .mouseenter(function() {
+      $(this).find(".plControl").slideToggle();
+    })
+    .mouseleave(function() {
+      $(this).find(".plControl").slideToggle();
+    });
   // end slider
+
+    // $('#results').delegate('div', 'mouseover', function () {
+    //   $(this).draggable({
+    //     revert: true,
+    //     revertDuration: 0
+    //   });
+
+    // });
+
+    // $("#droppable").droppable({
+    //   drop: function( event, ui ) {
+    //           console.log(ui);
+    //     }
+    // });
 
 
       var slider    = $('.slider'),
