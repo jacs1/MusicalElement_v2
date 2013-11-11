@@ -179,7 +179,7 @@ $('#plOptions').click(function() {
     // debugger;
     getTracks(_this, music);
     playTrack(music);
-    updateView(_this);
+    // updateView(_this);
     console.log(music);
     //playlist draggable/sortable code start
     $( "#Playlist" ).sortable({ 
@@ -187,7 +187,7 @@ $('#plOptions').click(function() {
       update: function(event, ui) {
         var originalPos = Number(ui.item.attr('data-pos'));
             music.playlistChanged = true;
-        $('.pl_tracks').each(function(index) {
+        $( "#Playlist" ).children().each(function(index) {
           music.playlist[Number($(this).attr('data-pos'))][0] = index;
           $(this).attr('data-pos', index);
         });
@@ -277,6 +277,7 @@ $('#plOptions').click(function() {
   };
 
   function playTrack(music) {
+    updateView();
     // debugger;
 
         // If SoundManager object exists, get rid of it...
@@ -292,6 +293,7 @@ $('#plOptions').click(function() {
               autoLoad: true,
               autoPlay: true,
               volume: 35,
+              // useWaveformData: true,
               // ...with a recursive callback when play completes
               onfinish: function(){
                 soundManager.destroySound('track-' + music.currentTrack);
@@ -309,9 +311,9 @@ $('#plOptions').click(function() {
               whileplaying: function() {
                 // music.currentlyPlaying == true;
                 // var gPixels = document.getElementById('graphPixels').getElementsByTagName('div');
-                //  var gScale = 32; // draw 0 to 32px from bottom
+                // var gScale = 32; // draw 0 to 32px from bottom
                 //  for (var i=0; i<256; i++) {
-                //    graphPixels[i].style.top = (32-(gScale+Math.ceil(this.waveformData.left[i]*gScale)))+'px';
+                //    gPixels[i].style.top = (32-(gScale+Math.ceil(this.waveformData.left[i]*gScale)))+'px';
                 //  }
               //   $('.next_track').click(function() {
               //      soundManager.stopAll();
@@ -334,6 +336,10 @@ $('#plOptions').click(function() {
   function updateView(data) {
     // debugger;
     // $('.playlistSongs').empty();
+    if ($('.playlistSongs').find( "li.pl_curr_track" )) {
+      $('.playlistSongs').find( "li.pl_curr_track" ).removeClass('pl_curr_track').addClass('pl_tracks');
+    }
+    $('.playlistSongs li:nth-child(' + (music.currentTrack + 1) + ')' ).removeClass('pl_tracks').addClass('pl_curr_track');
     
     if ($('.play')) $('.play').removeClass('play').addClass('pause');
     // console.log('update appropriate view');
