@@ -335,11 +335,11 @@ $('#plOptions').click(function() {
 
   function updateView(data) {
     // debugger;
-    // $('.playlistSongs').empty();
+    var liTrack = music.currentTrack
     if ($('.playlistSongs').find( "li.pl_curr_track" )) {
       $('.playlistSongs').find( "li.pl_curr_track" ).removeClass('pl_curr_track').addClass('pl_tracks');
     }
-    $('.playlistSongs li:nth-child(' + (music.currentTrack + 1) + ')' ).removeClass('pl_tracks').addClass('pl_curr_track');
+    $('.playlistSongs li:nth-child(' + (liTrack + 1) + ')' ).removeClass('pl_tracks').addClass('pl_curr_track', 400);
     
     if ($('.play')) $('.play').removeClass('play').addClass('pause');
     // console.log('update appropriate view');
