@@ -74,14 +74,101 @@ jQuery(document).ready(function(){
 
     });
 
-$('#plOptions').click(function() {
-    var $lefty = $(this).next();
-    $lefty.animate({
-      left: parseInt($lefty.css('left'),10) == 0 ?
-        -$lefty.outerWidth() :
-        0
+    $("#mainProgress").slider({
+      min: 0,
+      max: 100,
+      value: 0,
+      range: "min",
+      animate: true,
+      slide: function(event, ui) {
+        // setVolume((ui.value) / 100);
+        // console.log(event);
+      }
     });
-  });
+
+      $("#mainProgress").slider({
+        min: 0,
+        max: 100,
+        value: 0,
+        range: "min",
+        animate: true,
+        slide: function(event, ui) {
+          // setVolume((ui.value) / 100);
+          // console.log(event);
+        }
+      });
+
+        $("#volumeSlider").slider({
+          min: 0,
+          max: 100,
+          value: 0,
+          range: "min",
+          animate: true,
+          slide: function(event, ui) {
+            // setVolume((ui.value) / 100);
+            // console.log(event);
+          }
+        });
+
+        $(function() {
+
+          //Store frequently elements in variables
+          var slider  = $('#volumeSlider'),
+            tooltip = $('.volumeTooltip');
+
+          //Hide the Tooltip at first
+          tooltip.hide();
+
+          //Call the Slider
+          slider.slider({
+            //Config
+            range: "min",
+            min: 1,
+            value: 35,
+
+            start: function(event,ui) {
+                tooltip.fadeIn('fast');
+            },
+
+            //Slider Event
+            slide: function(event, ui) { //When the slider is sliding
+
+              var value  = slider.slider('value'),
+                volume = $('.volume');
+
+              tooltip.css('left', (value * .66)).text(ui.value);  //Adjust the tooltip accordingly
+              // console.log(value);
+
+              if(value <= 5) { 
+                volume.css('background-position', '0 0');
+              } 
+              else if (value <= 25) {
+                volume.css('background-position', '0 -25px');
+              } 
+              else if (value <= 75) {
+                volume.css('background-position', '0 -50px');
+              } 
+              else {
+                volume.css('background-position', '0 -75px');
+              };
+
+            },
+
+            stop: function(event,ui) {
+                tooltip.fadeOut('fast');
+            },
+          });
+
+        });
+
+// $('#plOptions').click(function() {
+//     var $lefty = $(this).next();
+//     $lefty.animate({
+//       left: parseInt($lefty.css('left'),10) == 0 ?
+//         -$lefty.outerWidth() :
+//         0
+//     });
+//   });
 
   $('.icon-caret-right').click(function() {
       var $lefty = $(this).next();
@@ -104,10 +191,10 @@ $('#plOptions').click(function() {
 
   $('.audio-control').click(function() {
      var className = $(this).attr('class');
-     _this = $(this);
+     var _this = $(this);
      switch(className){
       case 'audio-control play':
-      playPlaylist();
+      playTrack(music);
       break;
       case 'audio-control pause':
       pausePlaylist();
@@ -173,7 +260,6 @@ $('#plOptions').click(function() {
       currentTrack: 0,
       playlist: [],
       tracksLoaded: false
-
     }
     //determine if music is playing or loaded
     // debugger;
@@ -207,10 +293,17 @@ $('#plOptions').click(function() {
         }
       }
     });
+
+    // $( "#Playlist" ).children().on('dblclick', function() {
+    //   soundManager.stopAll();
+    //   soundManager.destroySound(soundManager.soundIDs[0]);
+    //   music.currentTrack = Number($(this).attr('data-pos'));
+    //   playTrack(music);
+    // });
     //playlist draggable/sortable code end
 
     //need to refactor the next prev track code into one function...this will let me "dry" it up
-    $('.next_track').click(function() {
+    $('.next_track').on('click', function() {
       soundManager.stopAll();
       soundManager.destroySound(soundManager.soundIDs[0]);
       if (music.currentTrack == music.playlist.length -1)
@@ -221,7 +314,7 @@ $('#plOptions').click(function() {
        playTrack(music);        
       }
      });
-    $('.prev_track').click(function() {
+    $('.prev_track').on('click', function() {
        soundManager.stopAll();
        soundManager.destroySound(soundManager.soundIDs[0]);
        if (music.currentTrack == 0)
@@ -277,6 +370,12 @@ $('#plOptions').click(function() {
   };
 
   function playTrack(music) {
+    $( "#Playlist" ).children().on('dblclick', function() {
+      soundManager.stopAll();
+      soundManager.destroySound(soundManager.soundIDs[0]);
+      music.currentTrack = Number($(this).attr('data-pos'));
+      playTrack(music);
+    });
     updateView();
     // debugger;
 
@@ -335,7 +434,7 @@ $('#plOptions').click(function() {
 
   function updateView(data) {
     // debugger;
-    var liTrack = music.currentTrack
+    var liTrack = music.currentTrack;
     if ($('.playlistSongs').find( "li.pl_curr_track" )) {
       $('.playlistSongs').find( "li.pl_curr_track" ).removeClass('pl_curr_track').addClass('pl_tracks');
     }
@@ -354,6 +453,8 @@ $('#plOptions').click(function() {
   }
 
   function savePlaylist() {
+    // $('.plControl').slideToggle();
+    // $('.plSave').slideToggle();
     var name = $.trim($("#normal-field").val());
     var tracks = [];
     $('.playlistSongs').children().each(function() {
@@ -444,8 +545,8 @@ $('#plOptions').click(function() {
     };
 
   function addAlbum(_this) {
-    if (music.playlist){
-      getTracks(_this, music);
+    if (typeof music !== 'undefined') {
+       getTracks(_this, music);
     } else {
       music = {
         currentlyPlaying: false,
@@ -556,6 +657,7 @@ $('#plOptions').click(function() {
 // div that slides up over album cover/playlist on mouse hover start
   $('.glass').slideToggle();
   $('.plControl').slideToggle();
+  // $('.plSave').slideToggle();
   $('.thumbnail').mouseenter(function() {
     $(this).find(".glass").slideToggle();
   })

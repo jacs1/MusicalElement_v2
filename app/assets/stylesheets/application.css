@@ -102,6 +102,11 @@
   filter: blur(4px);
 }
 
+.plSave {
+  bottom: 0px;
+  position: absolute;
+}
+
 /*.playlist {
   -webkit-border-radius: 1px;
   -moz-border-radius: 1px;

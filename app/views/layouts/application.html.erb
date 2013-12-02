@@ -32,6 +32,8 @@
 
   <body class="background-dark">
 
+
+
     <% if user_signed_in? %>
       <%= render :partial => 'home/sidebar' %>      
     <% else %>
@@ -50,12 +52,13 @@
 
     <!-- top bar nav start -->
     <!-- top bar nav end -->
+    
 
     <%= render :partial => 'home/playlist' %>
 
 
 
-     <%= render :partial => 'home/player' %>
+     <!-- <%#= render :partial => 'home/player' %> -->
   <!-- <p class="alert"><%= alert %></p> -->
     <%#= render :partial => 'home/playlist' %>
     <%= yield %>

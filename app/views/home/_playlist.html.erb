@@ -24,9 +24,9 @@
 
 <!-- <div class="content container-fluid" > -->
   <!-- <div class="row-fluid"> -->
-<div class="span2">
-  <section id="plspan" class="widget large">
-    <header>
+<!-- <div class="span2"> -->
+  <section id="plspan" class="music_glass" >
+<!--     <header>
       <h4>
         <i class="icon-list"></i>
         Playlist
@@ -34,15 +34,39 @@
       <div class="actions">
         <button id="slideright" class="btn btn-transparent btn-mini icon-arrow-right"></button>
       </div>
-    </header>
-    <div class="body">
+    </header> -->
+      <div id="playerTop">
+        <div id="trackArt"></div>
+        <div id="trackArtist">Artist Name</div>
+        <div id="trackTitle">Track Title</div>
+        
+      </div>
+      <div id="seekDiv">
+        <span id="trackProgress">02:01</span>
+        <div id="mainProgress"></div>
+        <span id="trackDuration">03:00</span>
+      </div>
+      <div id="playerControls">
+        <div id="trackRepeat"></div>
+        <div id="trackShuffle"></div>
+        <div id="prevTrack"></div>
+        <div id="playTrack" class="play_pause playTrack"></div>
+        <div id="nextTrack"></div>
+        
+        <div id="volumeSlider">
+          <span class="volumeTooltip"></span>
+        </div>
+        <span class="volumeIcon"></span>    
+      </div>
+    <!-- *************************************************************** -->
+<!--     <div class="body">
       <div id="feed" class="feed">
         <div class="wrapper">
           <div class="vertical-line"></div>
           <section class="feed-item">
             <div class="text">
               <ul id="Playlist" class="playlistSongs">
-                <!-- <li class="pl_tracks "><span class="icon-caret-right ">&nbsp;</span> Test track</li> -->
+                <li class="pl_tracks "><span class="icon-caret-right ">&nbsp;</span> Test track</li>
 
               </ul>              
             </div>
@@ -51,7 +75,7 @@
           
         </div>
       </div>
-    </div>
+    </div> -->
         <div style="position:relative">
 <!--         <div id="graphPixels">
           <div></div>
@@ -64,11 +88,32 @@
               <i class="icon-trash  pull-right icon-large"></i>
               <i class="icon-remove-circle pull-right icon-large"></i>            
             </span>
+<!--             <div class="plSave">
+                <input type="text" id="normal-field" class="span2" placeholder="Save Playlist As...">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-success"><i class="fa fa-refresh"></i></button>
+                </div>
+            </div> -->
+
+<!--             <div class="form-group">
+                <label for="bar">Whole bar appended</label>
+
+                <div class="input-group">
+                    <input type="text" class="span2" >
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-success"><i class="fa fa-refresh"></i></button>
+                    </div>
+                </div>
+
+            </div> -->
+<!--             <span class="plSave" >
+              <input type="text" id="normal-field" class="span2" placeholder="Save Playlist As..." ><i class="icon-check"></i>
+            </span> -->
 <!--           <div>
             <input type="text" id="normal-field" class="span2" placeholder="Save Playlist As..." >
           </div> -->
         </div>
   </section>
-</div>
+<!-- </div> -->
 <!-- </div> -->
 <!-- </div> -->

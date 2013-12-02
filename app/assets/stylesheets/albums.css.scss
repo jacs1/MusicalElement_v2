@@ -83,8 +83,8 @@
 .ui-slider-range {
     // height:5px;
     // width: 300px;
-    position: absolute;
-    background: url('/assets/volume-full.png') no-repeat left top;
+    // position: absolute;
+    // background: url('/assets/volume-full.png') no-repeat left top;
   // background: #ffffff; /* Old browsers */
   // background: -moz-linear-gradient(top,  #ffffff 0%, #eaeaea 100%); /* FF3.6+ */
   // background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
@@ -94,11 +94,11 @@
   // background: linear-gradient(top,  #ffffff 0%,#eaeaea 100%); /* W3C */
   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
   // position: absolute;
-  border: 0;
-  top: 0;
-  height: 100%;
-  border-radius: 25px;
-  margin-left: -2px;
+  // border: 0;
+  // top: 0;
+  // height: 100%;
+  // border-radius: 25px;
+  // margin-left: -2px;
 }
 /*volume slider code end*/
 
