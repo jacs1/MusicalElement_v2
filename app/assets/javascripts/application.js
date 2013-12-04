@@ -303,7 +303,7 @@ jQuery(document).ready(function(){
     //playlist draggable/sortable code end
 
     //need to refactor the next prev track code into one function...this will let me "dry" it up
-    $('.next_track').on('click', function() {
+    $('#nextTrack').on('click', function() {
       soundManager.stopAll();
       soundManager.destroySound(soundManager.soundIDs[0]);
       if (music.currentTrack == music.playlist.length -1)
@@ -314,7 +314,7 @@ jQuery(document).ready(function(){
        playTrack(music);        
       }
      });
-    $('.prev_track').on('click', function() {
+    $('#prevTrack').on('click', function() {
        soundManager.stopAll();
        soundManager.destroySound(soundManager.soundIDs[0]);
        if (music.currentTrack == 0)
@@ -350,7 +350,7 @@ jQuery(document).ready(function(){
         // Will run once AJAX has returned
         var lis = ""
           for (var i = 0; i < json.album.tracks.length; i++) {
-            music.playlist.push([music.playlist.length, json.album.tracks[i].url]);
+            music.playlist.push([music.playlist.length, json.album.tracks[i].url, json.album.image]);
             lis += '<li class="pl_tracks" data-id="' + json.album.tracks[i].id + '" data-pos="' + (music.playlist.length -1) + '">' + json.album.tracks[i].title + '</li>';
           }
           $(lis)
@@ -361,7 +361,7 @@ jQuery(document).ready(function(){
               $(this).delay(100*index).fadeTo(300, 1);
           });
             // music.playlistChanged = true;
-            console.log('got tracks from ajax!');
+            // console.log('got tracks from ajax!');
 
       }
     });
@@ -376,7 +376,7 @@ jQuery(document).ready(function(){
       music.currentTrack = Number($(this).attr('data-pos'));
       playTrack(music);
     });
-    updateView();
+    
     // debugger;
 
         // If SoundManager object exists, get rid of it...
@@ -408,36 +408,42 @@ jQuery(document).ready(function(){
                 }
                 $('#playTrack').removeClass('pauseTrack').addClass('playTrack')
               },
+              onid3: function(){
+                updateView();
+              },
+              onload: function() {
+                var secs = soundManager.getSoundById(soundManager.soundIDs[0]).duration / 1000;
+                
+                var divisor_for_minutes = secs % (60 * 60);
+                var minutes = Math.floor(divisor_for_minutes / 60);
+                
+                var divisor_for_seconds = divisor_for_minutes % 60;
+                var seconds = Math.ceil(divisor_for_seconds);
+                var duration      = (minutes < 10 ? '0' + minutes : minutes) + ":" + (seconds < 10 ? '0' + seconds : seconds);
+                $('#trackDuration').text(duration);
+              },
               whileplaying: function() {
                 $('#mainProgress').click(function(e) {
-                 // console.log('clicked progress');
                   var playingSound = soundManager.getSoundById(soundManager.soundIDs[0]),
                    x               = e.pageX - $(this).offset().left,
                    width           = $(this).width(),
                    duration        = playingSound.durationEstimate;
                   soundManager.setPosition(playingSound.id, (x / width) * duration);
                 });
-              // var curr_vol    = parseFloat($(_this).closest('td').find('.ui-slider-range')[0].style.width),
-              //   // vox           = Math.ceil(curr_vol),
-                // var track_time    = $('#trackProgress').html(),
-                var seconds       = Math.round(this.position/1000),
+                var curr_vol  = parseFloat($('#volumeSlider div:nth-child(2)')[0].style.width),
+                seconds       = Math.round(this.position/1000),
                 r             = seconds % 60,
                 m             = Math.floor(seconds / 60),
-                // voltest       = _this.parent().find('.icon-volume-up'),
                 duration      = (m < 10 ? '0' + m : m) + ":" + (r < 10 ? '0' + r : r);
-              // this.setVolume(Math.ceil(curr_vol));
+              this.setVolume(Math.ceil(curr_vol));
               $('#trackProgress').html(duration);
               $('#mainProgress .ui-slider-range').width(((this.position/this.duration) * 100) + '%');
               $('#mainProgress .ui-slider-handle')[0].style.left = ((this.position/this.duration) * 100) + "%";
 
-
-               // _this.closest('td').prev().prev().find('.duration').fadeTo('slow',2).html( duration + " / ");
-
-
-
          }
             })
       });
+        
       // }
     //determine if the track we are playing was initiated from(ablum index, album show, playlist div, artist show)
 
@@ -453,6 +459,15 @@ jQuery(document).ready(function(){
     if ($('#playTrack').attr('class') == "play_pause playTrack") {
       $('#playTrack').removeClass('playTrack').addClass('pauseTrack');
     };
+
+    $('#trackArtist').text(soundManager.getSoundById(soundManager.soundIDs[0]).id3.TPE2);
+    $('#trackTitle').text(soundManager.getSoundById(soundManager.soundIDs[0]).id3.TIT2);
+    $('#trackArt').css('background-image', 'url(' + music.playlist[music.currentTrack][2] + ')');
+    $('#playerTop').css('background-image', 'url(' + music.playlist[music.currentTrack][2] + ')');
+
+
+
+       
     // $('#playTrack')
     //     var liTrack = music.currentTrack;
     // if ($('.playlistSongs').find( "li.pl_curr_track" )) {
